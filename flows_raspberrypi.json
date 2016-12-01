@@ -1298,7 +1298,7 @@
         "group": "NeoPixels",
         "id": "84f0c27a.bf4038",
         "max": "1000",
-        "min": "5",
+        "min": "4",
         "name": "Neopixels period",
         "order": "5",
         "tab": "e6a0ebbf.cf6c6",
