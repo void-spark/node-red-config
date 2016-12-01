@@ -344,8 +344,8 @@
         "tab": "e6a0ebbf.cf6c6",
         "type": "ui_text",
         "wires": [],
-        "x": 638,
-        "y": 1010,
+        "x": 659,
+        "y": 948,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -422,8 +422,8 @@
                 "e3c53bf6.59b448"
             ]
         ],
-        "x": 174,
-        "y": 958.5,
+        "x": 172,
+        "y": 1007.5,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -1151,6 +1151,181 @@
         "wires": [],
         "x": 534,
         "y": 2391,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "5ec487d3.a67578",
+        "name": "Lightshow period",
+        "qos": "2",
+        "topic": "control/lightshow/period",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "b1815f5e.49be58"
+            ]
+        ],
+        "x": 171,
+        "y": 944,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "msg.payload = msg.payload / 1000;\nreturn msg;",
+        "id": "b1815f5e.49be58",
+        "name": "DIV/1000",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "db54fe46.d764c8",
+                "7bc08f86.80bbe"
+            ]
+        ],
+        "x": 400,
+        "y": 953,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "4b5d8095.1e374",
+        "name": "Lightshow period set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "control/lightshow/period/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 1633,
+        "y": 1167,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "duration": "1000",
+        "extend": true,
+        "id": "67357954.ff1f48",
+        "name": "",
+        "op1": "true",
+        "op1type": "str",
+        "op2": "false",
+        "op2type": "str",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "db54fe46.d764c8"
+            ]
+        ],
+        "x": 884,
+        "y": 955,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"period\") {\n    context.period_delay = msg.payload;\n    if(!context.period_delay) {\n        var result = context.period_buf;\n        context.period_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.period_delay) {\n        context.period_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
+        "id": "db54fe46.d764c8",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "84f0c27a.bf4038"
+            ]
+        ],
+        "x": 852,
+        "y": 1045,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "rbe",
+        "gap": "",
+        "id": "86234484.4ee108",
+        "inout": "out",
+        "name": "",
+        "start": "",
+        "type": "rbe",
+        "wires": [
+            [
+                "d55e52ab.924fe"
+            ]
+        ],
+        "x": 1270,
+        "y": 1071,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "msg.payload = msg.payload * 1000;\nreturn msg;",
+        "id": "d55e52ab.924fe",
+        "name": "MUL*1000",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "4b5d8095.1e374",
+                "3ef54a8f.90224e"
+            ]
+        ],
+        "x": 1442,
+        "y": 1083,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": "false",
+        "id": "7bc08f86.80bbe",
+        "name": "",
+        "type": "debug",
+        "wires": [],
+        "x": 571,
+        "y": 1035,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": "false",
+        "id": "3ef54a8f.90224e",
+        "name": "",
+        "type": "debug",
+        "wires": [],
+        "x": 1642,
+        "y": 1065,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "NeoPixels",
+        "id": "84f0c27a.bf4038",
+        "max": "1000",
+        "min": "5",
+        "name": "Neopixels period",
+        "order": "5",
+        "tab": "e6a0ebbf.cf6c6",
+        "topic": "period",
+        "type": "ui_slider",
+        "wires": [
+            [
+                "86234484.4ee108",
+                "67357954.ff1f48",
+                "847b42.be071cc"
+            ]
+        ],
+        "x": 1099,
+        "y": 1169,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} ms",
+        "group": "NeoPixels",
+        "id": "847b42.be071cc",
+        "name": "NeoPixels period",
+        "order": "6",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 1321,
+        "y": 1259,
         "z": "5d39f6e8.677b6"
     }
 ]
