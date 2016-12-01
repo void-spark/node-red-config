@@ -1,0 +1,1156 @@
+[
+    {
+        "id": "5d39f6e8.677b6",
+        "label": "Flow 1",
+        "type": "tab"
+    },
+    {
+        "birthPayload": "",
+        "birthQos": "0",
+        "birthRetain": null,
+        "birthTopic": "",
+        "broker": "raspberrypi",
+        "cleansession": true,
+        "clientid": "",
+        "compatmode": true,
+        "id": "2a729cbc.1e292c",
+        "keepalive": "60",
+        "port": "1883",
+        "type": "mqtt-broker",
+        "usetls": false,
+        "verifyservercert": true,
+        "willPayload": "",
+        "willQos": "0",
+        "willRetain": null,
+        "willTopic": "",
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "icon": "dashboard",
+        "id": "e6a0ebbf.cf6c6",
+        "name": "Dashboard",
+        "order": "1",
+        "type": "ui_tab",
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} &deg;",
+        "group": "Bedroom",
+        "id": "269fd1cc.5de7de",
+        "name": "Inside temperature",
+        "order": 1,
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 883,
+        "y": 147.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} &deg;",
+        "group": "Bedroom",
+        "id": "a9145db0.063288",
+        "name": "Outside temperature",
+        "order": "2",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 877,
+        "y": 198,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Bedroom",
+        "id": "624085c1.4a4f14",
+        "name": "Fan on",
+        "order": "4",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 501,
+        "y": 428.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "93aeec2c.edd27",
+        "name": "Bedroom fan state",
+        "topic": "devices/0081b173/light/on",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "624085c1.4a4f14"
+            ]
+        ],
+        "x": 210,
+        "y": 453.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"bedroom_inside\") {\n    context.temp_inside = msg.payload;\n}\nif(msg.topic == \"bedroom_outside\") {\n    context.temp_outside = msg.payload;\n}\nreturn { \n    payload: context.temp_outside - context.temp_inside,\n    topic: \"bedroom_diff\" \n}\n\nreturn msg;\n",
+        "id": "56682331.0de354",
+        "name": "Get temp diff",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "24758665.e6c4c2"
+            ]
+        ],
+        "x": 547,
+        "y": 45.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} &deg;",
+        "group": "Bedroom",
+        "id": "24758665.e6c4c2",
+        "name": "Temperature difference",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 883,
+        "y": 47,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"devices/0085b208/c480000003e30d28/temperature\") {\n    msg.topic = \"bedroom_inside\";\n}\nif(msg.topic == \"devices/0085b208/f6011581e788ff28/temperature\") {\n    msg.topic = \"bedroom_outside\";\n}\nif(msg.topic == \"devices/00d39493/0f041654733cff28/temperature\") {\n    msg.topic = \"new1\";\n}\nif(msg.topic == \"devices/00d39493/f6041653f20bff28/temperature\") {\n    msg.topic = \"new2\";\n}\n\nreturn msg;",
+        "id": "4e71315e.0e0648",
+        "name": "Rename topic",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "57995247.9f57f4",
+                "56682331.0de354"
+            ]
+        ],
+        "x": 302,
+        "y": 167.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "96c1d36e.8cbc2",
+        "name": "Temps",
+        "qos": "2",
+        "topic": "devices/+/+/temperature",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "4e71315e.0e0648",
+                "6994304.368015"
+            ]
+        ],
+        "x": 89,
+        "y": 41,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "checkall": "false",
+        "id": "57995247.9f57f4",
+        "name": "Topic switch",
+        "outputs": 4,
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "bedroom_inside",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bedroom_outside",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "new1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "new2",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "269fd1cc.5de7de",
+                "dfdbc8f9.63bce"
+            ],
+            [
+                "a9145db0.063288",
+                "262557ab.ad6438"
+            ],
+            [
+                "4a0b3fd6.ff035"
+            ],
+            [
+                "6f15d9f.72e5ea8"
+            ]
+        ],
+        "x": 529,
+        "y": 184.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "NeoPixels",
+        "id": "55e650c.fe2e43",
+        "name": "NeoPixels On",
+        "offvalue": "false",
+        "onvalue": "true",
+        "order": "1",
+        "tab": "e6a0ebbf.cf6c6",
+        "topic": "neo_on",
+        "type": "ui_switch",
+        "wires": [
+            [
+                "c39339e0.fa89b8",
+                "491fcf0e.b1bfb"
+            ]
+        ],
+        "x": 576,
+        "y": 602.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "4843d5db.d35a14",
+        "name": "NeoPixels state",
+        "qos": "2",
+        "topic": "devices/0003376b/light/on",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "45c609ec.c63b6"
+            ]
+        ],
+        "x": 111,
+        "y": 570,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "1e3e14e8.86d773",
+        "name": "NeoPixels on set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "devices/0003376b/light/on/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 973,
+        "y": 621,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "NeoPixels",
+        "id": "b62a9784.135d28",
+        "max": "1000",
+        "min": 0,
+        "name": "NeoPixels brightness",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "topic": "brightness",
+        "type": "ui_slider",
+        "wires": [
+            [
+                "a0054a68.f93cc8",
+                "e3cc531e.376de"
+            ]
+        ],
+        "x": 516,
+        "y": 717.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "d569bfa8.bf8ab8",
+        "name": "Lightshow brightness set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "control/lightshow/brightness/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 1032,
+        "y": 732,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "615db78f.be705",
+        "name": "Lightshow brightness",
+        "topic": "control/lightshow/brightness",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "3f2a5f86.e6183",
+                "d29ba144.5216f"
+            ]
+        ],
+        "x": 211,
+        "y": 867.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "duration": "1000",
+        "extend": true,
+        "id": "a0054a68.f93cc8",
+        "name": "",
+        "op1": "true",
+        "op1type": "val",
+        "op2": "false",
+        "op2type": "val",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "3f2a5f86.e6183"
+            ]
+        ],
+        "x": 632,
+        "y": 784.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"brightness\") {\n    context.bright_delay = msg.payload;\n    if(!context.bright_delay) {\n        var result = context.bright_buf;\n        context.bright_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.bright_delay) {\n        context.bright_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
+        "id": "3f2a5f86.e6183",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "b62a9784.135d28"
+            ]
+        ],
+        "x": 627,
+        "y": 901.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "NeoPixels",
+        "id": "d29ba144.5216f",
+        "name": "NeoPixels brightness",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 638,
+        "y": 1010,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "Bedroom",
+        "id": "7822f467.b6dc64",
+        "interpolate": "linear",
+        "name": "Temps",
+        "nodata": "No Data",
+        "order": "11",
+        "removeOlder": 1,
+        "removeOlderUnit": "86400",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_chart",
+        "wires": [
+            [],
+            []
+        ],
+        "x": 969,
+        "y": 287,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "262557ab.ad6438",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "12",
+        "rateUnits": "hour",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "7822f467.b6dc64"
+            ]
+        ],
+        "x": 771,
+        "y": 298.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "dfdbc8f9.63bce",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "12",
+        "rateUnits": "hour",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "7822f467.b6dc64"
+            ]
+        ],
+        "x": 767,
+        "y": 251,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "e3a35269.f0e2a8",
+        "name": "ADC value",
+        "topic": "devices/0003376b/adc/value",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "e3c53bf6.59b448"
+            ]
+        ],
+        "x": 174,
+        "y": 958.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "var value = msg.payload / 1024.0;\nmsg.payload = value.toFixed(3);\nreturn msg;\n",
+        "id": "e3c53bf6.59b448",
+        "name": "Convert ADC int to float",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "d60f5408.6fe028"
+            ]
+        ],
+        "x": 469,
+        "y": 1089.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Desk",
+        "id": "d60f5408.6fe028",
+        "name": "LDR",
+        "order": 1,
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 715,
+        "y": 1090.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "9ec02b94.d9e44",
+        "name": "Toon current temp",
+        "topic": "toon/input/currentTemp",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "819223c9.d502a8"
+            ]
+        ],
+        "x": 200,
+        "y": 1157.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} &deg;",
+        "group": "Toon",
+        "id": "819223c9.d502a8",
+        "name": "Cur. temp",
+        "order": 1,
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 716,
+        "y": 1176,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "1bf7d257.8a230e",
+        "name": "Toon power usage",
+        "topic": "toon/input/powerUsage",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "80144bc9.5ef56"
+            ]
+        ],
+        "x": 199,
+        "y": 1244.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} Watt",
+        "group": "Toon",
+        "id": "80144bc9.5ef56",
+        "name": "Power usage",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 723,
+        "y": 1252,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "36213986.622f66",
+        "name": "Toon set point",
+        "topic": "toon/input/currentSetpoint",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "a072f905.03d948"
+            ]
+        ],
+        "x": 187,
+        "y": 1208,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} &deg;",
+        "group": "Toon",
+        "id": "a072f905.03d948",
+        "name": "Set point",
+        "order": "2",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 721,
+        "y": 1215.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "ddfacc20.4a971",
+        "name": "Toon gas usage",
+        "topic": "toon/input/gasUsage",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "f837d953.b8321"
+            ]
+        ],
+        "x": 228,
+        "y": 1326,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}} M<sup>3</sup>",
+        "group": "Toon",
+        "id": "f837d953.b8321",
+        "name": "Gas usage ???",
+        "order": "4",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 772,
+        "y": 1333.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "29c1c990.6b8986",
+        "name": "NeoPixels onine",
+        "qos": "2",
+        "topic": "devices/0003376b/$online",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "78c77c68.9db544"
+            ]
+        ],
+        "x": 192,
+        "y": 663.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "daa6126d.01c35",
+        "name": "Relay online",
+        "topic": "devices/0081b173/$online",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "56b2da89.fd93fc"
+            ]
+        ],
+        "x": 172,
+        "y": 378.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "NeoPixels",
+        "id": "78c77c68.9db544",
+        "name": "NeoPixels online",
+        "order": "2",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 539,
+        "y": 660.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Bedroom",
+        "id": "56b2da89.fd93fc",
+        "name": "Relay online",
+        "order": "7",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 437,
+        "y": 379,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "87217b37.08b378",
+        "name": "Sensors online",
+        "topic": "devices/0085b208/$online",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "e92ca02e.d47b4"
+            ]
+        ],
+        "x": 175,
+        "y": 306,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Bedroom",
+        "id": "e92ca02e.d47b4",
+        "name": "Sensors online",
+        "order": "5",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 441,
+        "y": 289.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "duration": "1000",
+        "extend": true,
+        "id": "c39339e0.fa89b8",
+        "name": "",
+        "op1": "true",
+        "op1type": "val",
+        "op2": "false",
+        "op2type": "val",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "45c609ec.c63b6"
+            ]
+        ],
+        "x": 370,
+        "y": 499,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"neo_on\") {\n    context.neo_on_delay = msg.payload;\n    if(!context.neo_on_delay) {\n        var result = context.neo_on_buf;\n        context.neo_on_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.neo_on_delay) {\n        context.neo_on_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
+        "id": "45c609ec.c63b6",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "55e650c.fe2e43"
+            ]
+        ],
+        "x": 374,
+        "y": 593,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "duration": "1000",
+        "extend": true,
+        "id": "a8f30e6c.9741d",
+        "name": "",
+        "op1": "true",
+        "op1type": "val",
+        "op2": "false",
+        "op2type": "val",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "67d50453.d076fc"
+            ]
+        ],
+        "x": 468,
+        "y": 1464,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "Desk",
+        "id": "d73bac27.181e08",
+        "name": "LDR Updating",
+        "offvalue": "0",
+        "onvalue": "250",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "topic": "adc_interval",
+        "type": "ui_switch",
+        "wires": [
+            [
+                "a8f30e6c.9741d",
+                "df07bff5.7a5ea8"
+            ]
+        ],
+        "x": 674,
+        "y": 1567.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"adc_interval\") {\n    context.adc_interval_delay = msg.payload;\n    if(!context.adc_interval_delay) {\n        var result = context.adc_interval_buf;\n        context.adc_interval_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.adc_interval_delay) {\n        context.adc_interval_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
+        "id": "67d50453.d076fc",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "d73bac27.181e08"
+            ]
+        ],
+        "x": 472,
+        "y": 1558,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "8bd14e77.90b08",
+        "name": "ADC interval set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "devices/0003376b/adc/interval/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 1065,
+        "y": 1580,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "ae05073.99dba78",
+        "name": "ADC interval",
+        "topic": "devices/0003376b/adc/interval",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "67d50453.d076fc"
+            ]
+        ],
+        "x": 199,
+        "y": 1535,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "7c5c3b31.b11684",
+        "name": "NeoPixels uptime",
+        "topic": "devices/0003376b/$uptime",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "a5fb1743.6e6ed"
+            ]
+        ],
+        "x": 192,
+        "y": 1716,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "var s = msg.payload;\nvar m = Math.floor(s / 60);\nvar s = s % 60;\nvar h = Math.floor(m / 60);\nvar  m = m % 60;\nvar  d = Math.floor(h / 24);\nvar  h = h % 24;\nmsg.payload = d +\"d \";\nmsg.payload += h + \"h \";\nmsg.payload += m + \"m \";\nmsg.payload += s + \"s\";\nreturn msg;",
+        "id": "a5fb1743.6e6ed",
+        "name": "Format seconds",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "fe5149df.a2a81"
+            ]
+        ],
+        "x": 400,
+        "y": 1735,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "NeoPixels",
+        "id": "fe5149df.a2a81",
+        "name": "NeoPixels uptime",
+        "order": "5",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 719,
+        "y": 1754,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "rbe",
+        "gap": "",
+        "id": "491fcf0e.b1bfb",
+        "inout": "out",
+        "name": "",
+        "start": "",
+        "type": "rbe",
+        "wires": [
+            [
+                "1e3e14e8.86d773"
+            ]
+        ],
+        "x": 782,
+        "y": 615,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "rbe",
+        "gap": "",
+        "id": "df07bff5.7a5ea8",
+        "inout": "out",
+        "name": "",
+        "start": "",
+        "type": "rbe",
+        "wires": [
+            [
+                "8bd14e77.90b08"
+            ]
+        ],
+        "x": 887,
+        "y": 1582,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "rbe",
+        "gap": "",
+        "id": "e3cc531e.376de",
+        "inout": "out",
+        "name": "",
+        "start": "",
+        "type": "rbe",
+        "wires": [
+            [
+                "d569bfa8.bf8ab8"
+            ]
+        ],
+        "x": 795,
+        "y": 722,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "d6309e5c.2b8bb8",
+        "name": "Sensors uptime",
+        "topic": "devices/0085b208/$uptime",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "665518f0.710428"
+            ]
+        ],
+        "x": 197,
+        "y": 1633,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "var s = msg.payload;\nvar m = Math.floor(s / 60);\nvar s = s % 60;\nvar h = Math.floor(m / 60);\nvar  m = m % 60;\nvar  d = Math.floor(h / 24);\nvar  h = h % 24;\nmsg.payload = d +\"d \";\nmsg.payload += h + \"h \";\nmsg.payload += m + \"m \";\nmsg.payload += s + \"s\";\nreturn msg;",
+        "id": "665518f0.710428",
+        "name": "Format seconds",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "43f4d323.cc054c"
+            ]
+        ],
+        "x": 405,
+        "y": 1652,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Bedroom",
+        "id": "43f4d323.cc054c",
+        "name": "Sensors uptime",
+        "order": "6",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 714,
+        "y": 1671,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "group": "Desk",
+        "id": "38597b0c.264afc",
+        "interpolate": "linear",
+        "name": "Temps",
+        "nodata": "No Data",
+        "order": "11",
+        "removeOlder": 1,
+        "removeOlderUnit": "86400",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_chart",
+        "wires": [
+            [],
+            []
+        ],
+        "x": 966,
+        "y": 414,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "6f15d9f.72e5ea8",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "12",
+        "rateUnits": "hour",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "38597b0c.264afc"
+            ]
+        ],
+        "x": 739,
+        "y": 437.5,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "4a0b3fd6.ff035",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "12",
+        "rateUnits": "hour",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "38597b0c.264afc"
+            ]
+        ],
+        "x": 744,
+        "y": 383,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": false,
+        "complete": "false",
+        "console": "false",
+        "id": "6994304.368015",
+        "name": "",
+        "type": "debug",
+        "wires": [],
+        "x": 311,
+        "y": 61,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "2d574a7d.3068e6",
+        "name": "Switches",
+        "qos": "2",
+        "topic": "devices/receiver/+/on",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "f5fea1c9.e5474"
+            ]
+        ],
+        "x": 188,
+        "y": 1883,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "checkall": "false",
+        "id": "f5fea1c9.e5474",
+        "name": "Topic switch",
+        "outputs": 5,
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw1/on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw2/on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw3/on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw4/on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw5/on",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "6d313151.b68358"
+            ],
+            [
+                "8d733835.2e0dd"
+            ],
+            [
+                "39503b8b.6da1dc"
+            ],
+            [
+                "a5682b97.6461a"
+            ],
+            [
+                "1ff61dd2.9b6d7a"
+            ]
+        ],
+        "x": 435,
+        "y": 2052,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Switches",
+        "id": "6d313151.b68358",
+        "name": "Switch 1",
+        "order": 1,
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 856,
+        "y": 1962,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Switches",
+        "id": "8d733835.2e0dd",
+        "name": "Switch 2",
+        "order": "2",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 858,
+        "y": 2033,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Switches",
+        "id": "39503b8b.6da1dc",
+        "name": "Switch 3",
+        "order": "3",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 853,
+        "y": 2102,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Switches",
+        "id": "a5682b97.6461a",
+        "name": "Switch 4",
+        "order": "4",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 861,
+        "y": 2171,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "Switches",
+        "id": "1ff61dd2.9b6d7a",
+        "name": "Switch 5",
+        "order": "5",
+        "tab": "e6a0ebbf.cf6c6",
+        "type": "ui_text",
+        "wires": [],
+        "x": 864,
+        "y": 2238,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "3fa85291.828ade",
+        "name": "Doorbell",
+        "qos": "2",
+        "topic": "devices/receiver/doorbell/pushed",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "1d7c748c.01615b"
+            ]
+        ],
+        "x": 192,
+        "y": 2337,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "dname": "",
+        "id": "1d7c748c.01615b",
+        "name": "j.p.cranendonk@gmail.com",
+        "port": "465",
+        "server": "smtp.gmail.com",
+        "type": "e-mail",
+        "wires": [],
+        "x": 534,
+        "y": 2391,
+        "z": "5d39f6e8.677b6"
+    }
+]
