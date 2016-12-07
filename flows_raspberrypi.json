@@ -1171,7 +1171,8 @@
         "type": "switch",
         "wires": [
             [
-                "6d313151.b68358"
+                "6d313151.b68358",
+                "7bad2a61.d7184c"
             ],
             [
                 "8d733835.2e0dd"
@@ -1416,7 +1417,7 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "active": true,
+        "active": false,
         "complete": "false",
         "console": "false",
         "id": "7bc08f86.80bbe",
@@ -1478,6 +1479,167 @@
         "wires": [],
         "x": 1321,
         "y": 1259,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "3ae887ea.abd65",
+        "name": "Switches",
+        "qos": "2",
+        "topic": "devices/receiver/+/+",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "28d9f48e.bc30bc"
+            ]
+        ],
+        "x": 191,
+        "y": 2173,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": "false",
+        "id": "c6cd4d27.060898",
+        "name": "",
+        "type": "debug",
+        "wires": [],
+        "x": 924,
+        "y": 2312,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "checkall": "false",
+        "id": "28d9f48e.bc30bc",
+        "name": "Topic switch",
+        "outputs": 4,
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw1/pulse_on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw1/pulse_off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw2/pulse_on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw2/pulse_off",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [],
+            [],
+            [
+                "da98fc9f.d42a6"
+            ],
+            [
+                "2fa5868f.4e5202"
+            ]
+        ],
+        "x": 401,
+        "y": 2253,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "da98fc9f.d42a6",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "2",
+        "rateUnits": "second",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "8d05062e.bd4a78"
+            ]
+        ],
+        "x": 634,
+        "y": 2293,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "7bad2a61.d7184c",
+        "name": "NeoPixels on set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "devices/0003376b/light/on/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 818,
+        "y": 1865,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "2fa5868f.4e5202",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "2",
+        "rateUnits": "second",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "8d05062e.bd4a78"
+            ]
+        ],
+        "x": 632,
+        "y": 2348,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "7d8fe94e.9f5798",
+        "name": "Modes",
+        "qos": "2",
+        "topic": "control/lightshow/mode/available",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "8d05062e.bd4a78"
+            ]
+        ],
+        "x": 591,
+        "y": 2537,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"control/lightshow/mode/available\") {\n    context.lightshow_modes = msg.payload;\n} else {\n    if(!context.lightshow_modes) {\n        return;\n    }\n\n    if(!context.lightshow_mode) {\n        context.lightshow_mode = 0;\n    }\n\n    var modes = context.lightshow_modes.split(\",\"); \n\n    if(msg.topic == \"devices/receiver/sw2/pulse_on\") {\n        context.lightshow_mode--;\n    } else if(msg.topic == \"devices/receiver/sw2/pulse_off\") {\n        context.lightshow_mode++;\n    }\n    \n    if(context.lightshow_mode >= modes.length) {\n        context.lightshow_mode = modes.length - 1;\n    }\n    if(context.lightshow_mode < 0) {\n        context.lightshow_mode = 0;\n    }\n\n    return { \n        payload: modes[context.lightshow_mode],\n        topic: \"mode\" \n    }\n\n}\n",
+        "id": "8d05062e.bd4a78",
+        "name": "Mode selector",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "c6cd4d27.060898"
+            ]
+        ],
+        "x": 820,
+        "y": 2451,
         "z": "5d39f6e8.677b6"
     }
 ]
