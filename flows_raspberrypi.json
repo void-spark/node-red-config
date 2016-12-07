@@ -367,7 +367,8 @@
         "wires": [
             [
                 "3f2a5f86.e6183",
-                "d29ba144.5216f"
+                "d29ba144.5216f",
+                "182f2e8f.83e0b9"
             ]
         ],
         "x": 211,
@@ -1498,22 +1499,10 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "active": true,
-        "complete": "false",
-        "console": "false",
-        "id": "c6cd4d27.060898",
-        "name": "",
-        "type": "debug",
-        "wires": [],
-        "x": 924,
-        "y": 2312,
-        "z": "5d39f6e8.677b6"
-    },
-    {
         "checkall": "false",
         "id": "28d9f48e.bc30bc",
         "name": "Topic switch",
-        "outputs": 4,
+        "outputs": 6,
         "property": "topic",
         "propertyType": "msg",
         "rules": [
@@ -1536,6 +1525,16 @@
                 "t": "eq",
                 "v": "devices/receiver/sw2/pulse_off",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw3/pulse_on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "devices/receiver/sw3/pulse_off",
+                "vt": "str"
             }
         ],
         "type": "switch",
@@ -1547,6 +1546,12 @@
             ],
             [
                 "2fa5868f.4e5202"
+            ],
+            [
+                "71f4877f.5fa69"
+            ],
+            [
+                "b25377ea.db111"
             ]
         ],
         "x": 401,
@@ -1635,11 +1640,84 @@
         "type": "function",
         "wires": [
             [
-                "c6cd4d27.060898"
+                "3cac6a2c.f29016"
             ]
         ],
         "x": 820,
         "y": 2451,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "3cac6a2c.f29016",
+        "name": "Mode set",
+        "qos": "2",
+        "retain": "false",
+        "topic": "control/lightshow/mode/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 963,
+        "y": 2563,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "func": "if(msg.topic == \"control/lightshow/brightness\") {\n    context.lightshow_brightness = Number(msg.payload);\n} else {\n    if(!context.lightshow_brightness) {\n        context.lightshow_brightness = 0;\n    }\n\n    if(msg.topic == \"devices/receiver/sw3/pulse_on\") {\n        context.lightshow_brightness -= 50;\n    } else if(msg.topic == \"devices/receiver/sw3/pulse_off\") {\n        context.lightshow_brightness += 50;\n    }\n    \n    if(context.lightshow_brightness > 1000) {\n        context.lightshow_brightness = 1000;\n    }\n    if(context.lightshow_brightness < 0) {\n        context.lightshow_brightness = 0;\n    }\n\n    return { \n        payload: context.lightshow_brightness,\n        topic: \"brightness\" \n    }\n\n}\n",
+        "id": "182f2e8f.83e0b9",
+        "name": "Brightness",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "d569bfa8.bf8ab8"
+            ]
+        ],
+        "x": 808,
+        "y": 2622,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "b25377ea.db111",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "4",
+        "rateUnits": "second",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "182f2e8f.83e0b9"
+            ]
+        ],
+        "x": 587,
+        "y": 2682,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "drop": true,
+        "id": "71f4877f.5fa69",
+        "name": "",
+        "pauseType": "rate",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "4",
+        "rateUnits": "second",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "182f2e8f.83e0b9"
+            ]
+        ],
+        "x": 593,
+        "y": 2612,
         "z": "5d39f6e8.677b6"
     }
 ]
