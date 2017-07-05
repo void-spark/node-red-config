@@ -180,7 +180,7 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "func": "if(msg.topic == \"devices/0085b208/c480000003e30d28/temperature\") {\n    msg.topic = \"bedroom_inside\";\n}\nif(msg.topic == \"devices/0085b208/f6011581e788ff28/temperature\") {\n    msg.topic = \"bedroom_outside\";\n}\nif(msg.topic == \"devices/00d39493/0f041654733cff28/temperature\") {\n    msg.topic = \"new1\";\n}\nif(msg.topic == \"devices/00d39493/f6041653f20bff28/temperature\") {\n    msg.topic = \"new2\";\n}\n\nreturn msg;",
+        "func": "if(msg.topic == \"devices/0085b208/f6011581e788ff28/temperature\") {\n    msg.topic = \"bedroom_inside\";\n}\nif(msg.topic == \"devices/0085b208/c480000003e30d28/temperature\") {\n    msg.topic = \"bedroom_outside\";\n}\nif(msg.topic == \"devices/00d39493/0f041654733cff28/temperature\") {\n    msg.topic = \"new1\";\n}\nif(msg.topic == \"devices/00d39493/f6041653f20bff28/temperature\") {\n    msg.topic = \"new2\";\n}\n\nreturn msg;",
         "id": "4e71315e.0e0648",
         "name": "Rename topic",
         "noerr": 0,
