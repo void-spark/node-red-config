@@ -121,7 +121,7 @@
         "group": "e48d8dd4.b12e18",
         "height": "",
         "id": "624085c1.4a4f14",
-        "label": "Fan on",
+        "label": "Window",
         "layout": "",
         "name": "",
         "order": "4",
@@ -135,16 +135,17 @@
     {
         "broker": "2a729cbc.1e292c",
         "id": "93aeec2c.edd27",
-        "name": "Bedroom fan state",
-        "topic": "devices/0081b173/light/on",
+        "name": "Bedroom window state",
+        "qos": "2",
+        "topic": "control/window/status",
         "type": "mqtt in",
         "wires": [
             [
                 "624085c1.4a4f14"
             ]
         ],
-        "x": 210,
-        "y": 453.5,
+        "x": 135,
+        "y": 378.5,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -695,8 +696,8 @@
                 "56b2da89.fd93fc"
             ]
         ],
-        "x": 172,
-        "y": 378.5,
+        "x": 112,
+        "y": 284.5,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -742,8 +743,8 @@
                 "e92ca02e.d47b4"
             ]
         ],
-        "x": 175,
-        "y": 306,
+        "x": 113,
+        "y": 227,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -1718,6 +1719,37 @@
         ],
         "x": 593,
         "y": 2612,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "2a729cbc.1e292c",
+        "id": "e2ad1b35.cf1978",
+        "name": "Bedroom fan state",
+        "topic": "devices/0081b173/light/on",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "190b64cb.3348f3"
+            ]
+        ],
+        "x": 180,
+        "y": 440,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "e48d8dd4.b12e18",
+        "height": "",
+        "id": "190b64cb.3348f3",
+        "label": "Fan on",
+        "layout": "",
+        "name": "",
+        "order": "4",
+        "type": "ui_text",
+        "width": "",
+        "wires": [],
+        "x": 556,
+        "y": 490,
         "z": "5d39f6e8.677b6"
     }
 ]
