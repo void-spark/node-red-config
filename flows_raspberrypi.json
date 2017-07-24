@@ -1782,6 +1782,7 @@
         "id": "ff021458.8d7da",
         "interpolate": "linear",
         "label": "",
+        "legend": "true",
         "name": "Temps Big Bedroom",
         "nodata": "No Data",
         "order": 5,
