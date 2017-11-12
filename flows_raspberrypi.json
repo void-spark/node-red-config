@@ -1317,6 +1317,7 @@
         "id": "1d7c748c.01615b",
         "name": "j.p.cranendonk@gmail.com",
         "port": "465",
+        "secure": false,
         "server": "smtp.gmail.com",
         "type": "e-mail",
         "wires": [],
