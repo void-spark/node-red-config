@@ -33,29 +33,29 @@
         "type": "tab"
     },
     {
-        "id": "cf61267e.767958",
+        "id": "f7c3f5b1.15af3",
         "in": [
             {
                 "wires": [
                     {
-                        "id": "4fb90b71.e5e844"
+                        "id": "ea4d6784.fc38b"
                     }
                 ],
-                "x": 60,
-                "y": 160
+                "x": 40,
+                "y": 180
             }
         ],
-        "info": "",
-        "name": "Subflow 1",
+        "info": "Connect both the external input and\nthe control output to the input.\nMake sure the control has topic 'control'\nThe output should be connected to the input\nof the control.",
+        "name": "BufferFlow",
         "out": [
             {
                 "wires": [
                     {
-                        "id": "66186a2c.c39e8c",
+                        "id": "230bc5d2.7396a2",
                         "port": 0
                     }
                 ],
-                "x": 960,
+                "x": 880,
                 "y": 180
             }
         ],
@@ -310,28 +310,7 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "bytopic": "all",
-        "duration": "1000",
-        "extend": true,
-        "id": "a8f30e6c.9741d",
-        "name": "",
-        "op1": "true",
-        "op1type": "str",
-        "op2": "false",
-        "op2type": "str",
-        "reset": "",
-        "type": "trigger",
-        "units": "ms",
-        "wires": [
-            [
-                "67d50453.d076fc"
-            ]
-        ],
-        "x": 600,
-        "y": 220,
-        "z": "5d39f6e8.677b6"
-    },
-    {
+        "decouple": "false",
         "group": "24f4db0e.011d8c",
         "height": "",
         "id": "d73bac27.181e08",
@@ -347,33 +326,18 @@
         "onvalueType": "str",
         "order": 2,
         "passthru": true,
-        "topic": "adc_interval",
+        "topic": "control",
         "type": "ui_switch",
         "width": "",
         "wires": [
             [
                 "df07bff5.7a5ea8",
-                "6d73fe3.134988"
+                "12f0a97b.0a7c87",
+                "51173d64.ae5b0c"
             ]
         ],
-        "x": 600,
-        "y": 120,
-        "z": "5d39f6e8.677b6"
-    },
-    {
-        "func": "// Message from trigger\n// The trigger sends true, then false after 1s\nif(msg.topic == \"trigger\") {\n    context.set('wait', msg.payload);\n    if(msg.payload) {\n        // Trigger started, wait...\n        return null;\n    }\n    // Get and remove buffered value, then send it\n    var buffered = context.get('buf');\n    context.set('buf', null);\n    return {payload: buffered};\n}\n\n// Message from external input\nif(context.get('wait')) {\n    // Trigger active, store value\n     context.set('buf', msg.payload);\n} else {\n    // Trigger not active, pass on value\n    return msg;\n}\n",
-        "id": "67d50453.d076fc",
-        "name": "buffer",
-        "noerr": 0,
-        "outputs": 1,
-        "type": "function",
-        "wires": [
-            [
-                "d73bac27.181e08"
-            ]
-        ],
-        "x": 370,
-        "y": 120,
+        "x": 480,
+        "y": 200,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -385,8 +349,8 @@
         "topic": "devices/0003376b/adc/interval/set",
         "type": "mqtt out",
         "wires": [],
-        "x": 1000,
-        "y": 120,
+        "x": 980,
+        "y": 200,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -397,7 +361,7 @@
         "type": "mqtt in",
         "wires": [
             [
-                "67d50453.d076fc"
+                "12f0a97b.0a7c87"
             ]
         ],
         "x": 130,
@@ -417,8 +381,8 @@
                 "8bd14e77.90b08"
             ]
         ],
-        "x": 830,
-        "y": 120,
+        "x": 690,
+        "y": 200,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -1402,8 +1366,8 @@
         "width": "",
         "wires": [
             [
-                "fcd8272.24c0bd8",
-                "28f1fc7b.ad001c"
+                "28f1fc7b.ad001c",
+                "5ecf9c5b.a45d6c"
             ]
         ],
         "x": 540,
@@ -1419,7 +1383,7 @@
         "type": "mqtt in",
         "wires": [
             [
-                "90ed9b2e.db0a28"
+                "b220b4fb.086fd8"
             ]
         ],
         "x": 120,
@@ -1436,43 +1400,6 @@
         "type": "mqtt out",
         "wires": [],
         "x": 970,
-        "y": 1340,
-        "z": "9122054e.29969"
-    },
-    {
-        "duration": "1000",
-        "extend": true,
-        "id": "fcd8272.24c0bd8",
-        "name": "",
-        "op1": "true",
-        "op1type": "val",
-        "op2": "false",
-        "op2type": "val",
-        "reset": "",
-        "type": "trigger",
-        "units": "ms",
-        "wires": [
-            [
-                "90ed9b2e.db0a28"
-            ]
-        ],
-        "x": 440,
-        "y": 1260,
-        "z": "9122054e.29969"
-    },
-    {
-        "func": "if(msg.topic == \"neo_on\") {\n    context.neo_on_delay = msg.payload;\n    if(!context.neo_on_delay) {\n        var result = context.neo_on_buf;\n        context.neo_on_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.neo_on_delay) {\n        context.neo_on_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
-        "id": "90ed9b2e.db0a28",
-        "name": "buffer",
-        "noerr": 0,
-        "outputs": 1,
-        "type": "function",
-        "wires": [
-            [
-                "2c680e99.70e122"
-            ]
-        ],
-        "x": 330,
         "y": 1340,
         "z": "9122054e.29969"
     },
@@ -2182,7 +2109,7 @@
     {
         "action": "",
         "from": "",
-        "id": "6d73fe3.134988",
+        "id": "5ecf9c5b.a45d6c",
         "name": "",
         "property": "",
         "reg": false,
@@ -2199,18 +2126,18 @@
         "type": "change",
         "wires": [
             [
-                "a8f30e6c.9741d"
+                "bf1d9d22.ab1e8"
             ]
         ],
-        "x": 350,
-        "y": 220,
-        "z": "5d39f6e8.677b6"
+        "x": 590,
+        "y": 1520,
+        "z": "9122054e.29969"
     },
     {
         "bytopic": "all",
         "duration": "1000",
         "extend": true,
-        "id": "dcbb644d.004d58",
+        "id": "bf1d9d22.ab1e8",
         "name": "",
         "op1": "true",
         "op1type": "str",
@@ -2221,92 +2148,33 @@
         "units": "ms",
         "wires": [
             [
-                "4fb90b71.e5e844",
-                "201c09fd.6b9d7e"
+                "b220b4fb.086fd8"
             ]
         ],
-        "x": 460,
-        "y": 300,
-        "z": "cf61267e.767958"
-    },
-    {
-        "group": "24f4db0e.011d8c",
-        "height": "",
-        "id": "13ca5f57.68ea59",
-        "label": "LDR Updating",
-        "name": "",
-        "offcolor": "",
-        "officon": "",
-        "offvalue": "0",
-        "offvalueType": "str",
-        "oncolor": "",
-        "onicon": "",
-        "onvalue": "250",
-        "onvalueType": "str",
-        "order": 2,
-        "passthru": true,
-        "topic": "adc_interval",
-        "type": "ui_switch",
-        "width": "",
-        "wires": [
-            [
-                "66186a2c.c39e8c",
-                "a6d4873c.178b6"
-            ]
-        ],
-        "x": 520,
-        "y": 160,
-        "z": "cf61267e.767958"
+        "x": 780,
+        "y": 1520,
+        "z": "9122054e.29969"
     },
     {
         "func": "// Message from trigger\n// The trigger sends true, then false after 1s\nif(msg.topic == \"trigger\") {\n    context.set('wait', msg.payload);\n    if(msg.payload) {\n        // Trigger started, wait...\n        return null;\n    }\n    // Get and remove buffered value, then send it\n    var buffered = context.get('buf');\n    context.set('buf', null);\n    return {payload: buffered};\n}\n\n// Message from external input\nif(context.get('wait')) {\n    // Trigger active, store value\n     context.set('buf', msg.payload);\n} else {\n    // Trigger not active, pass on value\n    return msg;\n}\n",
-        "id": "4fb90b71.e5e844",
+        "id": "b220b4fb.086fd8",
         "name": "buffer",
         "noerr": 0,
         "outputs": 1,
         "type": "function",
         "wires": [
             [
-                "13ca5f57.68ea59"
+                "2c680e99.70e122"
             ]
         ],
-        "x": 250,
-        "y": 160,
-        "z": "cf61267e.767958"
-    },
-    {
-        "func": "rbe",
-        "gap": "",
-        "id": "66186a2c.c39e8c",
-        "inout": "out",
-        "name": "",
-        "start": "",
-        "type": "rbe",
-        "wires": [
-            []
-        ],
-        "x": 770,
-        "y": 160,
-        "z": "cf61267e.767958"
-    },
-    {
-        "active": true,
-        "complete": "false",
-        "console": false,
-        "id": "201c09fd.6b9d7e",
-        "name": "",
-        "tosidebar": true,
-        "tostatus": false,
-        "type": "debug",
-        "wires": [],
-        "x": 690,
-        "y": 300,
-        "z": "cf61267e.767958"
+        "x": 570,
+        "y": 1640,
+        "z": "9122054e.29969"
     },
     {
         "action": "",
         "from": "",
-        "id": "a6d4873c.178b6",
+        "id": "c5472008.083cd8",
         "name": "",
         "property": "",
         "reg": false,
@@ -2323,11 +2191,165 @@
         "type": "change",
         "wires": [
             [
-                "dcbb644d.004d58"
+                "267878a1.6cb448"
             ]
         ],
-        "x": 250,
-        "y": 300,
-        "z": "cf61267e.767958"
+        "x": 370,
+        "y": 240,
+        "z": "f7c3f5b1.15af3"
+    },
+    {
+        "bytopic": "all",
+        "duration": "1000",
+        "extend": true,
+        "id": "267878a1.6cb448",
+        "name": "",
+        "op1": "true",
+        "op1type": "str",
+        "op2": "false",
+        "op2type": "str",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "230bc5d2.7396a2",
+                "4b834e01.a16368"
+            ]
+        ],
+        "x": 560,
+        "y": 240,
+        "z": "f7c3f5b1.15af3"
+    },
+    {
+        "func": "// Message from trigger\n// The trigger sends true, then false after 1s\nif(msg.topic == \"trigger\") {\n    context.set('wait', msg.payload);\n    if(msg.payload == 'true') {\n        // Trigger started, wait...\n        return [null,{payload: 'triger_wait_true'}];\n    }\n\n    // Get and remove buffered value, then send it\n    var buffered = context.get('buf');\n    if(buffered !== null) {\n        context.set('buf', null);\n        return [{payload: buffered},{payload: 'triger_wait_false'}];\n    }\n    return [null,{payload: 'triger_wait_false_nah'}];\n}\n\n// Message from external input\nif(context.get('wait') == 'true') {\n    // Trigger active, store value\n    context.set('buf', msg.payload);\n    return [null,{payload: 'data_buffer'}];\n}\n\n// Trigger not active, pass on value\nreturn [msg,{payload: 'data_pass'}];",
+        "id": "230bc5d2.7396a2",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 2,
+        "type": "function",
+        "wires": [
+            [
+                "4b834e01.a16368"
+            ],
+            []
+        ],
+        "x": 750,
+        "y": 180,
+        "z": "f7c3f5b1.15af3"
+    },
+    {
+        "checkall": "true",
+        "id": "ea4d6784.fc38b",
+        "name": "Extract control",
+        "outputs": 2,
+        "property": "topic",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "t": "neq",
+                "v": "control",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "230bc5d2.7396a2"
+            ],
+            [
+                "c5472008.083cd8",
+                "4b834e01.a16368"
+            ]
+        ],
+        "x": 180,
+        "y": 180,
+        "z": "f7c3f5b1.15af3"
+    },
+    {
+        "id": "12f0a97b.0a7c87",
+        "name": "",
+        "type": "subflow:f7c3f5b1.15af3",
+        "wires": [
+            [
+                "d73bac27.181e08",
+                "51173d64.ae5b0c"
+            ]
+        ],
+        "x": 480,
+        "y": 120,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": false,
+        "complete": "false",
+        "console": false,
+        "id": "51173d64.ae5b0c",
+        "name": "",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 810,
+        "y": 260,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "crontab": "",
+        "id": "9d4fd937.ab0ba",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "250",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "devices/0003376b/adc/interval",
+        "type": "inject",
+        "wires": [
+            [
+                "12f0a97b.0a7c87"
+            ]
+        ],
+        "x": 200,
+        "y": 220,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "crontab": "",
+        "id": "12b7e0a.52e5f9f",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "devices/0003376b/adc/interval",
+        "type": "inject",
+        "wires": [
+            [
+                "12f0a97b.0a7c87"
+            ]
+        ],
+        "x": 190,
+        "y": 260,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": false,
+        "id": "4b834e01.a16368",
+        "name": "",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 890,
+        "y": 320,
+        "z": "f7c3f5b1.15af3"
     }
 ]
