@@ -475,8 +475,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 740,
-        "y": 280,
+        "x": 780,
+        "y": 340,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -491,8 +491,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 742,
-        "y": 351,
+        "x": 780,
+        "y": 380,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -507,7 +507,7 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 737,
+        "x": 780,
         "y": 420,
         "z": "5d39f6e8.677b6"
     },
@@ -523,8 +523,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 745,
-        "y": 489,
+        "x": 780,
+        "y": 460,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -539,8 +539,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 748,
-        "y": 556,
+        "x": 780,
+        "y": 500,
         "z": "5d39f6e8.677b6"
     },
     {
@@ -606,14 +606,16 @@
         "z": "8986fa08.d4999"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "5a3c594e.4d6a1",
         "name": "Toon current temp",
+        "qos": "2",
         "topic": "toon/input/currentTemp",
         "type": "mqtt in",
         "wires": [
             [
-                "49926c1b.2dd054"
+                "49926c1b.2dd054",
+                "8183de15.97d2d8"
             ]
         ],
         "x": 210,
@@ -637,14 +639,16 @@
         "z": "e8892798.dbab28"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "da38e2ef.127a98",
         "name": "Toon power usage",
+        "qos": "2",
         "topic": "toon/input/powerUsage",
         "type": "mqtt in",
         "wires": [
             [
-                "9631dd6c.4fd1c8"
+                "9631dd6c.4fd1c8",
+                "8183de15.97d2d8"
             ]
         ],
         "x": 210,
@@ -659,7 +663,7 @@
         "label": "Power usage",
         "layout": "",
         "name": "",
-        "order": "3",
+        "order": 3,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -668,14 +672,16 @@
         "z": "e8892798.dbab28"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "32e1e604.9d7d9a",
         "name": "Toon set point",
+        "qos": "2",
         "topic": "toon/input/currentSetpoint",
         "type": "mqtt in",
         "wires": [
             [
-                "575e2c9e.5440a4"
+                "575e2c9e.5440a4",
+                "8183de15.97d2d8"
             ]
         ],
         "x": 190,
@@ -690,7 +696,7 @@
         "label": "Set point",
         "layout": "",
         "name": "",
-        "order": "2",
+        "order": 2,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -699,14 +705,16 @@
         "z": "e8892798.dbab28"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "21778895.de6c08",
         "name": "Toon gas usage",
+        "qos": "2",
         "topic": "toon/input/gasUsage",
         "type": "mqtt in",
         "wires": [
             [
-                "f78ca4ca.c90b68"
+                "f78ca4ca.c90b68",
+                "8183de15.97d2d8"
             ]
         ],
         "x": 200,
@@ -721,7 +729,7 @@
         "label": "Gas usage ???",
         "layout": "",
         "name": "",
-        "order": "4",
+        "order": 4,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -1699,7 +1707,7 @@
             ]
         ],
         "x": 420,
-        "y": 820,
+        "y": 800,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -1792,7 +1800,7 @@
         ],
         "x": 810,
         "xformat": "HH:mm:ss",
-        "y": 900,
+        "y": 920,
         "ymax": "",
         "ymin": "",
         "z": "459a3a0f.cadb4c"
@@ -1838,7 +1846,7 @@
             ]
         ],
         "x": 420,
-        "y": 880,
+        "y": 900,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -1909,7 +1917,7 @@
         ],
         "x": 1020,
         "xformat": "HH:mm:ss",
-        "y": 820,
+        "y": 800,
         "ymax": "",
         "ymin": "",
         "z": "459a3a0f.cadb4c"
@@ -2056,5 +2064,71 @@
         "x": 790,
         "y": 160,
         "z": "459a3a0f.cadb4c"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": false,
+        "id": "8183de15.97d2d8",
+        "name": "",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 580,
+        "y": 500,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "func": "msg.payload = Date.now();\nreturn msg;",
+        "id": "deeb1eaf.66a268",
+        "name": "Timestamp",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "c0b50478.a941a8"
+            ]
+        ],
+        "x": 470,
+        "y": 640,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "crontab": "",
+        "id": "6f73b860.8d30e",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "deeb1eaf.66a268"
+            ]
+        ],
+        "x": 180,
+        "y": 640,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "616c682a.d22568",
+        "height": "",
+        "id": "c0b50478.a941a8",
+        "label": "Last update",
+        "layout": "",
+        "name": "",
+        "order": 5,
+        "type": "ui_text",
+        "width": "",
+        "wires": [],
+        "x": 810,
+        "y": 640,
+        "z": "e8892798.dbab28"
     }
 ]
