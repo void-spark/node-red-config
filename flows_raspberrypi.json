@@ -33,6 +33,35 @@
         "type": "tab"
     },
     {
+        "id": "cf61267e.767958",
+        "in": [
+            {
+                "wires": [
+                    {
+                        "id": "4fb90b71.e5e844"
+                    }
+                ],
+                "x": 60,
+                "y": 160
+            }
+        ],
+        "info": "",
+        "name": "Subflow 1",
+        "out": [
+            {
+                "wires": [
+                    {
+                        "id": "66186a2c.c39e8c",
+                        "port": 0
+                    }
+                ],
+                "x": 960,
+                "y": 180
+            }
+        ],
+        "type": "subflow"
+    },
+    {
         "birthPayload": "",
         "birthQos": "0",
         "birthRetain": null,
@@ -281,14 +310,15 @@
         "z": "5d39f6e8.677b6"
     },
     {
+        "bytopic": "all",
         "duration": "1000",
         "extend": true,
         "id": "a8f30e6c.9741d",
         "name": "",
         "op1": "true",
-        "op1type": "val",
+        "op1type": "str",
         "op2": "false",
-        "op2type": "val",
+        "op2type": "str",
         "reset": "",
         "type": "trigger",
         "units": "ms",
@@ -297,7 +327,7 @@
                 "67d50453.d076fc"
             ]
         ],
-        "x": 380,
+        "x": 600,
         "y": 220,
         "z": "5d39f6e8.677b6"
     },
@@ -322,8 +352,8 @@
         "width": "",
         "wires": [
             [
-                "a8f30e6c.9741d",
-                "df07bff5.7a5ea8"
+                "df07bff5.7a5ea8",
+                "6d73fe3.134988"
             ]
         ],
         "x": 600,
@@ -331,7 +361,7 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "func": "if(msg.topic == \"adc_interval\") {\n    context.adc_interval_delay = msg.payload;\n    if(!context.adc_interval_delay) {\n        var result = context.adc_interval_buf;\n        context.adc_interval_buf = null;\n        return {payload: result};\n    }\n} else {\n    if(context.adc_interval_delay) {\n        context.adc_interval_buf = msg.payload;\n    } else {\n        return msg;\n    }\n}\n\n",
+        "func": "// Message from trigger\n// The trigger sends true, then false after 1s\nif(msg.topic == \"trigger\") {\n    context.set('wait', msg.payload);\n    if(msg.payload) {\n        // Trigger started, wait...\n        return null;\n    }\n    // Get and remove buffered value, then send it\n    var buffered = context.get('buf');\n    context.set('buf', null);\n    return {payload: buffered};\n}\n\n// Message from external input\nif(context.get('wait')) {\n    // Trigger active, store value\n     context.set('buf', msg.payload);\n} else {\n    // Trigger not active, pass on value\n    return msg;\n}\n",
         "id": "67d50453.d076fc",
         "name": "buffer",
         "noerr": 0,
@@ -387,7 +417,7 @@
                 "8bd14e77.90b08"
             ]
         ],
-        "x": 790,
+        "x": 830,
         "y": 120,
         "z": "5d39f6e8.677b6"
     },
@@ -615,11 +645,11 @@
         "wires": [
             [
                 "49926c1b.2dd054",
-                "8183de15.97d2d8"
+                "deeb1eaf.66a268"
             ]
         ],
-        "x": 210,
-        "y": 160,
+        "x": 110,
+        "y": 60,
         "z": "e8892798.dbab28"
     },
     {
@@ -634,8 +664,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 680,
-        "y": 160,
+        "x": 880,
+        "y": 60,
         "z": "e8892798.dbab28"
     },
     {
@@ -648,11 +678,11 @@
         "wires": [
             [
                 "9631dd6c.4fd1c8",
-                "8183de15.97d2d8"
+                "deeb1eaf.66a268"
             ]
         ],
-        "x": 210,
-        "y": 280,
+        "x": 110,
+        "y": 180,
         "z": "e8892798.dbab28"
     },
     {
@@ -667,8 +697,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 670,
-        "y": 280,
+        "x": 870,
+        "y": 180,
         "z": "e8892798.dbab28"
     },
     {
@@ -681,11 +711,11 @@
         "wires": [
             [
                 "575e2c9e.5440a4",
-                "8183de15.97d2d8"
+                "deeb1eaf.66a268"
             ]
         ],
-        "x": 190,
-        "y": 220,
+        "x": 90,
+        "y": 120,
         "z": "e8892798.dbab28"
     },
     {
@@ -700,8 +730,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 680,
-        "y": 220,
+        "x": 880,
+        "y": 120,
         "z": "e8892798.dbab28"
     },
     {
@@ -714,11 +744,11 @@
         "wires": [
             [
                 "f78ca4ca.c90b68",
-                "8183de15.97d2d8"
+                "deeb1eaf.66a268"
             ]
         ],
-        "x": 200,
-        "y": 340,
+        "x": 100,
+        "y": 240,
         "z": "e8892798.dbab28"
     },
     {
@@ -733,8 +763,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 660,
-        "y": 340,
+        "x": 860,
+        "y": 240,
         "z": "e8892798.dbab28"
     },
     {
@@ -2066,21 +2096,7 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "active": true,
-        "complete": "false",
-        "console": false,
-        "id": "8183de15.97d2d8",
-        "name": "",
-        "tosidebar": true,
-        "tostatus": false,
-        "type": "debug",
-        "wires": [],
-        "x": 580,
-        "y": 500,
-        "z": "e8892798.dbab28"
-    },
-    {
-        "func": "msg.payload = Date.now();\nreturn msg;",
+        "func": "msg.payload = Date.now();\nmsg.topic = 'timestamp'\nreturn msg;",
         "id": "deeb1eaf.66a268",
         "name": "Timestamp",
         "noerr": 0,
@@ -2088,31 +2104,11 @@
         "type": "function",
         "wires": [
             [
-                "c0b50478.a941a8"
+                "20ddb075.08f94"
             ]
         ],
-        "x": 470,
-        "y": 640,
-        "z": "e8892798.dbab28"
-    },
-    {
-        "crontab": "",
-        "id": "6f73b860.8d30e",
-        "name": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "topic": "",
-        "type": "inject",
-        "wires": [
-            [
-                "deeb1eaf.66a268"
-            ]
-        ],
-        "x": 180,
-        "y": 640,
+        "x": 370,
+        "y": 320,
         "z": "e8892798.dbab28"
     },
     {
@@ -2127,8 +2123,211 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 810,
-        "y": 640,
+        "x": 870,
+        "y": 420,
         "z": "e8892798.dbab28"
+    },
+    {
+        "crontab": "",
+        "id": "bcc55e4b.f08bd",
+        "name": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "topic": "now",
+        "type": "inject",
+        "wires": [
+            [
+                "20ddb075.08f94"
+            ]
+        ],
+        "x": 160,
+        "y": 420,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "func": "if(msg.topic == \"timestamp\") {\n    context.since_timestamp = msg.payload;\n    return null;\n}\n\nif(msg.topic == \"now\") {\n    if(typeof context.since_timestamp == \"undefined\") {\n        return null;\n    }\n\n    return { \n        payload: msg.payload - context.since_timestamp,\n        topic: \"since\" \n    }\n}\n",
+        "id": "20ddb075.08f94",
+        "name": "since",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "4796d685.b7be08"
+            ]
+        ],
+        "x": 470,
+        "y": 420,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "func": "var s = Math.round(msg.payload / 1000);\nvar m = Math.floor(s / 60);\nvar s = s % 60;\nvar h = Math.floor(m / 60);\nvar  m = m % 60;\nvar  d = Math.floor(h / 24);\nvar  h = h % 24;\nmsg.payload = d +\"d \";\nmsg.payload += h + \"h \";\nmsg.payload += m + \"m \";\nmsg.payload += s + \"s\";\nreturn msg;",
+        "id": "4796d685.b7be08",
+        "name": "Format milliseconds",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "c0b50478.a941a8"
+            ]
+        ],
+        "x": 660,
+        "y": 420,
+        "z": "e8892798.dbab28"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "6d73fe3.134988",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "trigger",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "a8f30e6c.9741d"
+            ]
+        ],
+        "x": 350,
+        "y": 220,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "bytopic": "all",
+        "duration": "1000",
+        "extend": true,
+        "id": "dcbb644d.004d58",
+        "name": "",
+        "op1": "true",
+        "op1type": "str",
+        "op2": "false",
+        "op2type": "str",
+        "reset": "",
+        "type": "trigger",
+        "units": "ms",
+        "wires": [
+            [
+                "4fb90b71.e5e844",
+                "201c09fd.6b9d7e"
+            ]
+        ],
+        "x": 460,
+        "y": 300,
+        "z": "cf61267e.767958"
+    },
+    {
+        "group": "24f4db0e.011d8c",
+        "height": "",
+        "id": "13ca5f57.68ea59",
+        "label": "LDR Updating",
+        "name": "",
+        "offcolor": "",
+        "officon": "",
+        "offvalue": "0",
+        "offvalueType": "str",
+        "oncolor": "",
+        "onicon": "",
+        "onvalue": "250",
+        "onvalueType": "str",
+        "order": 2,
+        "passthru": true,
+        "topic": "adc_interval",
+        "type": "ui_switch",
+        "width": "",
+        "wires": [
+            [
+                "66186a2c.c39e8c",
+                "a6d4873c.178b6"
+            ]
+        ],
+        "x": 520,
+        "y": 160,
+        "z": "cf61267e.767958"
+    },
+    {
+        "func": "// Message from trigger\n// The trigger sends true, then false after 1s\nif(msg.topic == \"trigger\") {\n    context.set('wait', msg.payload);\n    if(msg.payload) {\n        // Trigger started, wait...\n        return null;\n    }\n    // Get and remove buffered value, then send it\n    var buffered = context.get('buf');\n    context.set('buf', null);\n    return {payload: buffered};\n}\n\n// Message from external input\nif(context.get('wait')) {\n    // Trigger active, store value\n     context.set('buf', msg.payload);\n} else {\n    // Trigger not active, pass on value\n    return msg;\n}\n",
+        "id": "4fb90b71.e5e844",
+        "name": "buffer",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "13ca5f57.68ea59"
+            ]
+        ],
+        "x": 250,
+        "y": 160,
+        "z": "cf61267e.767958"
+    },
+    {
+        "func": "rbe",
+        "gap": "",
+        "id": "66186a2c.c39e8c",
+        "inout": "out",
+        "name": "",
+        "start": "",
+        "type": "rbe",
+        "wires": [
+            []
+        ],
+        "x": 770,
+        "y": 160,
+        "z": "cf61267e.767958"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": false,
+        "id": "201c09fd.6b9d7e",
+        "name": "",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 690,
+        "y": 300,
+        "z": "cf61267e.767958"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "a6d4873c.178b6",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "trigger",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "dcbb644d.004d58"
+            ]
+        ],
+        "x": 250,
+        "y": 300,
+        "z": "cf61267e.767958"
     }
 ]
