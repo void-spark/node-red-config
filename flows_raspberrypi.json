@@ -2216,5 +2216,41 @@
         "x": 740,
         "y": 380,
         "z": "9122054e.29969"
+    },
+    {
+        "group": "a8db762f.1aeb8",
+        "height": 0,
+        "id": "98327496.bfed28",
+        "label": "LED strip",
+        "max": "2047",
+        "min": 0,
+        "name": "",
+        "order": 0,
+        "passthru": true,
+        "step": 1,
+        "topic": "",
+        "type": "ui_slider",
+        "width": 0,
+        "wires": [
+            [
+                "5d56d136.f96c18"
+            ]
+        ],
+        "x": 180,
+        "y": 620,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "5d56d136.f96c18",
+        "name": "",
+        "qos": "2",
+        "retain": "false",
+        "topic": "/ledstrip1/value/set",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 510,
+        "y": 620,
+        "z": "5d39f6e8.677b6"
     }
 ]
