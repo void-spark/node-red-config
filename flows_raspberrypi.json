@@ -2252,5 +2252,38 @@
         "x": 510,
         "y": 620,
         "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "dbbe7721.83f838",
+        "name": "",
+        "qos": "2",
+        "retain": "false",
+        "topic": "/ledstrip1/update",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 510,
+        "y": 740,
+        "z": "5d39f6e8.677b6"
+    },
+    {
+        "crontab": "",
+        "id": "463deb53.e62e44",
+        "name": "Update",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "true",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "dbbe7721.83f838"
+            ]
+        ],
+        "x": 170,
+        "y": 740,
+        "z": "5d39f6e8.677b6"
     }
 ]
