@@ -2289,5 +2289,91 @@
         "x": 170,
         "y": 740,
         "z": "5d39f6e8.677b6"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "c03904e8.eae328",
+        "name": "",
+        "qos": "2",
+        "retain": "",
+        "topic": "doorbell/header",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 640,
+        "y": 320,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "72c315d3.7abf64",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "Hello dragon!",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "c03904e8.eae328"
+            ]
+        ],
+        "x": 330,
+        "y": 440,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "utf8",
+        "id": "88d8c6a6.33ee2",
+        "name": "Bedroom temp",
+        "qos": "2",
+        "topic": "devices/0085b208/f6011581e788ff28/temperature",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "4730520e.43d4ec"
+            ]
+        ],
+        "x": 160,
+        "y": 280,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "func": "msg.payload = Number(msg.payload).toFixed(2);\nreturn msg;\n",
+        "id": "4730520e.43d4ec",
+        "name": "2 decimals",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "c03904e8.eae328"
+            ]
+        ],
+        "x": 390,
+        "y": 340,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "4dc22ed0.90af3",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "Squeee!",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "c03904e8.eae328"
+            ]
+        ],
+        "x": 320,
+        "y": 500,
+        "z": "8986fa08.d4999"
     }
 ]
