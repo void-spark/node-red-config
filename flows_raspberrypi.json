@@ -2299,8 +2299,8 @@
         "topic": "doorbell/header",
         "type": "mqtt out",
         "wires": [],
-        "x": 640,
-        "y": 320,
+        "x": 1000,
+        "y": 460,
         "z": "8986fa08.d4999"
     },
     {
@@ -2319,41 +2319,25 @@
                 "c03904e8.eae328"
             ]
         ],
-        "x": 330,
-        "y": 440,
+        "x": 450,
+        "y": 500,
         "z": "8986fa08.d4999"
     },
     {
         "broker": "69f5a3df.5a8b0c",
         "datatype": "utf8",
         "id": "88d8c6a6.33ee2",
-        "name": "Bedroom temp",
+        "name": "Bedroom temp inside",
         "qos": "2",
         "topic": "devices/0085b208/f6011581e788ff28/temperature",
         "type": "mqtt in",
         "wires": [
             [
-                "4730520e.43d4ec"
+                "cbc9b8e1.8d4d2"
             ]
         ],
-        "x": 160,
+        "x": 140,
         "y": 280,
-        "z": "8986fa08.d4999"
-    },
-    {
-        "func": "msg.payload = Number(msg.payload).toFixed(2);\nreturn msg;\n",
-        "id": "4730520e.43d4ec",
-        "name": "2 decimals",
-        "noerr": 0,
-        "outputs": 1,
-        "type": "function",
-        "wires": [
-            [
-                "c03904e8.eae328"
-            ]
-        ],
-        "x": 390,
-        "y": 340,
         "z": "8986fa08.d4999"
     },
     {
@@ -2372,8 +2356,57 @@
                 "c03904e8.eae328"
             ]
         ],
-        "x": 320,
-        "y": 500,
+        "x": 440,
+        "y": 600,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "utf8",
+        "id": "eb748fda.fbcb88",
+        "name": "Bedroom temp outside",
+        "qos": "2",
+        "topic": "devices/0085b208/c480000003e30d28/temperature",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "cbc9b8e1.8d4d2"
+            ]
+        ],
+        "x": 140,
+        "y": 380,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "func": "if(msg.topic == \"devices/0085b208/f6011581e788ff28/temperature\") {\n    msg.topic = \"bedroom_inside\";\n}\nif(msg.topic == \"devices/0085b208/c480000003e30d28/temperature\") {\n    msg.topic = \"bedroom_outside\";\n}\n\nreturn msg;",
+        "id": "cbc9b8e1.8d4d2",
+        "name": "Rename topic",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "98a0bd0c.674268"
+            ]
+        ],
+        "x": 400,
+        "y": 320,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "func": "if(msg.topic == \"bedroom_inside\") {\n    context.temp_inside = msg.payload;\n}\nif(msg.topic == \"bedroom_outside\") {\n    context.temp_outside = msg.payload;\n}\nreturn { \n    payload:\n    Number(context.temp_inside).toFixed(2) + \n    \" / \" +\n    Number(context.temp_outside).toFixed(2),\n    topic: \"temps\"\n}\n",
+        "id": "98a0bd0c.674268",
+        "name": "To text",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "c03904e8.eae328"
+            ]
+        ],
+        "x": 500,
+        "y": 400,
         "z": "8986fa08.d4999"
     }
 ]
