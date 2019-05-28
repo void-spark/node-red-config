@@ -2295,7 +2295,7 @@
         "id": "c03904e8.eae328",
         "name": "",
         "qos": "2",
-        "retain": "",
+        "retain": "true",
         "topic": "doorbell/header",
         "type": "mqtt out",
         "wires": [],
