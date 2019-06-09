@@ -2296,10 +2296,10 @@
         "name": "",
         "qos": "2",
         "retain": "true",
-        "topic": "doorbell/header",
+        "topic": "devices/3c71bf0c0ad4/display/header/set",
         "type": "mqtt out",
         "wires": [],
-        "x": 1000,
+        "x": 1080,
         "y": 460,
         "z": "8986fa08.d4999"
     },
