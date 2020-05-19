@@ -33,6 +33,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "fe7297a4.e6dc1",
+        "info": "",
+        "label": "Kodi",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -101,6 +108,12 @@
             }
         },
         "theme": {
+            "angularTheme": {
+                "accents": "blue",
+                "background": "grey",
+                "primary": "indigo",
+                "warn": "red"
+            },
             "customTheme": {
                 "baseColor": "#4B7930",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
@@ -192,7 +205,7 @@
         "birthPayload": "",
         "birthQos": "0",
         "birthTopic": "",
-        "broker": "raspberrypi",
+        "broker": "raspberrypi.fritz.box",
         "cleansession": true,
         "clientid": "",
         "closePayload": "",
@@ -269,9 +282,22 @@
         "z": ""
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "collapse": false,
+        "disp": true,
+        "id": "9677c439.5fa54",
+        "name": "Kodi",
+        "order": 6,
+        "tab": "b47e83d3.de77e",
+        "type": "ui_group",
+        "width": "6",
+        "z": ""
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "e3a35269.f0e2a8",
         "name": "ADC value",
+        "qos": "2",
         "topic": "devices/0003376b/adc/value",
         "type": "mqtt in",
         "wires": [
@@ -346,7 +372,7 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "8bd14e77.90b08",
         "name": "ADC interval set",
         "qos": "2",
@@ -359,7 +385,8 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "ae05073.99dba78",
         "name": "ADC interval",
         "qos": "2",
@@ -392,7 +419,8 @@
         "z": "5d39f6e8.677b6"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "2d574a7d.3068e6",
         "name": "Switches",
         "qos": "2",
@@ -777,6 +805,7 @@
     },
     {
         "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "76d31ffb.217c88",
         "name": "Lightshow brightness",
         "qos": "2",
@@ -828,6 +857,7 @@
     },
     {
         "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "bcf8dcb6.286228",
         "name": "Switches",
         "qos": "2",
@@ -1068,7 +1098,8 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "8cdd6b92.5f4b9",
         "name": "Lightshow period",
         "qos": "2",
@@ -1200,9 +1231,11 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "e9e43a0f.2b041",
         "name": "NeoPixels uptime",
+        "qos": "2",
         "topic": "devices/0003376b/$uptime",
         "type": "mqtt in",
         "wires": [
@@ -1247,7 +1280,8 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "ca16c2ed.464bd8",
         "name": "NeoPixels onine",
         "qos": "2",
@@ -1403,7 +1437,8 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "83ac489b.6336",
         "name": "Bedroom window state",
         "qos": "2",
@@ -1470,7 +1505,8 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "c7709fe7.534e8",
         "name": "Temps",
         "qos": "2",
@@ -1626,9 +1662,11 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "10ab9a18.c4d2fe",
         "name": "Sensors online",
+        "qos": "2",
         "topic": "devices/0085b208/$online",
         "type": "mqtt in",
         "wires": [
@@ -1743,9 +1781,11 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "36ff733.e6e650c",
         "name": "Bedroom fan state",
+        "qos": "2",
         "topic": "devices/0081b173/light/on",
         "type": "mqtt in",
         "wires": [
@@ -1881,9 +1921,11 @@
         "z": "459a3a0f.cadb4c"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "d399f16f.11c548",
         "name": "Sensors uptime",
+        "qos": "2",
         "topic": "devices/0085b208/$uptime",
         "type": "mqtt in",
         "wires": [
@@ -1929,6 +1971,7 @@
     },
     {
         "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "5be6727d.bd676c",
         "name": "Bedroom fan online",
         "qos": "2",
@@ -2408,5 +2451,348 @@
         "x": 500,
         "y": 400,
         "z": "8986fa08.d4999"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "67ba4266.02fbfc",
+        "name": "Playback state",
+        "qos": "2",
+        "topic": "kodi/status/playbackstate",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "b6a7cac0.c4a028"
+            ]
+        ],
+        "x": 140,
+        "y": 160,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "ba4c26e.96afb58",
+        "name": "Stop",
+        "qos": "2",
+        "retain": "false",
+        "topic": "kodi/command/playbackstate",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 1070,
+        "y": 100,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "checkall": "false",
+        "id": "b6a7cac0.c4a028",
+        "name": "filter",
+        "outputs": 3,
+        "property": "payload.kodi_state",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "t": "eq",
+                "v": "started",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stopped",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ended",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "a16f372f.63e558"
+            ],
+            [
+                "4e8ef854.13f1b",
+                "747a48e3.c4d07"
+            ],
+            [
+                "d1c75dfe.c88f2",
+                "4e8ef854.13f1b"
+            ]
+        ],
+        "x": 330,
+        "y": 160,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "bytopic": "all",
+        "duration": "5",
+        "extend": false,
+        "id": "4e8ef854.13f1b",
+        "name": "",
+        "op1": "",
+        "op1type": "nul",
+        "op2": "true",
+        "op2type": "bool",
+        "reset": "",
+        "type": "trigger",
+        "units": "min",
+        "wires": [
+            [
+                "c91d19f8.d1691"
+            ]
+        ],
+        "x": 570,
+        "y": 260,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "a16f372f.63e558",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "reset",
+                "pt": "msg",
+                "t": "set",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "4e8ef854.13f1b"
+            ]
+        ],
+        "x": 580,
+        "y": 180,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "fa5aaf92.c00ec8",
+        "name": "Play",
+        "qos": "2",
+        "retain": "false",
+        "topic": "kodi/command/play",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 1070,
+        "y": 260,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "75b8c639.72a8b",
+        "name": "payload = stop",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "stop",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "ba4c26e.96afb58"
+            ]
+        ],
+        "x": 900,
+        "y": 100,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "c91d19f8.d1691",
+        "name": "payload = dronezone",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "plugin://plugin.audio.somafm/dronezone",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "fa5aaf92.c00ec8"
+            ]
+        ],
+        "x": 880,
+        "y": 260,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "crontab": "",
+        "id": "81b0737b.76fef",
+        "name": "Play",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "c91d19f8.d1691"
+            ]
+        ],
+        "x": 670,
+        "y": 80,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "crontab": "",
+        "id": "eb0a573.e21c828",
+        "name": "Stop",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "75b8c639.72a8b"
+            ]
+        ],
+        "x": 670,
+        "y": 40,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "dd001859.bcca98",
+        "name": "Title",
+        "qos": "2",
+        "topic": "kodi/status/playertitle",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "6e2a574f.5a841"
+            ]
+        ],
+        "x": 110,
+        "y": 400,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "9677c439.5fa54",
+        "height": 0,
+        "id": "a6549fca.fa5c18",
+        "label": "Title",
+        "layout": "col-center",
+        "name": "",
+        "order": 0,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 510,
+        "y": 400,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "6e2a574f.5a841",
+        "name": "Get payload.val",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.val",
+                "tot": "jsonata"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "a6549fca.fa5c18"
+            ]
+        ],
+        "x": 320,
+        "y": 400,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "747a48e3.c4d07",
+        "name": "payload = stopped",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "[Stopped]",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "a6549fca.fa5c18"
+            ]
+        ],
+        "x": 310,
+        "y": 300,
+        "z": "fe7297a4.e6dc1"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "d1c75dfe.c88f2",
+        "name": "payload = ended",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "[Ended]",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "a6549fca.fa5c18"
+            ]
+        ],
+        "x": 310,
+        "y": 340,
+        "z": "fe7297a4.e6dc1"
     }
 ]
