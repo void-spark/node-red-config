@@ -69,27 +69,6 @@
         "type": "subflow"
     },
     {
-        "birthPayload": "",
-        "birthQos": "0",
-        "birthRetain": null,
-        "birthTopic": "",
-        "broker": "raspberrypi",
-        "cleansession": true,
-        "clientid": "",
-        "compatmode": true,
-        "id": "2a729cbc.1e292c",
-        "keepalive": "60",
-        "port": "1883",
-        "type": "mqtt-broker",
-        "usetls": false,
-        "verifyservercert": true,
-        "willPayload": "",
-        "willQos": "0",
-        "willRetain": null,
-        "willTopic": "",
-        "z": "5d39f6e8.677b6"
-    },
-    {
         "id": "df7451c1.bfdb28",
         "site": {
             "allowSwipe": "false",
@@ -1197,7 +1176,7 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "f4047c92.152c1",
         "name": "Lightshow period set",
         "qos": "2",
@@ -1226,7 +1205,7 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "6952c8aa.dc7d6",
         "name": "NeoPixels on set",
         "qos": "2",
@@ -1351,7 +1330,8 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "auto",
         "id": "3657984a.46d8b8",
         "name": "NeoPixels state",
         "qos": "2",
@@ -1367,7 +1347,7 @@
         "z": "9122054e.29969"
     },
     {
-        "broker": "2a729cbc.1e292c",
+        "broker": "69f5a3df.5a8b0c",
         "id": "8ff7841b.88307",
         "name": "NeoPixels on set",
         "qos": "2",
