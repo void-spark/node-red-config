@@ -1485,8 +1485,8 @@
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 750,
-        "y": 380,
+        "x": 1030,
+        "y": 400,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -1610,9 +1610,7 @@
         "useUTC": false,
         "width": "0",
         "wires": [
-            [
-                "b3d1872d.c9754"
-            ]
+            []
         ],
         "x": 810,
         "xformat": "HH:mm:ss",
@@ -1911,7 +1909,7 @@
         "width": "6",
         "wires": [],
         "x": 1010,
-        "y": 400,
+        "y": 460,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -2809,21 +2807,6 @@
         "z": "fe7297a4.e6dc1"
     },
     {
-        "active": true,
-        "complete": "payload",
-        "console": false,
-        "id": "b3d1872d.c9754",
-        "name": "Chart data",
-        "targetType": "msg",
-        "tosidebar": true,
-        "tostatus": false,
-        "type": "debug",
-        "wires": [],
-        "x": 970,
-        "y": 740,
-        "z": "459a3a0f.cadb4c"
-    },
-    {
         "id": "5c52590f.161f5",
         "info": "",
         "name": "TODO: How to persist charts over restart",
@@ -2970,8 +2953,8 @@
         "type": "function",
         "wires": [
             [
-                "11c77aec.a29e85",
-                "39649088.9e1208"
+                "39649088.9e1208",
+                "f6b45c8d.dbadf"
             ]
         ],
         "x": 690,
@@ -3511,7 +3494,8 @@
                 "cc9f9a5b.41fc28"
             ],
             [
-                "c1ec2f58.72581"
+                "c1ec2f58.72581",
+                "28951a4e.38cd7e"
             ]
         ],
         "x": 550,
@@ -3636,16 +3620,18 @@
             {
                 "t": "lt",
                 "v": "-0.75",
-                "vt": "str"
+                "vt": "num"
             }
         ],
         "type": "switch",
         "wires": [
             [
-                "cc9f9a5b.41fc28"
+                "cc9f9a5b.41fc28",
+                "74308048.fa661"
             ],
             [
-                "9ac56ff5.6a9f8"
+                "9ac56ff5.6a9f8",
+                "db354967.be4b9"
             ]
         ],
         "x": 700,
@@ -3675,6 +3661,78 @@
         ],
         "x": 1150,
         "y": 1420,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "active": true,
+        "complete": "payload",
+        "console": false,
+        "id": "db354967.be4b9",
+        "name": "Open",
+        "targetType": "msg",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 1080,
+        "y": 2160,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "active": true,
+        "complete": "payload",
+        "console": false,
+        "id": "74308048.fa661",
+        "name": "Close",
+        "targetType": "msg",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 1080,
+        "y": 2080,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "active": true,
+        "complete": "payload",
+        "console": false,
+        "id": "ea8f127f.8b55",
+        "name": "Update",
+        "targetType": "msg",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 880,
+        "y": 2240,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "28951a4e.38cd7e",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "temp_diff",
+                "tot": "flow"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "ea8f127f.8b55"
+            ]
+        ],
+        "x": 680,
+        "y": 2260,
         "z": "459a3a0f.cadb4c"
     }
 ]
