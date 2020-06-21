@@ -40,6 +40,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "307f8b6a.ec1714",
+        "info": "",
+        "label": "Solar",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -283,6 +290,57 @@
         "timeZoneDST": "0",
         "timeZoneOffset": "99",
         "type": "position-config",
+        "z": ""
+    },
+    {
+        "disabled": false,
+        "hidden": false,
+        "icon": "fa-plug",
+        "id": "8f71738d.39f7d8",
+        "name": "Power",
+        "type": "ui_tab",
+        "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": false,
+        "id": "4159afe3.bd0fe",
+        "name": "Solar graphs",
+        "order": 2,
+        "tab": "8f71738d.39f7d8",
+        "type": "ui_group",
+        "width": "18",
+        "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": false,
+        "id": "e5757e69.82094",
+        "name": "Solar info",
+        "order": 1,
+        "tab": "8f71738d.39f7d8",
+        "type": "ui_group",
+        "width": "6",
+        "z": ""
+    },
+    {
+        "disabled": false,
+        "hidden": false,
+        "icon": "dashboard",
+        "id": "3c71ce20.73a8c2",
+        "name": "Dragon",
+        "type": "ui_tab",
+        "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": true,
+        "id": "78fa6592.1d0d3c",
+        "name": "Dragon power",
+        "order": 1,
+        "tab": "3c71ce20.73a8c2",
+        "type": "ui_group",
+        "width": "18",
         "z": ""
     },
     {
@@ -3734,5 +3792,734 @@
         "x": 680,
         "y": 2260,
         "z": "459a3a0f.cadb4c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "2890bb46.0c3124",
+        "name": "Sensor",
+        "qos": "2",
+        "topic": "tele/tasmota_6815F0/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "2a9492c8.e3d2d6",
+                "efb92a55.cfeae",
+                "416e9cf9.1f2fc4",
+                "3d477034.659ef",
+                "89991293.60e4b8",
+                "24c96ff0.a2e218",
+                "68ab9a36.18dc5c",
+                "3bd285ac.74b7aa",
+                "12e726fa.9b0d29",
+                "a452dcf7.60f9b"
+            ]
+        ],
+        "x": 190,
+        "y": 160,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "27b20e8d.fd4fd2",
+        "name": "State",
+        "qos": "2",
+        "topic": "tele/tasmota_6815F0/STATE",
+        "type": "mqtt in",
+        "wires": [
+            []
+        ],
+        "x": 130,
+        "y": 220,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "appendNewline": true,
+        "createDir": false,
+        "encoding": "none",
+        "filename": "/data/power.log",
+        "id": "2a9492c8.e3d2d6",
+        "name": "Power log",
+        "overwriteFile": "false",
+        "type": "file",
+        "wires": [
+            []
+        ],
+        "x": 380,
+        "y": 80,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "efb92a55.cfeae",
+        "name": "Power",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Power",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Real Power",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "33943314.990c74",
+                "e7deb6a4.eb2908",
+                "b7dfc96b.ac98"
+            ]
+        ],
+        "x": 430,
+        "y": 180,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "416e9cf9.1f2fc4",
+        "name": "ApparentPower",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.ApparentPower",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Apparent Power",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "33943314.990c74",
+                "34d0b956.de6cee"
+            ]
+        ],
+        "x": 460,
+        "y": 220,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "3d477034.659ef",
+        "name": "ReactivePower",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.ReactivePower",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Reactive Power",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "33943314.990c74",
+                "cea6b536.506538"
+            ]
+        ],
+        "x": 460,
+        "y": 260,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "89991293.60e4b8",
+        "name": "Factor",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Factor",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Factor",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "75d6390a.ea91a",
+                "996f3ed7.18817"
+            ]
+        ],
+        "x": 430,
+        "y": 400,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "24c96ff0.a2e218",
+        "name": "Voltage",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Voltage",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Voltage",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "8b3d0c54.c60128",
+                "4e745a03.38f584"
+            ]
+        ],
+        "x": 440,
+        "y": 320,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "68ab9a36.18dc5c",
+        "name": "Current",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Current",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Current",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "d28f3466.c8b8c",
+                "d2cf9a06.37e4b"
+            ]
+        ],
+        "x": 440,
+        "y": 360,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": 0,
+        "id": "33943314.990c74",
+        "interpolate": "linear",
+        "label": "",
+        "legend": "true",
+        "name": "Power",
+        "nodata": "",
+        "order": 1,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": 0,
+        "wires": [
+            []
+        ],
+        "x": 910,
+        "xformat": "HH:mm:ss",
+        "y": 220,
+        "ymax": "",
+        "ymin": "0",
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "8b3d0c54.c60128",
+        "interpolate": "linear",
+        "label": "Voltage",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 2,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 920,
+        "xformat": "HH:mm:ss",
+        "y": 320,
+        "ymax": "",
+        "ymin": "0",
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "d28f3466.c8b8c",
+        "interpolate": "linear",
+        "label": "Current",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 3,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 920,
+        "xformat": "HH:mm:ss",
+        "y": 360,
+        "ymax": "",
+        "ymin": "0",
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "75d6390a.ea91a",
+        "interpolate": "linear",
+        "label": "Factor",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 4,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 910,
+        "xformat": "HH:mm:ss",
+        "y": 400,
+        "ymax": "",
+        "ymin": "0",
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} W",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "e7deb6a4.eb2908",
+        "label": "Real Power",
+        "layout": "row-spread",
+        "name": "",
+        "order": 3,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 930,
+        "y": 60,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} VA",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "34d0b956.de6cee",
+        "label": "Apparent Power",
+        "layout": "row-spread",
+        "name": "",
+        "order": 4,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 940,
+        "y": 100,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} VAr",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "cea6b536.506538",
+        "label": "Reactive Power",
+        "layout": "row-spread",
+        "name": "",
+        "order": 5,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 940,
+        "y": 140,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} V",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "4e745a03.38f584",
+        "label": "Voltage",
+        "layout": "row-spread",
+        "name": "",
+        "order": 1,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 920,
+        "y": 460,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} A",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "d2cf9a06.37e4b",
+        "label": "Current",
+        "layout": "row-spread",
+        "name": "",
+        "order": 2,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 920,
+        "y": 500,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}}",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "996f3ed7.18817",
+        "label": "Power Factor",
+        "layout": "row-spread",
+        "name": "",
+        "order": 6,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 940,
+        "y": 540,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} kWh",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "f8a4bdbe.ed16a8",
+        "label": "Energy Total",
+        "layout": "row-spread",
+        "name": "",
+        "order": 9,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 930,
+        "y": 620,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} kWh",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "909e3fbe.c4656",
+        "label": "Energy Yesterday",
+        "layout": "row-spread",
+        "name": "",
+        "order": 8,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 950,
+        "y": 700,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "format": "{{msg.payload}} kWh",
+        "group": "e5757e69.82094",
+        "height": 0,
+        "id": "75b16ed4.b2027",
+        "label": "Energy Today",
+        "layout": "row-spread",
+        "name": "",
+        "order": 7,
+        "type": "ui_text",
+        "width": 0,
+        "wires": [],
+        "x": 940,
+        "y": 660,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "a452dcf7.60f9b",
+        "name": "Today",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Today",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Today",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "75b16ed4.b2027"
+            ]
+        ],
+        "x": 450,
+        "y": 660,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "3bd285ac.74b7aa",
+        "name": "Total",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Total",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Total",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "f8a4bdbe.ed16a8"
+            ]
+        ],
+        "x": 450,
+        "y": 620,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "12e726fa.9b0d29",
+        "name": "Yesterday",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.ENERGY.Yesterday",
+                "tot": "jsonata"
+            },
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Yesterday",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "909e3fbe.c4656"
+            ]
+        ],
+        "x": 460,
+        "y": 700,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "78fa6592.1d0d3c",
+        "height": 0,
+        "id": "b7dfc96b.ac98",
+        "interpolate": "linear",
+        "label": "",
+        "legend": "true",
+        "name": "Power",
+        "nodata": "",
+        "order": 1,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": 0,
+        "wires": [
+            []
+        ],
+        "x": 910,
+        "xformat": "HH:mm:ss",
+        "y": 780,
+        "ymax": "",
+        "ymin": "0",
+        "z": "307f8b6a.ec1714"
     }
 ]
