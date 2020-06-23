@@ -47,6 +47,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "53214520.af847c",
+        "info": "",
+        "label": "P1",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -339,6 +346,26 @@
         "name": "Dragon power",
         "order": 1,
         "tab": "3c71ce20.73a8c2",
+        "type": "ui_group",
+        "width": "18",
+        "z": ""
+    },
+    {
+        "disabled": false,
+        "hidden": false,
+        "icon": "dashboard",
+        "id": "38eddcdf.4bf11c",
+        "name": "Home power",
+        "type": "ui_tab",
+        "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": true,
+        "id": "c13636b9.13657",
+        "name": "Home power",
+        "order": 1,
+        "tab": "38eddcdf.4bf11c",
         "type": "ui_group",
         "width": "18",
         "z": ""
@@ -3879,7 +3906,8 @@
             [
                 "33943314.990c74",
                 "e7deb6a4.eb2908",
-                "b7dfc96b.ac98"
+                "b7dfc96b.ac98",
+                "3101793.1525786"
             ]
         ],
         "x": 430,
@@ -4521,5 +4549,210 @@
         "ymax": "",
         "ymin": "0",
         "z": "307f8b6a.ec1714"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "utf8",
+        "id": "ea0c094e.6e9b",
+        "name": "P1 input",
+        "qos": "2",
+        "topic": "tele/tasmota_012311/RESULT",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "93cf16bf.b0fc28"
+            ]
+        ],
+        "x": 130,
+        "y": 160,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "var res = msg.payload.match(/{\"(.+)\":\"(.*)[\\r\\n]+\"}/);\n\nvar line = res[2];\n\nif (line.length == 0) {\n    return null;\n}\n\nmsg.payload = line\n\nreturn msg;",
+        "id": "93cf16bf.b0fc28",
+        "name": "Get serial line",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "1c2f7155.83a77f"
+            ]
+        ],
+        "x": 340,
+        "y": 160,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "var res = msg.payload.match(/(.+?)(\\(.+)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.topic = res[1];\nmsg.payload = res[2];\n\nreturn msg;\n",
+        "id": "1c2f7155.83a77f",
+        "name": "Get header/data",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "d884a3d7.e75d9"
+            ]
+        ],
+        "x": 500,
+        "y": 260,
+        "z": "53214520.af847c"
+    },
+    {
+        "checkall": "true",
+        "id": "d884a3d7.e75d9",
+        "name": "Get current power",
+        "outputs": 2,
+        "property": "topic",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1-0:21.7.0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1-0:22.7.0",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "2767f59a.0aa2a2"
+            ],
+            [
+                "96383f7.8c883c"
+            ]
+        ],
+        "x": 570,
+        "y": 380,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "var res = msg.payload.match(/\\((\\d\\d\\.\\d\\d\\d)\\*kW\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]) * 1000;\nmsg.topic = \"Watt in\"\n\nreturn msg;\n",
+        "id": "2767f59a.0aa2a2",
+        "name": "Parse  power in",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ac50c75f.fce3"
+            ]
+        ],
+        "x": 780,
+        "y": 300,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "var res = msg.payload.match(/\\((\\d\\d\\.\\d\\d\\d)\\*kW\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]) * 1000;\nmsg.topic = \"Watt out\"\n\nreturn msg;\n",
+        "id": "96383f7.8c883c",
+        "name": "Parse  power out",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ac50c75f.fce3"
+            ]
+        ],
+        "x": 780,
+        "y": 420,
+        "z": "53214520.af847c"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "c13636b9.13657",
+        "height": 0,
+        "id": "ac50c75f.fce3",
+        "interpolate": "linear",
+        "label": "",
+        "legend": "true",
+        "name": "Power",
+        "nodata": "",
+        "order": 1,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": 0,
+        "wires": [
+            []
+        ],
+        "x": 990,
+        "xformat": "HH:mm:ss",
+        "y": 360,
+        "ymax": "",
+        "ymin": "0",
+        "z": "53214520.af847c"
+    },
+    {
+        "id": "c396405a.06f7e",
+        "info": "",
+        "name": "Limit 7:00 23:00",
+        "type": "comment",
+        "wires": [],
+        "x": 980,
+        "y": 760,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "id": "3101793.1525786",
+        "links": [
+            "1bb92743.73f8c9"
+        ],
+        "name": "",
+        "type": "link out",
+        "wires": [],
+        "x": 835,
+        "y": 840,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "id": "1bb92743.73f8c9",
+        "links": [
+            "3101793.1525786"
+        ],
+        "name": "",
+        "type": "link in",
+        "wires": [
+            [
+                "ac50c75f.fce3"
+            ]
+        ],
+        "x": 835,
+        "y": 480,
+        "z": "53214520.af847c"
+    },
+    {
+        "id": "3b09687b.0e773",
+        "info": "",
+        "name": "Small chart, numbers above, only last .. ?",
+        "type": "comment",
+        "wires": [],
+        "x": 860,
+        "y": 640,
+        "z": "53214520.af847c"
     }
 ]
