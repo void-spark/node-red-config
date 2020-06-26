@@ -3052,7 +3052,7 @@
         "name": "Serial out",
         "qos": "2",
         "retain": "false",
-        "topic": "devices/0085b208/serial/out",
+        "topic": "cmnd/tasmota_85B208/SerialSend2",
         "type": "mqtt out",
         "wires": [],
         "x": 1040,
@@ -3261,14 +3261,14 @@
         "id": "a8057c43.5107f8",
         "name": "",
         "qos": "2",
-        "topic": "devices/0085b208/serial/in",
+        "topic": "tele/tasmota_85B208/RESULT",
         "type": "mqtt in",
         "wires": [
             [
-                "f28c643f.aee3b8"
+                "37d9924.cd65fee"
             ]
         ],
-        "x": 190,
+        "x": 210,
         "y": 1320,
         "z": "459a3a0f.cadb4c"
     },
@@ -4695,10 +4695,10 @@
         "type": "link in",
         "wires": [
             [
-                "ac50c75f.fce3"
+                "f024de81.164de"
             ]
         ],
-        "x": 835,
+        "x": 715,
         "y": 480,
         "z": "53214520.af847c"
     },
@@ -4754,5 +4754,48 @@
         "ymax": "",
         "ymin": "0",
         "z": "307f8b6a.ec1714"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "f024de81.164de",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Solar Power",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "ac50c75f.fce3"
+            ]
+        ],
+        "x": 850,
+        "y": 480,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "var res = msg.payload.match(/{\"(.+)\":\"([a-zA-Z0-9 ]+)[\\r\\n]*\"}/);\n\nvar line = res[2];\n\nif (line.length == 0) {\n    return null;\n}\n\nmsg.payload = line\n\nreturn msg;",
+        "id": "37d9924.cd65fee",
+        "name": "Get serial line",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "f28c643f.aee3b8"
+            ]
+        ],
+        "x": 180,
+        "y": 1400,
+        "z": "459a3a0f.cadb4c"
     }
 ]
