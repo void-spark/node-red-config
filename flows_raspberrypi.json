@@ -2929,7 +2929,7 @@
                 "pt": "msg",
                 "t": "set",
                 "to": "CLOSE\\n",
-                "tot": "bin"
+                "tot": "str"
             }
         ],
         "to": "",
@@ -3609,7 +3609,6 @@
         "type": "mqtt in",
         "wires": [
             [
-                "2a9492c8.e3d2d6",
                 "efb92a55.cfeae",
                 "416e9cf9.1f2fc4",
                 "3d477034.659ef",
@@ -3618,7 +3617,8 @@
                 "68ab9a36.18dc5c",
                 "3bd285ac.74b7aa",
                 "12e726fa.9b0d29",
-                "a452dcf7.60f9b"
+                "a452dcf7.60f9b",
+                "2a9492c8.e3d2d6"
             ]
         ],
         "x": 190,
@@ -4946,7 +4946,7 @@
         "label": "Power usage",
         "layout": "",
         "name": "",
-        "order": 3,
+        "order": 2,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -4962,7 +4962,7 @@
         "label": "Gas usage ???",
         "layout": "",
         "name": "",
-        "order": 4,
+        "order": 7,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -4991,10 +4991,10 @@
         "group": "42b6ae00.90b7d4",
         "height": "",
         "id": "35173762.b4c95",
-        "label": "kWh in T1",
+        "label": "kWh in night",
         "layout": "",
         "name": "",
-        "order": 3,
+        "order": 4,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -5007,7 +5007,7 @@
         "group": "42b6ae00.90b7d4",
         "height": "",
         "id": "36f4d085.5b5e08",
-        "label": "kWh in T2",
+        "label": "kWh in day",
         "layout": "",
         "name": "",
         "order": 3,
@@ -5023,14 +5023,14 @@
         "group": "42b6ae00.90b7d4",
         "height": "",
         "id": "46e4ff24.111bd",
-        "label": "kWh out T1",
+        "label": "kWh out night",
         "layout": "",
         "name": "",
-        "order": 3,
+        "order": 6,
         "type": "ui_text",
         "width": "",
         "wires": [],
-        "x": 990,
+        "x": 1000,
         "y": 640,
         "z": "53214520.af847c"
     },
@@ -5039,10 +5039,10 @@
         "group": "42b6ae00.90b7d4",
         "height": "",
         "id": "4e2cffa9.40b838",
-        "label": "kWh out T2",
+        "label": "kWh out day",
         "layout": "",
         "name": "",
-        "order": 3,
+        "order": 5,
         "type": "ui_text",
         "width": "",
         "wires": [],
@@ -5101,6 +5101,16 @@
         ],
         "x": 630,
         "y": 860,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "id": "cabbf8d6.7afb68",
+        "info": "",
+        "name": "Graphs: every 30 s",
+        "type": "comment",
+        "wires": [],
+        "x": 790,
+        "y": 740,
         "z": "307f8b6a.ec1714"
     }
 ]
