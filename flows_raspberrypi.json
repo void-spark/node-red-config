@@ -47,6 +47,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "da818f88.a776d",
+        "info": "",
+        "label": "Power graphs",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -361,6 +368,18 @@
         "tab": "38eddcdf.4bf11c",
         "type": "ui_group",
         "width": "18",
+        "z": ""
+    },
+    {
+        "database": "home_db",
+        "hostname": "debian.fritz.box",
+        "id": "697d3fd0.797c7",
+        "name": "",
+        "port": "8086",
+        "protocol": "http",
+        "tls": "",
+        "type": "influxdb",
+        "usetls": false,
         "z": ""
     },
     {
@@ -3618,10 +3637,10 @@
                 "3bd285ac.74b7aa",
                 "12e726fa.9b0d29",
                 "a452dcf7.60f9b",
-                "2a9492c8.e3d2d6"
+                "6757fa12.66ed94"
             ]
         ],
-        "x": 190,
+        "x": 130,
         "y": 160,
         "z": "307f8b6a.ec1714"
     },
@@ -3638,22 +3657,6 @@
         ],
         "x": 130,
         "y": 220,
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "appendNewline": true,
-        "createDir": false,
-        "encoding": "none",
-        "filename": "/data/power.log",
-        "id": "2a9492c8.e3d2d6",
-        "name": "Power log",
-        "overwriteFile": "false",
-        "type": "file",
-        "wires": [
-            []
-        ],
-        "x": 380,
-        "y": 80,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -3683,10 +3686,8 @@
         "type": "change",
         "wires": [
             [
-                "33943314.990c74",
                 "e7deb6a4.eb2908",
-                "3101793.1525786",
-                "e0b93a08.d81d7"
+                "3101793.1525786"
             ]
         ],
         "x": 430,
@@ -3720,7 +3721,6 @@
         "type": "change",
         "wires": [
             [
-                "33943314.990c74",
                 "34d0b956.de6cee"
             ]
         ],
@@ -3755,7 +3755,6 @@
         "type": "change",
         "wires": [
             [
-                "33943314.990c74",
                 "cea6b536.506538"
             ]
         ],
@@ -3790,7 +3789,6 @@
         "type": "change",
         "wires": [
             [
-                "75d6390a.ea91a",
                 "996f3ed7.18817"
             ]
         ],
@@ -3825,7 +3823,6 @@
         "type": "change",
         "wires": [
             [
-                "8b3d0c54.c60128",
                 "4e745a03.38f584"
             ]
         ],
@@ -3860,184 +3857,11 @@
         "type": "change",
         "wires": [
             [
-                "d28f3466.c8b8c",
                 "d2cf9a06.37e4b"
             ]
         ],
         "x": 440,
         "y": 360,
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "chartType": "line",
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "cutout": 0,
-        "dot": false,
-        "group": "4159afe3.bd0fe",
-        "height": 0,
-        "id": "33943314.990c74",
-        "interpolate": "linear",
-        "label": "",
-        "legend": "true",
-        "name": "Power",
-        "nodata": "",
-        "order": 1,
-        "outputs": 1,
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "type": "ui_chart",
-        "useOldStyle": false,
-        "useOneColor": false,
-        "useUTC": false,
-        "width": 0,
-        "wires": [
-            []
-        ],
-        "x": 910,
-        "xformat": "HH:mm:ss",
-        "y": 220,
-        "ymax": "",
-        "ymin": "0",
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "chartType": "line",
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "cutout": 0,
-        "dot": false,
-        "group": "4159afe3.bd0fe",
-        "height": "4",
-        "id": "8b3d0c54.c60128",
-        "interpolate": "linear",
-        "label": "Voltage",
-        "legend": "false",
-        "name": "",
-        "nodata": "",
-        "order": 2,
-        "outputs": 1,
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "type": "ui_chart",
-        "useOldStyle": false,
-        "useOneColor": false,
-        "useUTC": false,
-        "width": "6",
-        "wires": [
-            []
-        ],
-        "x": 920,
-        "xformat": "HH:mm:ss",
-        "y": 320,
-        "ymax": "",
-        "ymin": "0",
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "chartType": "line",
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "cutout": 0,
-        "dot": false,
-        "group": "4159afe3.bd0fe",
-        "height": "4",
-        "id": "d28f3466.c8b8c",
-        "interpolate": "linear",
-        "label": "Current",
-        "legend": "false",
-        "name": "",
-        "nodata": "",
-        "order": 3,
-        "outputs": 1,
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "type": "ui_chart",
-        "useOldStyle": false,
-        "useOneColor": false,
-        "useUTC": false,
-        "width": "6",
-        "wires": [
-            []
-        ],
-        "x": 920,
-        "xformat": "HH:mm:ss",
-        "y": 360,
-        "ymax": "",
-        "ymin": "0",
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "chartType": "line",
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "cutout": 0,
-        "dot": false,
-        "group": "4159afe3.bd0fe",
-        "height": "4",
-        "id": "75d6390a.ea91a",
-        "interpolate": "linear",
-        "label": "Factor",
-        "legend": "false",
-        "name": "",
-        "nodata": "",
-        "order": 4,
-        "outputs": 1,
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "type": "ui_chart",
-        "useOldStyle": false,
-        "useOneColor": false,
-        "useUTC": false,
-        "width": "6",
-        "wires": [
-            []
-        ],
-        "x": 910,
-        "xformat": "HH:mm:ss",
-        "y": 400,
-        "ymax": "",
-        "ymin": "0",
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4053,7 +3877,7 @@
         "width": 0,
         "wires": [],
         "x": 930,
-        "y": 60,
+        "y": 180,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4069,7 +3893,7 @@
         "width": 0,
         "wires": [],
         "x": 940,
-        "y": 100,
+        "y": 220,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4085,7 +3909,7 @@
         "width": 0,
         "wires": [],
         "x": 940,
-        "y": 140,
+        "y": 260,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4101,7 +3925,7 @@
         "width": 0,
         "wires": [],
         "x": 920,
-        "y": 460,
+        "y": 320,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4117,7 +3941,7 @@
         "width": 0,
         "wires": [],
         "x": 920,
-        "y": 500,
+        "y": 360,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4133,7 +3957,7 @@
         "width": 0,
         "wires": [],
         "x": 940,
-        "y": 540,
+        "y": 400,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4149,7 +3973,7 @@
         "width": 0,
         "wires": [],
         "x": 930,
-        "y": 620,
+        "y": 460,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4165,7 +3989,7 @@
         "width": 0,
         "wires": [],
         "x": 950,
-        "y": 700,
+        "y": 540,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4181,7 +4005,7 @@
         "width": 0,
         "wires": [],
         "x": 940,
-        "y": 660,
+        "y": 500,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4214,8 +4038,8 @@
                 "75b16ed4.b2027"
             ]
         ],
-        "x": 450,
-        "y": 660,
+        "x": 430,
+        "y": 500,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4248,8 +4072,8 @@
                 "f8a4bdbe.ed16a8"
             ]
         ],
-        "x": 450,
-        "y": 620,
+        "x": 430,
+        "y": 460,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4282,8 +4106,8 @@
                 "909e3fbe.c4656"
             ]
         ],
-        "x": 460,
-        "y": 700,
+        "x": 440,
+        "y": 540,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4470,8 +4294,8 @@
         "name": "",
         "type": "link out",
         "wires": [],
-        "x": 835,
-        "y": 840,
+        "x": 875,
+        "y": 140,
         "z": "307f8b6a.ec1714"
     },
     {
@@ -4501,49 +4325,6 @@
         "z": "53214520.af847c"
     },
     {
-        "chartType": "line",
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "cutout": 0,
-        "dot": false,
-        "group": "78fa6592.1d0d3c",
-        "height": 0,
-        "id": "3c697413.b6a56c",
-        "interpolate": "linear",
-        "label": "",
-        "legend": "true",
-        "name": "Power",
-        "nodata": "",
-        "order": 1,
-        "outputs": 1,
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "type": "ui_chart",
-        "useOldStyle": false,
-        "useOneColor": false,
-        "useUTC": false,
-        "width": 0,
-        "wires": [
-            []
-        ],
-        "x": 910,
-        "xformat": "HH:mm:ss",
-        "y": 800,
-        "ymax": "",
-        "ymin": "0",
-        "z": "307f8b6a.ec1714"
-    },
-    {
         "action": "",
         "from": "",
         "id": "f024de81.164de",
@@ -4570,33 +4351,6 @@
         "x": 850,
         "y": 480,
         "z": "53214520.af847c"
-    },
-    {
-        "action": "",
-        "from": "",
-        "id": "e0b93a08.d81d7",
-        "name": "",
-        "property": "",
-        "reg": false,
-        "rules": [
-            {
-                "p": "topic",
-                "pt": "msg",
-                "t": "set",
-                "to": "Solar power",
-                "tot": "str"
-            }
-        ],
-        "to": "",
-        "type": "change",
-        "wires": [
-            [
-                "6b059fa6.96dc28"
-            ]
-        ],
-        "x": 630,
-        "y": 800,
-        "z": "307f8b6a.ec1714"
     },
     {
         "broker": "69f5a3df.5a8b0c",
@@ -4819,7 +4573,8 @@
         "type": "change",
         "wires": [
             [
-                "1c2f7155.83a77f"
+                "1c2f7155.83a77f",
+                "4c769910.a231d"
             ]
         ],
         "x": 300,
@@ -5051,66 +4806,388 @@
         "z": "53214520.af847c"
     },
     {
-        "endOffset": 0,
-        "endOffsetAlt": 0,
-        "endOffsetAltMultiplier": 60000,
-        "endOffsetAltType": "none",
-        "endOffsetMultiplier": 60000,
-        "endOffsetType": "none",
-        "endTime": "23:00",
-        "endTimeAlt": "",
-        "endTimeAltType": "entered",
-        "endTimeType": "entered",
-        "id": "6b059fa6.96dc28",
+        "id": "e20a439.7b347c",
+        "influxdb": "697d3fd0.797c7",
         "name": "",
-        "nameInt": "",
-        "positionConfig": "b9ef850f.12a2",
-        "propertyEnd": "",
-        "propertyEndCompare": "true",
-        "propertyEndThreshold": "",
-        "propertyEndThresholdType": "num",
-        "propertyEndType": "none",
-        "propertyStart": "",
-        "propertyStartCompare": "true",
-        "propertyStartThreshold": "",
-        "propertyStartThresholdType": "num",
-        "propertyStartType": "none",
-        "startOffset": 0,
-        "startOffsetAlt": 0,
-        "startOffsetAltMultiplier": 60000,
-        "startOffsetAltType": "none",
-        "startOffsetMultiplier": 60000,
-        "startOffsetType": "none",
-        "startTime": "7:00",
-        "startTimeAlt": "",
-        "startTimeAltType": "entered",
-        "startTimeType": "entered",
-        "timeDays": "*",
-        "timeMonths": "*",
-        "timeOnlyEvenDays": false,
-        "timeOnlyOddDays": false,
-        "timedateend": "",
-        "timedatestart": "",
-        "tsCompare": "0",
-        "type": "within-time-switch",
-        "wires": [
-            [
-                "3c697413.b6a56c"
-            ],
-            []
-        ],
-        "x": 630,
-        "y": 860,
+        "precision": "",
+        "retentionPolicy": "",
+        "type": "influxdb batch",
+        "wires": [],
+        "x": 750,
+        "y": 80,
         "z": "307f8b6a.ec1714"
     },
     {
-        "id": "cabbf8d6.7afb68",
-        "info": "",
-        "name": "Graphs: every 30 s",
-        "type": "comment",
-        "wires": [],
-        "x": 790,
-        "y": 740,
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"solar_power\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "id": "6757fa12.66ed94",
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "e20a439.7b347c"
+            ]
+        ],
+        "x": 470,
+        "y": 80,
         "z": "307f8b6a.ec1714"
+    },
+    {
+        "crontab": "",
+        "id": "73a521e3.a0e228",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "30",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "c6e1b736.a7c118"
+            ]
+        ],
+        "x": 130,
+        "y": 100,
+        "z": "da818f88.a776d"
+    },
+    {
+        "id": "793e9ab1.6a1b7c",
+        "influxdb": "697d3fd0.797c7",
+        "name": "",
+        "precision": "",
+        "query": "",
+        "rawOutput": false,
+        "retentionPolicy": "",
+        "type": "influxdb in",
+        "wires": [
+            [
+                "c13e3bc9.29ac58"
+            ]
+        ],
+        "x": 570,
+        "y": 100,
+        "z": "da818f88.a776d"
+    },
+    {
+        "func": "date_ob = new Date();\n\ndayOfMonth = (\"0\" + date_ob.getDate()).slice(-2);\nmonth = (\"0\" + (date_ob.getMonth() + 1)).slice(-2);\nyear = date_ob.getFullYear();\n\ndateString = year + \"-\" + month + \"-\" + dayOfMonth;\n\nmsg.query = \n  \"select mean(power) as power, \" +\n  \"mean(apparent_power) as apparent_power, \" +\n  \"mean(reactive_power) as reactive_power, \" +\n  \"mean(voltage) as voltage, \" +\n  \"mean(current) as current, \" +\n  \"mean(factor) as factor \" +\n  \"from solar_power \" +\n  \"where time >= '\" + dateString + \"' + 7h and \"+\n  \"time < '\" + dateString + \"' + 23h \" +\n  \"group by time(2m) fill(null) tz('Europe/Amsterdam')\";\n\n\nreturn msg;",
+        "id": "c6e1b736.a7c118",
+        "name": "Query",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "793e9ab1.6a1b7c"
+            ]
+        ],
+        "x": 310,
+        "y": 100,
+        "z": "da818f88.a776d"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": 0,
+        "id": "71cbe8d8.f1fcb8",
+        "interpolate": "linear",
+        "label": "",
+        "legend": "true",
+        "name": "Power",
+        "nodata": "",
+        "order": 1,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": 0,
+        "wires": [
+            []
+        ],
+        "x": 550,
+        "xformat": "HH:mm:ss",
+        "y": 260,
+        "ymax": "",
+        "ymin": "0",
+        "z": "da818f88.a776d"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "4142ba6e.7b1854",
+        "interpolate": "linear",
+        "label": "Voltage",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 2,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 560,
+        "xformat": "HH:mm:ss",
+        "y": 300,
+        "ymax": "",
+        "ymin": "0",
+        "z": "da818f88.a776d"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "63d08d40.dba0cc",
+        "interpolate": "linear",
+        "label": "Current",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 3,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 560,
+        "xformat": "HH:mm:ss",
+        "y": 340,
+        "ymax": "",
+        "ymin": "0",
+        "z": "da818f88.a776d"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "4159afe3.bd0fe",
+        "height": "4",
+        "id": "2d2ae5fa.5e0f02",
+        "interpolate": "linear",
+        "label": "Factor",
+        "legend": "false",
+        "name": "",
+        "nodata": "",
+        "order": 4,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": "6",
+        "wires": [
+            []
+        ],
+        "x": 550,
+        "xformat": "HH:mm:ss",
+        "y": 380,
+        "ymax": "",
+        "ymin": "0",
+        "z": "da818f88.a776d"
+    },
+    {
+        "func": "seriesPower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.power}));\nseriesApparentPower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.apparent_power}));\nseriesReactivePower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.reactive_power}));\nseriesVoltage =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.voltage}));\nseriesCurrent =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.current}));\nseriesFactor =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.factor}));\n\nreturn [{\n    topic: \"Solar only\",\n    payload: [{\n        \"series\": [\"Solar power\"],\n        \"data\": [\n            seriesPower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Solar power\",\n    payload: [{\n        \"series\": [\"Power\", \"Apparent Power\", \"Reactive Power\"],\n        \"data\": [\n            seriesPower,\n            seriesApparentPower,\n            seriesReactivePower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Voltage\",\n    payload: [{\n        \"series\": [\"Voltage\"],\n        \"data\": [\n            seriesVoltage\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Current\",\n    payload: [{\n        \"series\": [\"Current\"],\n        \"data\": [\n            seriesCurrent\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Factor\",\n    payload: [{\n        \"series\": [\"Factor\"],\n        \"data\": [\n            seriesFactor\n        ],\n        \"labels\": [\"\"]\n    }]\n}];\n",
+        "id": "c13e3bc9.29ac58",
+        "name": "To charts",
+        "noerr": 0,
+        "outputs": 5,
+        "type": "function",
+        "wires": [
+            [
+                "dc89aa3d.2aadf"
+            ],
+            [
+                "71cbe8d8.f1fcb8"
+            ],
+            [
+                "4142ba6e.7b1854"
+            ],
+            [
+                "63d08d40.dba0cc"
+            ],
+            [
+                "2d2ae5fa.5e0f02"
+            ]
+        ],
+        "x": 240,
+        "y": 300,
+        "z": "da818f88.a776d"
+    },
+    {
+        "chartType": "line",
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "cutout": 0,
+        "dot": false,
+        "group": "78fa6592.1d0d3c",
+        "height": 0,
+        "id": "dc89aa3d.2aadf",
+        "interpolate": "linear",
+        "label": "",
+        "legend": "true",
+        "name": "Solar power",
+        "nodata": "",
+        "order": 1,
+        "outputs": 1,
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "type": "ui_chart",
+        "useOldStyle": false,
+        "useOneColor": false,
+        "useUTC": false,
+        "width": 0,
+        "wires": [
+            []
+        ],
+        "x": 570,
+        "xformat": "HH:mm:ss",
+        "y": 220,
+        "ymax": "",
+        "ymin": "0",
+        "z": "da818f88.a776d"
+    },
+    {
+        "id": "e2036f80.5bc898",
+        "influxdb": "697d3fd0.797c7",
+        "name": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "type": "influxdb batch",
+        "wires": [],
+        "x": 950,
+        "y": 40,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "data = msg.payload\n\nmsg.payload = [\n    {\n        measurement: \"house_power\",\n        fields: {\n            current_w_received: data.current_w_received,\n            current_w_delivered: data.current_w_delivered,\n            total_kwh_received_t1: data.total_kwh_received_t1,\n            total_kwh_received_t2: data.total_kwh_received_t2,\n            total_kwh_delivered_t1: data.total_kwh_delivered_t1,\n            total_kwh_delivered_t2: data.total_kwh_delivered_t2\n        },\n        timestamp: new Date(data.timestamp)\n    },\n];\nreturn msg;\n",
+        "id": "ac6b5349.cbcd7",
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "e2036f80.5bc898"
+            ]
+        ],
+        "x": 690,
+        "y": 40,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "if(flow.serial_input === undefined) {\n    flow.serial_input = \"\";\n}\nflow.serial_input += msg.payload +\"\\r\\n\";\n\nif(msg.payload.startsWith(\"!\")) {\n    msg = {\n        topic: \"P1 input\",\n        payload: flow.serial_input\n    }\n    flow.serial_input = \"\";\n    return msg;\n}\n",
+        "id": "4c769910.a231d",
+        "name": "Combine parts",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "bab94a0f.921b38"
+            ]
+        ],
+        "x": 540,
+        "y": 160,
+        "z": "53214520.af847c"
+    },
+    {
+        "func": "result = {};\n\nmsg.payload.split(/\\r?\\n/).forEach( line => {\n    var lineParsed = line.match(/(.+?)(\\(.+)/);\n    if (lineParsed === null) {\n        return;\n    }\n\n    key = lineParsed[1];\n    value = lineParsed[2];\n\n    var res;\n    if(key === \"0-0:1.0.0\") {\n        res = value.match(/\\((\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})([SW])\\)/);\n        if (res === null) {\n            return;\n        }\n        year = parseInt(res[1]) + 2000;\n        month = parseInt(res[2]) - 1;\n        day = parseInt(res[3]);\n        hours = parseInt(res[4]);\n        minutes = parseInt(res[5]);\n        seconds = parseInt(res[6]);\n        dst = res[7] === \"W\";\n        timestamp = new Date(year, month, day, hours, minutes, seconds);\n        result.timestamp = timestamp.toISOString();\n    } else if(key === \"1-0:1.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_received = parseFloat(res[1]) * 1000;\n    } else if(key === \"1-0:2.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_delivered = parseFloat(res[1]) * 1000;\n    } else if(key === \"1-0:1.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t1 = parseFloat(res[1]);\n    } else if(key === \"1-0:1.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t2 = parseFloat(res[1]);\n    } else if(key === \"1-0:2.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t1 = parseFloat(res[1]);\n    } else if(key === \"1-0:2.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t2 = parseFloat(res[1]);\n    }\n    return;\n});\n\nmsg.payload = result;\n\nreturn msg;",
+        "id": "bab94a0f.921b38",
+        "name": "Convert",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ac6b5349.cbcd7"
+            ]
+        ],
+        "x": 460,
+        "y": 40,
+        "z": "53214520.af847c"
     }
 ]
