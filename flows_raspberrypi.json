@@ -2009,6 +2009,7 @@
         "op1type": "str",
         "op2": "false",
         "op2type": "str",
+        "outputs": 1,
         "reset": "",
         "type": "trigger",
         "units": "ms",
@@ -2424,6 +2425,7 @@
         "op1type": "nul",
         "op2": "true",
         "op2type": "bool",
+        "outputs": 1,
         "reset": "",
         "type": "trigger",
         "units": "min",
@@ -5189,5 +5191,40 @@
         "x": 460,
         "y": 40,
         "z": "53214520.af847c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "99968074.722f88",
+        "name": "SonoffR2-B",
+        "qos": "2",
+        "topic": "tele/tasmota_4F6977/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "2348e05d.e3d64"
+            ]
+        ],
+        "x": 150,
+        "y": 700,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"fridge\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "id": "2348e05d.e3d64",
+        "initialize": "",
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "e20a439.7b347c"
+            ]
+        ],
+        "x": 470,
+        "y": 700,
+        "z": "307f8b6a.ec1714"
     }
 ]
