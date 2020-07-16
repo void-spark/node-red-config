@@ -5226,5 +5226,20 @@
         "x": 470,
         "y": 700,
         "z": "307f8b6a.ec1714"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "2e363d39.1628da",
+        "name": "SonoffR2-C",
+        "qos": "2",
+        "topic": "tele/tasmota_4F6981/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            []
+        ],
+        "x": 150,
+        "y": 780,
+        "z": "307f8b6a.ec1714"
     }
 ]
