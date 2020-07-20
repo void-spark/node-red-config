@@ -5236,9 +5236,29 @@
         "topic": "tele/tasmota_4F6981/SENSOR",
         "type": "mqtt in",
         "wires": [
-            []
+            [
+                "7b37f4d0.653aa4"
+            ]
         ],
         "x": 150,
+        "y": 780,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"power_c\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "id": "7b37f4d0.653aa4",
+        "initialize": "",
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "e20a439.7b347c"
+            ]
+        ],
+        "x": 470,
         "y": 780,
         "z": "307f8b6a.ec1714"
     }
