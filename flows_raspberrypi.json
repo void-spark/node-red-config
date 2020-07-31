@@ -1438,8 +1438,8 @@
                 "11c77aec.a29e85"
             ]
         ],
-        "x": 450,
-        "y": 480,
+        "x": 410,
+        "y": 460,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -1470,7 +1470,8 @@
         "wires": [
             [
                 "9fcacdd2.81043",
-                "5917594a.b2888"
+                "5917594a.b2888",
+                "3763749a.0336c4"
             ]
         ],
         "x": 120,
@@ -5369,5 +5370,35 @@
         "x": 515,
         "y": 780,
         "z": "dd00ef6b.1ab33"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = [\n    {\n        measurement: \"temp_\" + msg.topic,\n        fields: {\n            value: msg.payload,\n        },\n        timestamp: new Date()\n    },\n];\nreturn msg;\n",
+        "id": "3763749a.0336c4",
+        "initialize": "",
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "dc6e4383.5ce2f8"
+            ]
+        ],
+        "x": 370,
+        "y": 560,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "id": "dc6e4383.5ce2f8",
+        "influxdb": "697d3fd0.797c7",
+        "name": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "type": "influxdb batch",
+        "wires": [],
+        "x": 490,
+        "y": 500,
+        "z": "459a3a0f.cadb4c"
     }
 ]
