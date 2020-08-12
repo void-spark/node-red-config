@@ -4658,7 +4658,7 @@
     },
     {
         "finalize": "",
-        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"fridge\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"solar_power2\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
         "id": "2348e05d.e3d64",
         "initialize": "",
         "name": "To influxdb format",
