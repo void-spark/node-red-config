@@ -61,6 +61,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "47b85eed.4f8768",
+        "info": "",
+        "label": "AMP IR",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -235,7 +242,7 @@
         "disp": true,
         "id": "ddd0fc4c.8a5e8",
         "name": "Bedroom",
-        "order": 2,
+        "order": 3,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
         "width": "6",
@@ -246,7 +253,7 @@
         "disp": true,
         "id": "42b6ae00.90b7d4",
         "name": "Home",
-        "order": 3,
+        "order": 4,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
         "width": "6",
@@ -256,7 +263,7 @@
         "disp": true,
         "id": "c8a54de6.369ff",
         "name": "NeoPixels",
-        "order": 4,
+        "order": 5,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
         "width": "6",
@@ -266,7 +273,7 @@
         "disp": true,
         "id": "2d022f29.4a0f6",
         "name": "Switches",
-        "order": 5,
+        "order": 6,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
         "width": "6",
@@ -287,7 +294,7 @@
         "disp": true,
         "id": "9677c439.5fa54",
         "name": "Kodi",
-        "order": 6,
+        "order": 7,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
         "width": "6",
@@ -313,6 +320,7 @@
         "icon": "fa-plug",
         "id": "8f71738d.39f7d8",
         "name": "Power",
+        "order": 4,
         "type": "ui_tab",
         "z": ""
     },
@@ -344,6 +352,7 @@
         "icon": "dashboard",
         "id": "3c71ce20.73a8c2",
         "name": "Solar only",
+        "order": 5,
         "type": "ui_tab",
         "z": ""
     },
@@ -364,6 +373,7 @@
         "icon": "dashboard",
         "id": "38eddcdf.4bf11c",
         "name": "Home power",
+        "order": 6,
         "type": "ui_tab",
         "z": ""
     },
@@ -389,6 +399,74 @@
         "type": "influxdb",
         "usetls": false,
         "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": true,
+        "id": "c6e2ca94.d05e8",
+        "name": "AMP",
+        "order": 2,
+        "tab": "b47e83d3.de77e",
+        "type": "ui_group",
+        "width": "6",
+        "z": ""
+    },
+    {
+        "disabled": false,
+        "hidden": false,
+        "icon": "dashboard",
+        "id": "3ecae79f.798258",
+        "name": "AMP",
+        "order": 6,
+        "type": "ui_tab",
+        "z": ""
+    },
+    {
+        "collapse": false,
+        "disp": false,
+        "id": "ffd321ee.bc6a68",
+        "name": "AMP",
+        "order": 1,
+        "tab": "3ecae79f.798258",
+        "type": "ui_group",
+        "width": "6",
+        "z": ""
+    },
+    {
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "id": "5a94b1ee.ca1428",
+        "name": "spacer",
+        "order": 2,
+        "type": "ui_spacer",
+        "width": 2
+    },
+    {
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "id": "57d529e4.de3f58",
+        "name": "spacer",
+        "order": 4,
+        "type": "ui_spacer",
+        "width": 4
+    },
+    {
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "id": "e756cac3.f4dce",
+        "name": "spacer",
+        "order": 6,
+        "type": "ui_spacer",
+        "width": 6
+    },
+    {
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "id": "5d5caac3.0a752c",
+        "name": "spacer",
+        "order": 12,
+        "type": "ui_spacer",
+        "width": 2
     },
     {
         "broker": "69f5a3df.5a8b0c",
@@ -5401,5 +5479,242 @@
         "x": 490,
         "y": 500,
         "z": "459a3a0f.cadb4c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "id": "27c52d4.458b452",
+        "name": "Send",
+        "qos": "2",
+        "retain": "false",
+        "topic": "devices/3c71bf10840c/ir/send",
+        "type": "mqtt out",
+        "wires": [],
+        "x": 770,
+        "y": 360,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "663db002.d44848",
+        "label": "Vol +",
+        "name": "",
+        "order": 3,
+        "passthru": false,
+        "payload": "001010100100110000000010100000001110100001101010",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 340,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "308add3a.dd0ad2",
+        "label": "Vol -",
+        "name": "",
+        "order": 5,
+        "passthru": false,
+        "payload": "001010100100110000000010100010001110100001100010",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 300,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "fa-power-off ",
+        "id": "6b315fd.fc335a",
+        "label": "Power",
+        "name": "",
+        "order": 1,
+        "passthru": false,
+        "payload": "001010100100110000000010100010100000000010001000",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 220,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "3047d665.00345a",
+        "label": "Fav 1",
+        "name": "",
+        "order": 7,
+        "passthru": false,
+        "payload": "001010100100110000000010100001001111000001110110",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 400,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "ef439224.3fe148",
+        "label": "Fav 2",
+        "name": "",
+        "order": 8,
+        "passthru": false,
+        "payload": "001010100100110000000010100011001111000001111110",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 440,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "480789f3.80ec28",
+        "label": "Fav 3",
+        "name": "",
+        "order": 9,
+        "passthru": false,
+        "payload": "001010100100110000000010100000101111000001110000",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 370,
+        "y": 480,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "810f7e64.88fd88",
+        "label": "CoreELEC",
+        "name": "",
+        "order": 10,
+        "passthru": false,
+        "payload": "001010100100110000000010100000001011010000110110",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 390,
+        "y": 560,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "98f96afe.f0e1b",
+        "label": "TV AUDIO",
+        "name": "",
+        "order": 11,
+        "passthru": false,
+        "payload": "001010100100110000000010100001001011010000110010",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "27c52d4.458b452"
+            ]
+        ],
+        "x": 390,
+        "y": 600,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "finalize": "",
+        "func": "\nvar manufacturer = '0010101001001100';\nvar manufacturer_par = '0000';\nvar genre1 = 4;\nvar genre2 = 1;\nvar func = 5;\nvar id = 0;\n\nfunction bin(value, length) {\n  return value.toString(2).padStart(length, '0')\n    .split(\"\").reverse().join(\"\");\n}\nfunction bin2(value, length) {\n  return value.toString(2).padStart(length, '0');\n}\n\nvar funcBin = bin(func, 10);\nvar idBin = bin(id, 2);\n\nvar par1 = manufacturer_par + bin(genre1, 4);\nvar par2 = bin(genre2, 4) + funcBin.substr(0,4);\nvar par3 = funcBin.substr(4,6) + idBin;\n\nvar par = parseInt( par1, 2 ) ^ parseInt( par2, 2 ) ^ parseInt( par3, 2 );\n\nconsole.log(manufacturer + par1 + par2 + par3 + bin2(par, 8));\n\n\nreturn msg;",
+        "id": "c2afa7fa.ffa0e",
+        "initialize": "",
+        "name": "",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 650,
+        "y": 120,
+        "z": "47b85eed.4f8768"
     }
 ]
