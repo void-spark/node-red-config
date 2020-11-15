@@ -195,8 +195,7 @@
         "id": "5cee9693.358b08",
         "name": "Temps",
         "order": 3,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "disp": true,
@@ -205,8 +204,7 @@
         "order": 1,
         "tab": "5cee9693.358b08",
         "type": "ui_group",
-        "width": "24",
-        "z": ""
+        "width": "24"
     },
     {
         "birthPayload": "",
@@ -227,16 +225,14 @@
         "usetls": false,
         "willPayload": "",
         "willQos": "0",
-        "willTopic": "",
-        "z": ""
+        "willTopic": ""
     },
     {
         "icon": "dashboard",
         "id": "b47e83d3.de77e",
         "name": "Dashboard",
         "order": 1,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "disp": true,
@@ -245,8 +241,7 @@
         "order": 3,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "collapse": false,
@@ -256,8 +251,7 @@
         "order": 4,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "disp": true,
@@ -266,8 +260,7 @@
         "order": 5,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "disp": true,
@@ -276,8 +269,7 @@
         "order": 6,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "disp": true,
@@ -286,8 +278,7 @@
         "order": 1,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "collapse": false,
@@ -297,8 +288,7 @@
         "order": 7,
         "tab": "b47e83d3.de77e",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "angleType": "deg",
@@ -311,8 +301,7 @@
         "stateTimeFormat": "3",
         "timeZoneDST": 0,
         "timeZoneOffset": 99,
-        "type": "position-config",
-        "z": ""
+        "type": "position-config"
     },
     {
         "disabled": false,
@@ -321,8 +310,7 @@
         "id": "8f71738d.39f7d8",
         "name": "Power",
         "order": 4,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "collapse": false,
@@ -332,8 +320,7 @@
         "order": 2,
         "tab": "8f71738d.39f7d8",
         "type": "ui_group",
-        "width": "18",
-        "z": ""
+        "width": "18"
     },
     {
         "collapse": false,
@@ -343,8 +330,7 @@
         "order": 1,
         "tab": "8f71738d.39f7d8",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "disabled": false,
@@ -353,8 +339,7 @@
         "id": "3c71ce20.73a8c2",
         "name": "Solar only",
         "order": 5,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "collapse": false,
@@ -364,8 +349,7 @@
         "order": 1,
         "tab": "3c71ce20.73a8c2",
         "type": "ui_group",
-        "width": "18",
-        "z": ""
+        "width": "18"
     },
     {
         "disabled": false,
@@ -374,8 +358,7 @@
         "id": "38eddcdf.4bf11c",
         "name": "Home power",
         "order": 6,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "collapse": false,
@@ -385,8 +368,7 @@
         "order": 1,
         "tab": "38eddcdf.4bf11c",
         "type": "ui_group",
-        "width": "18",
-        "z": ""
+        "width": "18"
     },
     {
         "database": "home_db",
@@ -397,8 +379,7 @@
         "protocol": "http",
         "tls": "",
         "type": "influxdb",
-        "usetls": false,
-        "z": ""
+        "usetls": false
     },
     {
         "disabled": false,
@@ -407,8 +388,7 @@
         "id": "3ecae79f.798258",
         "name": "AMP",
         "order": 6,
-        "type": "ui_tab",
-        "z": ""
+        "type": "ui_tab"
     },
     {
         "collapse": false,
@@ -418,8 +398,7 @@
         "order": 1,
         "tab": "3ecae79f.798258",
         "type": "ui_group",
-        "width": "6",
-        "z": ""
+        "width": "6"
     },
     {
         "group": "ffd321ee.bc6a68",
@@ -5705,5 +5684,29 @@
         "x": 650,
         "y": 120,
         "z": "47b85eed.4f8768"
+    },
+    {
+        "audioURI": "/data/ogg/01_-_NeverEnding_Story_-_C64_-_The_NeverEnding_Story.ogg",
+        "id": "e2ba0b59.7d901",
+        "name": "",
+        "options": "{}",
+        "playerOptions": "{\"player\": \"ogg123\"}",
+        "type": "PlaySound",
+        "wires": [
+            []
+        ],
+        "x": 730,
+        "y": 120,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "id": "3d6328bb.df1c9",
+        "info": "wget http://vgmpf.com/Wiki/images/1/15/01_-_NeverEnding_Story_-_C64_-_The_NeverEnding_Story.ogg",
+        "name": "File source",
+        "type": "comment",
+        "wires": [],
+        "x": 530,
+        "y": 700,
+        "z": "8986fa08.d4999"
     }
 ]
