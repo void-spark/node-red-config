@@ -728,7 +728,8 @@
         "type": "mqtt in",
         "wires": [
             [
-                "a9244488.d9968"
+                "a9244488.d9968",
+                "6c6af118.4fa65"
             ]
         ],
         "x": 180,
@@ -5695,8 +5696,8 @@
         "wires": [
             []
         ],
-        "x": 730,
-        "y": 120,
+        "x": 710,
+        "y": 100,
         "z": "8986fa08.d4999"
     },
     {
@@ -5707,6 +5708,45 @@
         "wires": [],
         "x": 530,
         "y": 700,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "bytopic": "all",
+        "duration": "30",
+        "extend": true,
+        "id": "6c6af118.4fa65",
+        "name": "",
+        "op1": "start",
+        "op1type": "str",
+        "op2": "stop",
+        "op2type": "str",
+        "outputs": 1,
+        "overrideDelay": false,
+        "reset": "",
+        "topic": "topic",
+        "type": "trigger",
+        "units": "s",
+        "wires": [
+            [
+                "af2a2eca.6e18e8"
+            ]
+        ],
+        "x": 410,
+        "y": 140,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "audioURI": "/data/mp3/Englishman_In_New_York.mp3",
+        "id": "af2a2eca.6e18e8",
+        "name": "",
+        "options": "{}",
+        "playerOptions": "{\"player\": \"mpg123\"}",
+        "type": "PlaySound",
+        "wires": [
+            []
+        ],
+        "x": 710,
+        "y": 160,
         "z": "8986fa08.d4999"
     }
 ]
