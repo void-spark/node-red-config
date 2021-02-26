@@ -374,6 +374,7 @@
         "database": "home_db",
         "hostname": "debian.fritz.box",
         "id": "697d3fd0.797c7",
+        "influxdbVersion": "1.x",
         "name": "",
         "port": "8086",
         "protocol": "http",
@@ -435,6 +436,20 @@
         "order": 12,
         "type": "ui_spacer",
         "width": 2
+    },
+    {
+        "database": "database",
+        "hostname": "127.0.0.1",
+        "id": "9e729019.2637e",
+        "influxdbVersion": "2.0",
+        "name": "InfluxDB-Flux",
+        "port": "8086",
+        "protocol": "http",
+        "rejectUnauthorized": true,
+        "tls": "",
+        "type": "influxdb",
+        "url": "http://debian.fritz.box:8086",
+        "usetls": false
     },
     {
         "broker": "69f5a3df.5a8b0c",
