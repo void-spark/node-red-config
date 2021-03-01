@@ -4313,27 +4313,17 @@
         "z": "53214520.af847c"
     },
     {
-        "id": "e20a439.7b347c",
-        "influxdb": "697d3fd0.797c7",
-        "name": "",
-        "precision": "",
-        "retentionPolicy": "",
-        "type": "influxdb batch",
-        "wires": [],
-        "x": 750,
-        "y": 80,
-        "z": "307f8b6a.ec1714"
-    },
-    {
-        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"solar_power\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.measurement = \"solar_power\";\nmsg.payload = {\n  value: data.Power,\n  power: data.Power,\n  apparent_power: data.ApparentPower,\n  reactive_power: data.ReactivePower,\n  voltage: data.Voltage,\n  current: data.Current,\n  factor: data.Factor,\n  total_start_time: data.TotalStartTime,\n  total: data.Total,\n  today: data.Today,\n  yesterday: data.Yesterday,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
         "id": "6757fa12.66ed94",
+        "initialize": "",
         "name": "To influxdb format",
         "noerr": 0,
         "outputs": 1,
         "type": "function",
         "wires": [
             [
-                "e20a439.7b347c"
+                "cf463c2c.d0c398"
             ]
         ],
         "x": 470,
@@ -4362,8 +4352,9 @@
     },
     {
         "id": "793e9ab1.6a1b7c",
-        "influxdb": "697d3fd0.797c7",
+        "influxdb": "9e729019.2637e",
         "name": "",
+        "org": "phin-home",
         "precision": "",
         "query": "",
         "rawOutput": false,
@@ -4374,13 +4365,15 @@
                 "c13e3bc9.29ac58"
             ]
         ],
-        "x": 570,
+        "x": 510,
         "y": 100,
         "z": "da818f88.a776d"
     },
     {
-        "func": "date_ob = new Date();\n\ndayOfMonth = (\"0\" + date_ob.getDate()).slice(-2);\nmonth = (\"0\" + (date_ob.getMonth() + 1)).slice(-2);\nyear = date_ob.getFullYear();\n\ndateString = year + \"-\" + month + \"-\" + dayOfMonth;\n\nmsg.query = \n  \"select mean(power) as power, \" +\n  \"mean(apparent_power) as apparent_power, \" +\n  \"mean(reactive_power) as reactive_power, \" +\n  \"mean(voltage) as voltage, \" +\n  \"mean(current) as current, \" +\n  \"mean(factor) as factor \" +\n  \"from solar_power \" +\n  \"where time >= '\" + dateString + \"' + 7h and \"+\n  \"time < '\" + dateString + \"' + 23h \" +\n  \"group by time(2m) fill(null) tz('Europe/Amsterdam')\";\n\n\nreturn msg;",
+        "finalize": "",
+        "func": "msg.query = `import \"date\"\nimport \"experimental\"\n\nfrom(bucket: \"home_db/autogen\")\n  |> range(\n       start: experimental.addDuration(d: 7h, to: date.truncate(t: 0d, unit: 1d)), \n       stop: experimental.addDuration(d: 23h, to: date.truncate(t: 0d, unit: 1d))\n     )\n  |> filter(fn: (r) => r[\"_measurement\"] == \"solar_power\")\n  |> filter(fn: (r) => r[\"_field\"] == \"power\" or r[\"_field\"] == \"apparent_power\" or r[\"_field\"] == \"reactive_power\" or r[\"_field\"] == \"voltage\" or r[\"_field\"] == \"current\" or r[\"_field\"] == \"factor\")\n  |> timeShift(duration: -1h)  \n  |> aggregateWindow(every: 2m, fn: mean, createEmpty: true)\n  |> yield(name: \"mean\")`\n\n\nreturn msg;",
         "id": "c6e1b736.a7c118",
+        "initialize": "",
         "name": "Query",
         "noerr": 0,
         "outputs": 1,
@@ -4563,8 +4556,10 @@
         "z": "da818f88.a776d"
     },
     {
-        "func": "seriesPower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.power}));\nseriesApparentPower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.apparent_power}));\nseriesReactivePower = \n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.reactive_power}));\nseriesVoltage =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.voltage}));\nseriesCurrent =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.current}));\nseriesFactor =\n    msg.payload.map(record => ({ \n        \"x\": record.time, \n        \"y\": record.factor}));\n\nreturn [{\n    topic: \"Solar only\",\n    payload: [{\n        \"series\": [\"Solar power\"],\n        \"data\": [\n            seriesPower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Solar power\",\n    payload: [{\n        \"series\": [\"Power\", \"Apparent Power\", \"Reactive Power\"],\n        \"data\": [\n            seriesPower,\n            seriesApparentPower,\n            seriesReactivePower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Voltage\",\n    payload: [{\n        \"series\": [\"Voltage\"],\n        \"data\": [\n            seriesVoltage\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Current\",\n    payload: [{\n        \"series\": [\"Current\"],\n        \"data\": [\n            seriesCurrent\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Factor\",\n    payload: [{\n        \"series\": [\"Factor\"],\n        \"data\": [\n            seriesFactor\n        ],\n        \"labels\": [\"\"]\n    }]\n}];\n",
+        "finalize": "",
+        "func": "seriesPower = \n    msg.payload.filter(record => record._field === \"power\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\nseriesApparentPower = \n    msg.payload.filter(record => record._field === \"apparent_power\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\nseriesReactivePower = \n    msg.payload.filter(record => record._field === \"reactive_power\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\nseriesVoltage =\n    msg.payload.filter(record => record._field === \"voltage\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\nseriesCurrent =\n    msg.payload.filter(record => record._field === \"current\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\nseriesFactor =\n    msg.payload.filter(record => record._field === \"factor\")\n    .map(record => ({ \n        \"x\": record._time, \n        \"y\": record._value}));\n\nreturn [{\n    topic: \"Solar only\",\n    payload: [{\n        \"series\": [\"Solar power\"],\n        \"data\": [\n            seriesPower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Solar power\",\n    payload: [{\n        \"series\": [\"Power\", \"Apparent Power\", \"Reactive Power\"],\n        \"data\": [\n            seriesPower,\n            seriesApparentPower,\n            seriesReactivePower\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Voltage\",\n    payload: [{\n        \"series\": [\"Voltage\"],\n        \"data\": [\n            seriesVoltage\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Current\",\n    payload: [{\n        \"series\": [\"Current\"],\n        \"data\": [\n            seriesCurrent\n        ],\n        \"labels\": [\"\"]\n    }]\n},{\n    topic: \"Factor\",\n    payload: [{\n        \"series\": [\"Factor\"],\n        \"data\": [\n            seriesFactor\n        ],\n        \"labels\": [\"\"]\n    }]\n}];\n",
         "id": "c13e3bc9.29ac58",
+        "initialize": "",
         "name": "To charts",
         "noerr": 0,
         "outputs": 5,
@@ -4633,27 +4628,17 @@
         "z": "da818f88.a776d"
     },
     {
-        "id": "e2036f80.5bc898",
-        "influxdb": "697d3fd0.797c7",
-        "name": "",
-        "precision": "",
-        "retentionPolicy": "",
-        "type": "influxdb batch",
-        "wires": [],
-        "x": 950,
-        "y": 40,
-        "z": "53214520.af847c"
-    },
-    {
-        "func": "data = msg.payload\n\nmsg.payload = [\n    {\n        measurement: \"house_power\",\n        fields: {\n            current_w_received: data.current_w_received,\n            current_w_delivered: data.current_w_delivered,\n            total_kwh_received_t1: data.total_kwh_received_t1,\n            total_kwh_received_t2: data.total_kwh_received_t2,\n            total_kwh_delivered_t1: data.total_kwh_delivered_t1,\n            total_kwh_delivered_t2: data.total_kwh_delivered_t2\n        },\n        timestamp: new Date(data.timestamp)\n    },\n];\nreturn msg;\n",
+        "finalize": "",
+        "func": "data = msg.payload\n\nmsg.measurement = \"house_power\";\nmsg.payload = {\n  current_w_received: data.current_w_received,\n  current_w_delivered: data.current_w_delivered,\n  total_kwh_received_t1: data.total_kwh_received_t1,\n  total_kwh_received_t2: data.total_kwh_received_t2,\n  total_kwh_delivered_t1: data.total_kwh_delivered_t1,\n  total_kwh_delivered_t2: data.total_kwh_delivered_t2,\n  time: new Date(data.timestamp).getTime()\n};\nreturn msg;\n",
         "id": "ac6b5349.cbcd7",
+        "initialize": "",
         "name": "To influxdb format",
         "noerr": 0,
         "outputs": 1,
         "type": "function",
         "wires": [
             [
-                "e2036f80.5bc898"
+                "2b375b56.872754"
             ]
         ],
         "x": 690,
@@ -4711,7 +4696,7 @@
     },
     {
         "finalize": "",
-        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"solar_power2\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.measurement = \"solar_power2\";\nmsg.payload = {\n  value: data.Power,\n  power: data.Power,\n  apparent_power: data.ApparentPower,\n  reactive_power: data.ReactivePower,\n  voltage: data.Voltage,\n  current: data.Current,\n  factor: data.Factor,\n  total_start_time: data.TotalStartTime,\n  total: data.Total,\n  today: data.Today,\n  yesterday: data.Yesterday,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
         "id": "2348e05d.e3d64",
         "initialize": "",
         "name": "To influxdb format",
@@ -4720,7 +4705,7 @@
         "type": "function",
         "wires": [
             [
-                "e20a439.7b347c"
+                "cf463c2c.d0c398"
             ]
         ],
         "x": 470,
@@ -4746,7 +4731,7 @@
     },
     {
         "finalize": "",
-        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.payload = [\n    {\n        measurement: \"solar_power3\",\n        fields: {\n            value: data.Power,\n            power: data.Power,\n            apparent_power: data.ApparentPower,\n            reactive_power: data.ReactivePower,\n            voltage: data.Voltage,\n            current: data.Current,\n            factor: data.Factor,\n            total_start_time: data.TotalStartTime,\n            total: data.Total,\n            today: data.Today,\n            yesterday: data.Yesterday\n        },\n        timestamp: new Date(time)\n    },\n];\nreturn msg;\n",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.ENERGY;\n\nmsg.measurement = \"solar_power3\";\nmsg.payload = {\n  value: data.Power,\n  power: data.Power,\n  apparent_power: data.ApparentPower,\n  reactive_power: data.ReactivePower,\n  voltage: data.Voltage,\n  current: data.Current,\n  factor: data.Factor,\n  total_start_time: data.TotalStartTime,\n  total: data.Total,\n  today: data.Today,\n  yesterday: data.Yesterday,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
         "id": "7b37f4d0.653aa4",
         "initialize": "",
         "name": "To influxdb format",
@@ -4755,7 +4740,7 @@
         "type": "function",
         "wires": [
             [
-                "e20a439.7b347c"
+                "cf463c2c.d0c398"
             ]
         ],
         "x": 470,
@@ -5427,7 +5412,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = [\n    {\n        measurement: \"temp_\" + msg.topic,\n        fields: {\n            value: msg.payload,\n        },\n        timestamp: new Date()\n    },\n];\nreturn msg;\n",
+        "func": "msg.measurement = \"temp_\" + msg.topic;\nmsg.payload = {\n  value: msg.payload,\n  time: new Date().getTime()\n};\nreturn msg;\n",
         "id": "3763749a.0336c4",
         "initialize": "",
         "name": "To influxdb format",
@@ -5436,23 +5421,11 @@
         "type": "function",
         "wires": [
             [
-                "dc6e4383.5ce2f8"
+                "c6dfcb23.ac3a58"
             ]
         ],
         "x": 370,
         "y": 560,
-        "z": "459a3a0f.cadb4c"
-    },
-    {
-        "id": "dc6e4383.5ce2f8",
-        "influxdb": "697d3fd0.797c7",
-        "name": "",
-        "precision": "",
-        "retentionPolicy": "",
-        "type": "influxdb batch",
-        "wires": [],
-        "x": 490,
-        "y": 500,
         "z": "459a3a0f.cadb4c"
     },
     {
@@ -5780,5 +5753,59 @@
         "x": 370,
         "y": 640,
         "z": "47b85eed.4f8768"
+    },
+    {
+        "bucket": "home_db/autogen",
+        "database": "database",
+        "id": "c6dfcb23.ac3a58",
+        "influxdb": "9e729019.2637e",
+        "measurement": "",
+        "name": "",
+        "org": "phin-home",
+        "precision": "",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicy": "",
+        "retentionPolicyV18Flux": "",
+        "type": "influxdb out",
+        "wires": [],
+        "x": 610,
+        "y": 400,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "bucket": "home_db/autogen",
+        "database": "database",
+        "id": "cf463c2c.d0c398",
+        "influxdb": "9e729019.2637e",
+        "measurement": "",
+        "name": "",
+        "org": "phin-home",
+        "precision": "",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicy": "",
+        "retentionPolicyV18Flux": "",
+        "type": "influxdb out",
+        "wires": [],
+        "x": 830,
+        "y": 80,
+        "z": "307f8b6a.ec1714"
+    },
+    {
+        "bucket": "home_db/autogen",
+        "database": "database",
+        "id": "2b375b56.872754",
+        "influxdb": "9e729019.2637e",
+        "measurement": "",
+        "name": "",
+        "org": "phin-home",
+        "precision": "",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicy": "",
+        "retentionPolicyV18Flux": "",
+        "type": "influxdb out",
+        "wires": [],
+        "x": 910,
+        "y": 40,
+        "z": "53214520.af847c"
     }
 ]
