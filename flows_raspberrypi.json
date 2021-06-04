@@ -68,6 +68,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "1ce9f9b0.4eb196",
+        "info": "",
+        "label": "Power",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -5807,5 +5814,60 @@
         "x": 910,
         "y": 40,
         "z": "53214520.af847c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "utf8",
+        "id": "1e78788b.d1f907",
+        "name": "",
+        "nl": false,
+        "qos": "2",
+        "rap": true,
+        "rh": 0,
+        "topic": "devices/cc50e395f224/display/value",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "1e288f7c.8ffe09"
+            ]
+        ],
+        "x": 290,
+        "y": 260,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "active": true,
+        "complete": "false",
+        "console": false,
+        "id": "56ec2c50.366584",
+        "name": "",
+        "statusType": "auto",
+        "statusVal": "",
+        "tosidebar": true,
+        "tostatus": false,
+        "type": "debug",
+        "wires": [],
+        "x": 730,
+        "y": 260,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "var result = '';\nmainloop:\nfor(var pos = 0 ; pos < 16; pos++) {\n    const val = msg.payload.substr(2*pos, 2);\n    if(val == '20') {\n        result += ' ';\n        continue;\n    }\n    if(val == '2e') {\n        result += '.';\n        continue;\n    }\n    for(var index = 0 ; index < 10 ; index++) {\n        if(parseInt(val, 16) == parseInt('30', 16) + index) {\n            result += index;\n            continue mainloop;\n        }\n    }\n    // 41 + 26 -> A-Z\n    for(var index = 0 ; index < 26 ; index++) {\n        if(parseInt(val, 16) == parseInt('41', 16) + index) {\n            result +=  String.fromCharCode(65 + index);\n            continue mainloop;\n        }\n    }\n    // 61 + 26 -> a-z\n    for(var index = 0 ; index < 26 ; index++) {\n        if(parseInt(val, 16) == parseInt('61', 16) + index) {\n            result +=  String.fromCharCode(97 + index);\n            continue mainloop;\n        }\n    }\n    \n    result += '[' + val + ']';\n}\nmsg.payload = result;\n\nreturn msg;\n",
+        "id": "1e288f7c.8ffe09",
+        "initialize": "",
+        "libs": [],
+        "name": "Decode",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "56ec2c50.366584"
+            ]
+        ],
+        "x": 540,
+        "y": 260,
+        "z": "1ce9f9b0.4eb196"
     }
 ]
