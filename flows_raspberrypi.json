@@ -75,6 +75,13 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "id": "5ecdcc0a.76574c",
+        "info": "",
+        "label": "LCD",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -6528,5 +6535,52 @@
         "x": 1110,
         "y": 480,
         "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "crontab": "",
+        "id": "290794d7.5e34f4",
+        "name": "Hello dragon",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "48656c6c6f20447261676f6e21,4e6f73792065683f203a4029",
+        "payloadType": "str",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "topic": "devices/083af2512be8/display/write",
+        "type": "inject",
+        "wires": [
+            [
+                "8a40680c.753a38"
+            ]
+        ],
+        "x": 220,
+        "y": 260,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "contentType": "",
+        "correl": "",
+        "expiry": "",
+        "id": "8a40680c.753a38",
+        "name": "",
+        "qos": "",
+        "respTopic": "",
+        "retain": "",
+        "topic": "",
+        "type": "mqtt out",
+        "userProps": "",
+        "wires": [],
+        "x": 450,
+        "y": 260,
+        "z": "5ecdcc0a.76574c"
     }
 ]
