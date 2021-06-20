@@ -3893,7 +3893,8 @@
             [
                 "ac50c75f.fce3",
                 "c7edeb41.3b9c48",
-                "6de2dae7.04f41c"
+                "6de2dae7.04f41c",
+                "6cacd492.26010c"
             ]
         ],
         "x": 750,
@@ -3910,7 +3911,8 @@
         "wires": [
             [
                 "ac50c75f.fce3",
-                "8a847845.5383e"
+                "8a847845.5383e",
+                "2a70fa85.6933e6"
             ]
         ],
         "x": 760,
@@ -4045,9 +4047,10 @@
     {
         "id": "fbf9e851.048aa",
         "links": [
-            "e86fa4f8.ce18e8"
+            "e86fa4f8.ce18e8",
+            "33f8b039.6e3cb"
         ],
-        "name": "",
+        "name": "temps",
         "type": "link out",
         "wires": [],
         "x": 815,
@@ -6554,15 +6557,15 @@
             }
         ],
         "repeat": "",
-        "topic": "devices/083af2512be8/display/write",
+        "topic": "",
         "type": "inject",
         "wires": [
             [
                 "8a40680c.753a38"
             ]
         ],
-        "x": 220,
-        "y": 260,
+        "x": 850,
+        "y": 340,
         "z": "5ecdcc0a.76574c"
     },
     {
@@ -6571,16 +6574,490 @@
         "correl": "",
         "expiry": "",
         "id": "8a40680c.753a38",
-        "name": "",
+        "name": "Display",
         "qos": "",
         "respTopic": "",
         "retain": "",
-        "topic": "",
+        "topic": "devices/083af2512be8/display/write",
         "type": "mqtt out",
         "userProps": "",
         "wires": [],
-        "x": 450,
+        "x": 1040,
+        "y": 400,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "finalize": "",
+        "func": "var result = '';\nfor(var pos = 0 ; pos < msg.payload.length; pos++) {\n    const hex = msg.payload.charCodeAt(pos).toString(16).padStart(2, '0');\n    result += hex;\n}\nmsg.payload = result;\n\nreturn msg;\n",
+        "id": "aed2dddf.60265",
+        "initialize": "",
+        "libs": [],
+        "name": "To Hex",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "716991d4.a1a01"
+            ]
+        ],
+        "x": 530,
+        "y": 420,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "adjAmount": 0,
+        "adjDir": "add",
+        "adjType": "days",
+        "format": "HH:mm:ss",
+        "id": "df864241.949cb8",
+        "inTz": "Europe/Amsterdam",
+        "input": "",
+        "inputType": "msg",
+        "locale": "en-US",
+        "name": "",
+        "outTz": "Europe/Amsterdam",
+        "output": "",
+        "outputType": "msg",
+        "topic": "time",
+        "type": "moment",
+        "wires": [
+            [
+                "6ef69076.f80fe8"
+            ]
+        ],
+        "x": 250,
+        "y": 480,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "crontab": "",
+        "id": "d258f716.22b308",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "df864241.949cb8"
+            ]
+        ],
+        "x": 110,
+        "y": 480,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "id": "6cacd492.26010c",
+        "links": [
+            "d6ec2ac3.24f5f"
+        ],
+        "name": "Watt in",
+        "type": "link out",
+        "wires": [],
+        "x": 1175,
+        "y": 200,
+        "z": "53214520.af847c"
+    },
+    {
+        "id": "2a70fa85.6933e6",
+        "links": [
+            "dac9fcf5.4f3058"
+        ],
+        "name": "Watt out",
+        "type": "link out",
+        "wires": [],
+        "x": 1175,
         "y": 260,
+        "z": "53214520.af847c"
+    },
+    {
+        "id": "dac9fcf5.4f3058",
+        "links": [
+            "2a70fa85.6933e6"
+        ],
+        "name": "Watt out",
+        "type": "link in",
+        "wires": [
+            [
+                "7713f876.a8f59"
+            ]
+        ],
+        "x": 35,
+        "y": 280,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "id": "33f8b039.6e3cb",
+        "links": [
+            "fbf9e851.048aa"
+        ],
+        "name": "temps",
+        "type": "link in",
+        "wires": [
+            [
+                "913512d.bc0baf"
+            ]
+        ],
+        "x": 695,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "id": "d6ec2ac3.24f5f",
+        "links": [
+            "6cacd492.26010c"
+        ],
+        "name": "Watt in",
+        "type": "link in",
+        "wires": [
+            [
+                "db76bd33.e27f28"
+            ]
+        ],
+        "x": 35,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "checkall": "true",
+        "id": "913512d.bc0baf",
+        "name": "",
+        "outputs": 1,
+        "property": "topic",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "t": "eq",
+                "v": "bedroom_outside_api",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "7be92e4.ad998d"
+            ]
+        ],
+        "x": 790,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = -msg.payload;\n\nreturn msg;",
+        "id": "7713f876.a8f59",
+        "initialize": "",
+        "libs": [],
+        "name": "Negate",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "db76bd33.e27f28"
+            ]
+        ],
+        "x": 140,
+        "y": 280,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "checkall": "true",
+        "id": "db76bd33.e27f28",
+        "name": "",
+        "outputs": 1,
+        "property": "payload",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "d462f40b.eef98"
+            ]
+        ],
+        "x": 290,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "accumulate": true,
+        "build": "object",
+        "count": "1",
+        "id": "6ef69076.f80fe8",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "key": "topic",
+        "mode": "custom",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "reduceExp": "",
+        "reduceFixup": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceRight": false,
+        "timeout": "",
+        "type": "join",
+        "wires": [
+            [
+                "628ec9c3.499b1",
+                "8b3239a0.8112e8"
+            ]
+        ],
+        "x": 110,
+        "y": 400,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "id": "628ec9c3.499b1",
+        "name": "Line2",
+        "output": "str",
+        "syntax": "mustache",
+        "template": "{{payload.watt}}W      :@)",
+        "type": "template",
+        "wires": [
+            [
+                "de5d8770.7ff6"
+            ]
+        ],
+        "x": 250,
+        "y": 420,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "id": "8b3239a0.8112e8",
+        "name": "Line1",
+        "output": "str",
+        "syntax": "mustache",
+        "template": "{{payload.time}} {{payload.temp}}\u00dfC",
+        "type": "template",
+        "wires": [
+            [
+                "c14885e9.243bf8"
+            ]
+        ],
+        "x": 250,
+        "y": 380,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "finalize": "",
+        "func": "var result = '';\nfor(var pos = 0 ; pos < msg.payload.length; pos++) {\n    const hex = msg.payload.charCodeAt(pos).toString(16).padStart(2, '0');\n    result += hex;\n}\nmsg.payload = result;\n\nreturn msg;\n",
+        "id": "d3d952bf.f92338",
+        "initialize": "",
+        "libs": [],
+        "name": "To Hex",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "716991d4.a1a01"
+            ]
+        ],
+        "x": 530,
+        "y": 380,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "1c37971b.0c9cf1",
+        "name": "T:watt",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "watt",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "6ef69076.f80fe8"
+            ]
+        ],
+        "x": 570,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "7be92e4.ad998d",
+        "name": "T:temp",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "temp",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "6ef69076.f80fe8"
+            ]
+        ],
+        "x": 950,
+        "y": 220,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "id": "3b193522.e5b63a",
+        "name": "Combine lines",
+        "output": "str",
+        "syntax": "mustache",
+        "template": "{{payload.line1}},{{payload.line2}}",
+        "type": "template",
+        "wires": [
+            [
+                "8a40680c.753a38"
+            ]
+        ],
+        "x": 840,
+        "y": 400,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "accumulate": true,
+        "build": "object",
+        "count": "1",
+        "id": "716991d4.a1a01",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "key": "topic",
+        "mode": "custom",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "reduceExp": "",
+        "reduceFixup": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceRight": false,
+        "timeout": "",
+        "type": "join",
+        "wires": [
+            [
+                "3b193522.e5b63a"
+            ]
+        ],
+        "x": 670,
+        "y": 400,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "c14885e9.243bf8",
+        "name": "T:line1",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "line1",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "d3d952bf.f92338"
+            ]
+        ],
+        "x": 390,
+        "y": 380,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "de5d8770.7ff6",
+        "name": "T:line2",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "line2",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "aed2dddf.60265"
+            ]
+        ],
+        "x": 390,
+        "y": 420,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.toString().padStart(4, ' ');\nreturn msg;",
+        "id": "d462f40b.eef98",
+        "initialize": "",
+        "libs": [],
+        "name": "Pad",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "1c37971b.0c9cf1"
+            ]
+        ],
+        "x": 430,
+        "y": 220,
         "z": "5ecdcc0a.76574c"
     }
 ]
