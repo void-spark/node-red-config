@@ -6692,7 +6692,7 @@
         "type": "link in",
         "wires": [
             [
-                "7713f876.a8f59"
+                "db76bd33.e27f28"
             ]
         ],
         "x": 35,
@@ -6754,25 +6754,6 @@
         ],
         "x": 790,
         "y": 220,
-        "z": "5ecdcc0a.76574c"
-    },
-    {
-        "finalize": "",
-        "func": "msg.payload = -msg.payload;\n\nreturn msg;",
-        "id": "7713f876.a8f59",
-        "initialize": "",
-        "libs": [],
-        "name": "Negate",
-        "noerr": 0,
-        "outputs": 1,
-        "type": "function",
-        "wires": [
-            [
-                "db76bd33.e27f28"
-            ]
-        ],
-        "x": 140,
-        "y": 280,
         "z": "5ecdcc0a.76574c"
     },
     {
