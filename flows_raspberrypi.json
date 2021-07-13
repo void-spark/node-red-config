@@ -5497,15 +5497,16 @@
         "name": "",
         "order": 3,
         "passthru": false,
-        "payload": "001010100100110000000010100000001110100001101010",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":368,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5523,15 +5524,16 @@
         "name": "",
         "order": 5,
         "passthru": false,
-        "payload": "001010100100110000000010100010001110100001100010",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":369,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5575,15 +5577,16 @@
         "name": "",
         "order": 7,
         "passthru": false,
-        "payload": "001010100100110000000010100001001111000001110110",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":242,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5601,15 +5604,16 @@
         "name": "",
         "order": 8,
         "passthru": false,
-        "payload": "001010100100110000000010100011001111000001111110",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":243,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5627,15 +5631,16 @@
         "name": "",
         "order": 9,
         "passthru": false,
-        "payload": "001010100100110000000010100000101111000001110000",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":244,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5696,15 +5701,18 @@
     },
     {
         "finalize": "",
-        "func": "\nvar manufacturer = '0010101001001100';\nvar manufacturer_par = '0000';\nvar genre1 = 4;\nvar genre2 = 1;\nvar func = 5;\nvar id = 0;\n\nfunction bin(value, length) {\n  return value.toString(2).padStart(length, '0')\n    .split(\"\").reverse().join(\"\");\n}\nfunction bin2(value, length) {\n  return value.toString(2).padStart(length, '0');\n}\n\nvar funcBin = bin(func, 10);\nvar idBin = bin(id, 2);\n\nvar par1 = manufacturer_par + bin(genre1, 4);\nvar par2 = bin(genre2, 4) + funcBin.substr(0,4);\nvar par3 = funcBin.substr(4,6) + idBin;\n\nvar par = parseInt( par1, 2 ) ^ parseInt( par2, 2 ) ^ parseInt( par3, 2 );\n\nconsole.log(manufacturer + par1 + par2 + par3 + bin2(par, 8));\n\n\nreturn msg;",
+        "func": "const manufacturer = 0x2A4C;\n\n\nconst manufacturerBin = bin2(manufacturer, 16);\nconst manufacturerParBin = bin2(manufacturer.toString(16)\n    .split(\"\")\n    .reduce((tot,val) => tot ^ parseInt(val,15))\n  , 4);\n\nfunction bin(value, length) {\n  return value.toString(2).padStart(length, '0')\n    .split(\"\").reverse().join(\"\");\n}\nfunction bin2(value, length) {\n  return value.toString(2).padStart(length, '0');\n}\n\nconst funcBin = bin(msg.payload.func, 10);\nconst idBin = bin(msg.payload.id, 2);\n\nconst par1 = manufacturerParBin + bin(msg.payload.genre1, 4);\nconst par2 = bin(msg.payload.genre2, 4) + funcBin.substr(0,4);\nconst par3 = funcBin.substr(4,6) + idBin;\n\nconst par = parseInt( par1, 2 ) ^ parseInt( par2, 2 ) ^ parseInt( par3, 2 );\n\nmsg.payload = manufacturerBin + par1 + par2 + par3 + bin2(par, 8);\n\nreturn msg;\n",
         "id": "c2afa7fa.ffa0e",
         "initialize": "",
+        "libs": [],
         "name": "",
         "noerr": 0,
         "outputs": 1,
         "type": "function",
         "wires": [
-            []
+            [
+                "27c52d4.458b452"
+            ]
         ],
         "x": 650,
         "y": 120,
