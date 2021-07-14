@@ -5482,8 +5482,8 @@
         "topic": "devices/3c71bf10840c/ir/send",
         "type": "mqtt out",
         "wires": [],
-        "x": 770,
-        "y": 360,
+        "x": 850,
+        "y": 440,
         "z": "47b85eed.4f8768"
     },
     {
@@ -5551,15 +5551,16 @@
         "name": "",
         "order": 1,
         "passthru": false,
-        "payload": "001010100100110000000010100010100000000010001000",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":5,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
@@ -5658,15 +5659,16 @@
         "name": "",
         "order": 10,
         "passthru": false,
-        "payload": "001010100100110000000010100000001011010000110110",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":720,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 390,
@@ -5684,15 +5686,16 @@
         "name": "",
         "order": 11,
         "passthru": false,
-        "payload": "001010100100110000000010100001001011010000110010",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":722,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 390,
@@ -5714,8 +5717,8 @@
                 "27c52d4.458b452"
             ]
         ],
-        "x": 650,
-        "y": 120,
+        "x": 700,
+        "y": 440,
         "z": "47b85eed.4f8768"
     },
     {
@@ -5792,15 +5795,16 @@
         "name": "",
         "order": 11,
         "passthru": false,
-        "payload": "001010100100110000000010100010001011010000111110",
-        "payloadType": "str",
+        "payload": "{\"genre1\":4,\"genre2\":1,\"func\":721,\"id\":0}",
+        "payloadType": "json",
         "tooltip": "",
         "topic": "",
+        "topicType": "str",
         "type": "ui_button",
         "width": 2,
         "wires": [
             [
-                "27c52d4.458b452"
+                "c2afa7fa.ffa0e"
             ]
         ],
         "x": 370,
