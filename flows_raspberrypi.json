@@ -7052,5 +7052,49 @@
         "x": 430,
         "y": 220,
         "z": "5ecdcc0a.76574c"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "contentType": "",
+        "correl": "",
+        "expiry": "",
+        "id": "207fc735.bfaf48",
+        "name": "Brightness",
+        "qos": "",
+        "respTopic": "",
+        "retain": "",
+        "topic": "devices/083af2512be8/leds/brightness",
+        "type": "mqtt out",
+        "userProps": "",
+        "wires": [],
+        "x": 1050,
+        "y": 500,
+        "z": "5ecdcc0a.76574c"
+    },
+    {
+        "group": "a8db762f.1aeb8",
+        "height": 0,
+        "id": "1ecd8cf0.f37a8b",
+        "label": "Brightness",
+        "max": "15",
+        "min": 0,
+        "name": "",
+        "order": 4,
+        "outs": "all",
+        "passthru": false,
+        "step": 1,
+        "tooltip": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "type": "ui_slider",
+        "width": 0,
+        "wires": [
+            [
+                "207fc735.bfaf48"
+            ]
+        ],
+        "x": 830,
+        "y": 500,
+        "z": "5ecdcc0a.76574c"
     }
 ]
