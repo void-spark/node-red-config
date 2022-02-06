@@ -98,6 +98,14 @@
         "type": "tab"
     },
     {
+        "disabled": false,
+        "env": [],
+        "id": "be8ec646a7f94614",
+        "info": "",
+        "label": "Humidity",
+        "type": "tab"
+    },
+    {
         "id": "f7c3f5b1.15af3",
         "in": [
             {
@@ -8406,5 +8414,101 @@
         "x": 890,
         "y": 280,
         "z": "d40a49d02a4e326f"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "d2baeb97d466f9c2",
+        "inputs": 0,
+        "name": "Humidity-A",
+        "nl": false,
+        "qos": "2",
+        "rap": false,
+        "topic": "tele/tasmota_521590/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "291797345c53722b"
+            ]
+        ],
+        "x": 400,
+        "y": 200,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.SHT3X;\n\nmsg.measurement = \"humidity1\";\nmsg.payload = {\n  temperature: data.Temperature,\n  humidity: data.Humidity,\n  dew_point: data.DewPoint,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "id": "291797345c53722b",
+        "initialize": "",
+        "libs": [],
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ec4f6398910cefaa"
+            ]
+        ],
+        "x": 730,
+        "y": 200,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "bucket": "home_db/autogen",
+        "database": "database",
+        "id": "ec4f6398910cefaa",
+        "influxdb": "9e729019.2637e",
+        "measurement": "",
+        "name": "",
+        "org": "phin-home",
+        "precision": "",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicy": "",
+        "retentionPolicyV18Flux": "",
+        "type": "influxdb out",
+        "wires": [],
+        "x": 1050,
+        "y": 200,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "411f279796897c37",
+        "inputs": 0,
+        "name": "Humidity-B",
+        "nl": false,
+        "qos": "2",
+        "rap": false,
+        "topic": "tele/tasmota_52D984/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "65fd0d1e9908923b"
+            ]
+        ],
+        "x": 400,
+        "y": 300,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.SHT3X;\n\nmsg.measurement = \"humidity2\";\nmsg.payload = {\n  temperature: data.Temperature,\n  humidity: data.Humidity,\n  dew_point: data.DewPoint,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "id": "65fd0d1e9908923b",
+        "initialize": "",
+        "libs": [],
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ec4f6398910cefaa"
+            ]
+        ],
+        "x": 730,
+        "y": 300,
+        "z": "be8ec646a7f94614"
     }
 ]
