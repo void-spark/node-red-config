@@ -8468,8 +8468,8 @@
         "retentionPolicyV18Flux": "",
         "type": "influxdb out",
         "wires": [],
-        "x": 1050,
-        "y": 200,
+        "x": 1030,
+        "y": 300,
         "z": "be8ec646a7f94614"
     },
     {
@@ -8509,6 +8509,45 @@
         ],
         "x": 730,
         "y": 300,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "997545a4b06e810a",
+        "inputs": 0,
+        "name": "Humidity-C",
+        "nl": false,
+        "qos": "2",
+        "rap": false,
+        "topic": "tele/tasmota_0C7410/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "bf6daca12632d79c"
+            ]
+        ],
+        "x": 400,
+        "y": 400,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "finalize": "",
+        "func": "time = msg.payload.Time;\ndata = msg.payload.SHT3X;\n\nmsg.measurement = \"humidity3\";\nmsg.payload = {\n  temperature: data.Temperature,\n  humidity: data.Humidity,\n  dew_point: data.DewPoint,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "id": "bf6daca12632d79c",
+        "initialize": "",
+        "libs": [],
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ec4f6398910cefaa"
+            ]
+        ],
+        "x": 730,
+        "y": 400,
         "z": "be8ec646a7f94614"
     }
 ]
