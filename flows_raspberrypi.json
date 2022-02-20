@@ -993,7 +993,8 @@
         "wires": [
             [
                 "6c6af118.4fa65",
-                "a9244488.d9968"
+                "2c24143f99311a94",
+                "5c49c2feef282033"
             ]
         ],
         "x": 140,
@@ -1003,15 +1004,15 @@
     {
         "dname": "",
         "id": "a9244488.d9968",
-        "name": "j.p.cranendonk@gmail.com",
+        "name": "",
         "port": "465",
         "secure": true,
         "server": "smtp.gmail.com",
         "tls": false,
         "type": "e-mail",
         "wires": [],
-        "x": 420,
-        "y": 20,
+        "x": 1090,
+        "y": 760,
         "z": "8986fa08.d4999"
     },
     {
@@ -1382,6 +1383,258 @@
         ],
         "x": 380,
         "y": 100,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "authType": "",
+        "id": "403577235f72c130",
+        "method": "GET",
+        "name": "",
+        "paytoqs": "ignore",
+        "persist": false,
+        "proxy": "",
+        "ret": "bin",
+        "senderr": false,
+        "tls": "",
+        "type": "http request",
+        "url": "http://192.168.178.132/snapshot.jpg",
+        "wires": [
+            [
+                "7159a09f4d880505"
+            ]
+        ],
+        "x": 490,
+        "y": 940,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "4a25a4ddb6088865",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "403577235f72c130"
+            ]
+        ],
+        "x": 260,
+        "y": 980,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "2c24143f99311a94",
+        "name": "Setup mail content",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "topic",
+                "pt": "msg",
+                "t": "set",
+                "to": "Doorbell pressed",
+                "tot": "str"
+            },
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "Ding dong!",
+                "tot": "str"
+            },
+            {
+                "p": "to",
+                "pt": "msg",
+                "t": "set",
+                "to": "j.p.cranendonk@gmail.com",
+                "tot": "str"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "a9244488.d9968"
+            ]
+        ],
+        "x": 790,
+        "y": 780,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "finalize": "",
+        "func": "const timestamp = Date.now();\n\nvar msg = {\n    payload: `<img src=\"cid:${timestamp}\"/>`,\n    topic: 'Doorbell Camera',\n    to: 'j.p.cranendonk@gmail.com',\n    cid: timestamp,\n    attachments: [{\n        filename: `cam_${new Date().toISOString().replace(/[\\:]/g, '_')}.jpg`,\n        content: msg.payload,\n        cid: timestamp.toString()\n    }]\n}\n\nreturn msg;",
+        "id": "7159a09f4d880505",
+        "initialize": "",
+        "libs": [],
+        "name": "",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "a9244488.d9968"
+            ]
+        ],
+        "x": 760,
+        "y": 1020,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "authType": "",
+        "id": "5ec5652d7333b265",
+        "method": "GET",
+        "name": "",
+        "paytoqs": "ignore",
+        "persist": true,
+        "proxy": "",
+        "ret": "bin",
+        "senderr": false,
+        "tls": "",
+        "type": "http request",
+        "url": "http://192.168.178.132/snapshot.jpg",
+        "wires": [
+            [
+                "8b9a8bc707533ed6"
+            ]
+        ],
+        "x": 490,
+        "y": 1040,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "2fb14de562c4c73a",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.5",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "5ec5652d7333b265"
+            ]
+        ],
+        "x": 270,
+        "y": 1080,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "finalize": "",
+        "func": "const timestamp = Date.now();\n\nconst captures = flow.get(\"captures\");\n\nconst attachments = captures.map((capture, index) => ({\n                filename: `cam_${new Date().toISOString().replace(/[\\:]/g, '_')}-${index}.jpg`,\n                content: capture,\n                cid: timestamp.toString() + \"-\" + index\n            })\n        );\n\nconst imgs = captures.map((capture, index) => \n            `<img src=\"cid:${timestamp}-${index}\"/>`\n        ).join('<p>');\n\n\nvar msg = {\n    payload: imgs,\n    topic: 'Doorbell Camera',\n    to: 'j.p.cranendonk@gmail.com',\n    cc: 'bibbledragon@gmail.com',\n    cid: timestamp,\n    attachments: attachments\n}\n\nreturn msg;",
+        "id": "5d5de18dbf997fc4",
+        "initialize": "",
+        "libs": [],
+        "name": "Captures to mail",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "a9244488.d9968"
+            ]
+        ],
+        "x": 920,
+        "y": 1200,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "allowrate": false,
+        "drop": false,
+        "id": "5c49c2feef282033",
+        "name": "",
+        "nbRateUnits": "1",
+        "outputs": 1,
+        "pauseType": "delay",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "rate": "1",
+        "rateUnits": "second",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "type": "delay",
+        "wires": [
+            [
+                "5d5de18dbf997fc4"
+            ]
+        ],
+        "x": 480,
+        "y": 1240,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "a08b1e14d617c677",
+        "name": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "",
+        "payloadType": "date",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "5c49c2feef282033"
+            ]
+        ],
+        "x": 240,
+        "y": 1180,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "finalize": "",
+        "func": "if (flow.get(\"captures\") === undefined) {\n    flow.set(\"captures\", [])\n}\n\nvar captures = flow.get(\"captures\");\n\ncaptures.push(msg.payload);\nif(captures.length > 20) {\n    captures.shift();\n}\n\nflow.set(\"captures\", captures);\n\nreturn undefined;",
+        "id": "8b9a8bc707533ed6",
+        "initialize": "",
+        "libs": [],
+        "name": "Store last captures",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 770,
+        "y": 1120,
         "z": "8986fa08.d4999"
     },
     {
