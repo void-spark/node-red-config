@@ -517,6 +517,21 @@
         "width": "6"
     },
     {
+        "disabled": false,
+        "hidden": false,
+        "icon": "dashboard",
+        "id": "7af2d9c8.0a9148",
+        "name": "RTSP",
+        "order": 13,
+        "type": "ui_tab"
+    },
+    {
+        "icon": "dashboard",
+        "id": "76c22f9b.11403",
+        "name": "Custom UI",
+        "type": "ui_tab"
+    },
+    {
         "action": "",
         "from": "",
         "id": "c5472008.083cd8",
@@ -1404,7 +1419,7 @@
             ]
         ],
         "x": 490,
-        "y": 940,
+        "y": 980,
         "z": "8986fa08.d4999"
     },
     {
@@ -1432,7 +1447,7 @@
                 "403577235f72c130"
             ]
         ],
-        "x": 260,
+        "x": 240,
         "y": 980,
         "z": "8986fa08.d4999"
     },
@@ -1493,58 +1508,7 @@
             ]
         ],
         "x": 760,
-        "y": 1020,
-        "z": "8986fa08.d4999"
-    },
-    {
-        "authType": "",
-        "id": "5ec5652d7333b265",
-        "method": "GET",
-        "name": "",
-        "paytoqs": "ignore",
-        "persist": true,
-        "proxy": "",
-        "ret": "bin",
-        "senderr": false,
-        "tls": "",
-        "type": "http request",
-        "url": "http://192.168.178.132/snapshot.jpg",
-        "wires": [
-            [
-                "8b9a8bc707533ed6"
-            ]
-        ],
-        "x": 490,
-        "y": 1040,
-        "z": "8986fa08.d4999"
-    },
-    {
-        "crontab": "",
-        "id": "2fb14de562c4c73a",
-        "name": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "payload": "",
-        "payloadType": "date",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "0.5",
-        "topic": "",
-        "type": "inject",
-        "wires": [
-            [
-                "5ec5652d7333b265"
-            ]
-        ],
-        "x": 270,
-        "y": 1080,
+        "y": 980,
         "z": "8986fa08.d4999"
     },
     {
@@ -1562,8 +1526,8 @@
                 "a9244488.d9968"
             ]
         ],
-        "x": 920,
-        "y": 1200,
+        "x": 760,
+        "y": 1080,
         "z": "8986fa08.d4999"
     },
     {
@@ -1579,7 +1543,7 @@
         "randomUnits": "seconds",
         "rate": "1",
         "rateUnits": "second",
-        "timeout": "5",
+        "timeout": "7",
         "timeoutUnits": "seconds",
         "type": "delay",
         "wires": [
@@ -1588,7 +1552,7 @@
             ]
         ],
         "x": 480,
-        "y": 1240,
+        "y": 1080,
         "z": "8986fa08.d4999"
     },
     {
@@ -1617,13 +1581,13 @@
             ]
         ],
         "x": 240,
-        "y": 1180,
+        "y": 1080,
         "z": "8986fa08.d4999"
     },
     {
         "finalize": "",
         "func": "if (flow.get(\"captures\") === undefined) {\n    flow.set(\"captures\", [])\n}\n\nvar captures = flow.get(\"captures\");\n\ncaptures.push(msg.payload);\nif(captures.length > 20) {\n    captures.shift();\n}\n\nflow.set(\"captures\", captures);\n\nreturn undefined;",
-        "id": "8b9a8bc707533ed6",
+        "id": "32de224822212bc9",
         "initialize": "",
         "libs": [],
         "name": "Store last captures",
@@ -1633,8 +1597,189 @@
         "wires": [
             []
         ],
-        "x": 770,
-        "y": 1120,
+        "x": 1210,
+        "y": 1180,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "addpay": false,
+        "append": "",
+        "command": "ffmpeg -an -rtsp_transport tcp -i \"rtsp://admin:@192.168.178.194:554/channel=1_stream=1.sdp?real_stream\" -r 2 -q:v 1 -qmin 1 -qmax 1 -f image2pipe -vcodec mjpeg pipe:1",
+        "id": "66574007.74b0c",
+        "name": "Decode RTSP stream",
+        "oldrc": false,
+        "timer": "",
+        "type": "exec",
+        "useSpawn": "true",
+        "winHide": false,
+        "wires": [
+            [
+                "27d6a5c812e209c7",
+                "315086cb1d9bff21"
+            ],
+            [],
+            []
+        ],
+        "x": 720,
+        "y": 1180,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "7d3aea16.d99b84",
+        "name": "Start stream",
+        "once": true,
+        "onceDelay": "0.5",
+        "payload": "",
+        "payloadType": "date",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "66574007.74b0c"
+            ]
+        ],
+        "x": 250,
+        "y": 1180,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "e9cc38bc.4300b8",
+        "name": "Pause all streams",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "SIGSTOP",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "53b625e3.eee7bc"
+            ]
+        ],
+        "x": 270,
+        "y": 1220,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "4bdb02b2.c73efc",
+        "name": "Resume all streams",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "SIGCONT",
+        "payloadType": "str",
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "53b625e3.eee7bc"
+            ]
+        ],
+        "x": 270,
+        "y": 1260,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "53b625e3.eee7bc",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "kill",
+                "pt": "msg",
+                "t": "set",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "66574007.74b0c"
+            ]
+        ],
+        "x": 490,
+        "y": 1220,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "crontab": "",
+        "id": "c6743afd.82d568",
+        "name": "Stop all streams",
+        "once": false,
+        "onceDelay": 0.1,
+        "payload": "SIGTERM",
+        "payloadType": "str",
+        "props": [
+            {
+                "p": "payload",
+                "v": "SIGTERM",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "topic": "",
+        "type": "inject",
+        "wires": [
+            [
+                "53b625e3.eee7bc"
+            ]
+        ],
+        "x": 260,
+        "y": 1300,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "id": "27d6a5c812e209c7",
+        "name": "",
+        "type": "pipe2jpeg",
+        "wires": [
+            [
+                "32de224822212bc9"
+            ]
+        ],
+        "x": 980,
+        "y": 1180,
+        "z": "8986fa08.d4999"
+    },
+    {
+        "finalize": "",
+        "func": "var msgCount = context.get(\"msgCount\") || 0;\n\nmsgCount++;\nnode.status(\"Count: \" + msgCount);\n\ncontext.set(\"msgCount\", msgCount);\n",
+        "id": "315086cb1d9bff21",
+        "initialize": "",
+        "libs": [],
+        "name": "",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 980,
+        "y": 1260,
         "z": "8986fa08.d4999"
     },
     {
