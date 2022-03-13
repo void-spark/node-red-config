@@ -6615,7 +6615,7 @@
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}A   [ 0-9]{2}\\.[0-9]{2}V$",
+                "v": "^[ 0-9]{3}[0-9]\\.[0-9]{2}A  [ 0-9]{2}\\.[0-9]{2}V$",
                 "vt": "str"
             },
             {
@@ -6638,7 +6638,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "ddde7a52.eb0518",
         "initialize": "",
         "libs": [],
@@ -6749,7 +6749,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "108a73ba.eecb8c",
         "initialize": "",
         "libs": [],
@@ -6785,7 +6785,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "b937a2bb.ac9638",
         "initialize": "",
         "libs": [],
@@ -6821,7 +6821,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "853a1d6c.7b6d3",
         "initialize": "",
         "libs": [],
@@ -6857,7 +6857,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "9adb1873.b41018",
         "initialize": "",
         "libs": [],
@@ -6893,7 +6893,7 @@
     },
     {
         "finalize": "",
-        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "func": "msg.payload = msg.payload.substr(0, 7).trim();\n\nreturn msg;",
         "id": "8e9e0cd1.584b78",
         "initialize": "",
         "libs": [],
@@ -7109,31 +7109,31 @@
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}Vm  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "v": "^[ 0-9]{3}[0-9]\\.[0-9]{2}Vm [ 0-9]{2}[0-9]\\.[0-9]W$",
                 "vt": "str"
             },
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}Ap  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "v": "^[ 0-9]{3}[0-9]\\.[0-9]{2}Ap [ 0-9]{2}[0-9]\\.[0-9]W$",
                 "vt": "str"
             },
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9]{3}[0-9]\\.[0-9]Wp  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "v": "^[ 0-9]{4}[0-9]\\.[0-9]Wp [ 0-9]{2}[0-9]\\.[0-9]W$",
                 "vt": "str"
             },
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9]{3}[0-9]\\.[0-9]Wh  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "v": "^[ 0-9]{4}[0-9]\\.[0-9]Wh [ 0-9]{2}[0-9]\\.[0-9]W$",
                 "vt": "str"
             },
             {
                 "case": false,
                 "t": "regex",
-                "v": "^[ 0-9][0-9]\\.[0-9]{3}Ah  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{3}Ah [ 0-9]{2}[0-9]\\.[0-9]W$",
                 "vt": "str"
             },
             {
@@ -7875,6 +7875,254 @@
         ],
         "x": 1615,
         "y": 800,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "checkall": "false",
+        "id": "fec642dfb71e38f3",
+        "name": "Is valid A/V",
+        "outputs": 2,
+        "property": "payload",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}A   [ 0-9]{2}\\.[0-9]{2}V$",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "214ae9e48cd57749",
+                "59c30eb3a0c0b24b"
+            ],
+            []
+        ],
+        "x": 210,
+        "y": 1140,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "214ae9e48cd57749",
+        "initialize": "",
+        "libs": [],
+        "name": "A",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1120,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(10, 5).trim();\nreturn msg;",
+        "id": "59c30eb3a0c0b24b",
+        "initialize": "",
+        "libs": [],
+        "name": "V",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1160,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(10, 5).trim();\nreturn msg;",
+        "id": "5ddf48b19c363c13",
+        "initialize": "",
+        "libs": [],
+        "name": "W",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1200,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "f111f0bfd385588c",
+        "initialize": "",
+        "libs": [],
+        "name": "Ap",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1280,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "be2aa265e05f3f95",
+        "initialize": "",
+        "libs": [],
+        "name": "Vm",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1240,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "b0846953d8393f73",
+        "initialize": "",
+        "libs": [],
+        "name": "Wp",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1320,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "ebfcc395a5d61d85",
+        "initialize": "",
+        "libs": [],
+        "name": "Wh",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1360,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "finalize": "",
+        "func": "msg.payload = msg.payload.substr(0, 6).trim();\n\nreturn msg;",
+        "id": "3c7422ea35940ec9",
+        "initialize": "",
+        "libs": [],
+        "name": "Ah",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            []
+        ],
+        "x": 450,
+        "y": 1400,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "checkall": "false",
+        "id": "8af9423ad491e59e",
+        "name": "Determine type",
+        "outputs": 6,
+        "property": "payload",
+        "propertyType": "msg",
+        "repair": false,
+        "rules": [
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}Vm  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "vt": "str"
+            },
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9]{2}[0-9]\\.[0-9]{2}Ap  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "vt": "str"
+            },
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9]{3}[0-9]\\.[0-9]Wp  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "vt": "str"
+            },
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9]{3}[0-9]\\.[0-9]Wh  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "vt": "str"
+            },
+            {
+                "case": false,
+                "t": "regex",
+                "v": "^[ 0-9][0-9]\\.[0-9]{3}Ah  [ 0-9]{2}[0-9]\\.[0-9]W$",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "type": "switch",
+        "wires": [
+            [
+                "5ddf48b19c363c13",
+                "be2aa265e05f3f95"
+            ],
+            [
+                "5ddf48b19c363c13",
+                "f111f0bfd385588c"
+            ],
+            [
+                "5ddf48b19c363c13",
+                "b0846953d8393f73"
+            ],
+            [
+                "5ddf48b19c363c13",
+                "ebfcc395a5d61d85"
+            ],
+            [
+                "5ddf48b19c363c13",
+                "3c7422ea35940ec9"
+            ],
+            []
+        ],
+        "x": 220,
+        "y": 1320,
+        "z": "1ce9f9b0.4eb196"
+    },
+    {
+        "id": "3e2f06498a743711",
+        "info": "",
+        "name": "Old",
+        "type": "comment",
+        "wires": [],
+        "x": 210,
+        "y": 1080,
         "z": "1ce9f9b0.4eb196"
     },
     {
