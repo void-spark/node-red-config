@@ -140,6 +140,7 @@
             "allowSwipe": "false",
             "dateFormat": "DD/MM/YYYY",
             "hideToolbar": "false",
+            "lockMenu": "false",
             "name": "Node-RED Dashboard",
             "sizes": {
                 "cx": 6,
@@ -170,7 +171,8 @@
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "default": "#097479",
-                "edited": false
+                "edited": false,
+                "reset": false
             },
             "lightTheme": {
                 "baseColor": "#0094CE",
@@ -179,51 +181,51 @@
                 "edited": true,
                 "reset": false
             },
-            "name": "theme-light",
+            "name": "theme-dark",
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "edited": false,
-                    "value": "#0094CE"
+                    "default": "#097479",
+                    "edited": true,
+                    "value": "#097479"
                 },
                 "base-font": {
                     "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
                 },
                 "group-backgroundColor": {
                     "edited": false,
-                    "value": "#ffffff"
+                    "value": "#333333"
                 },
                 "group-borderColor": {
                     "edited": false,
-                    "value": "#ffffff"
+                    "value": "#555555"
                 },
                 "group-textColor": {
                     "edited": false,
-                    "value": "#1bbfff"
+                    "value": "#0eb8c0"
                 },
                 "page-backgroundColor": {
                     "edited": false,
-                    "value": "#fafafa"
+                    "value": "#111111"
                 },
                 "page-sidebar-backgroundColor": {
                     "edited": false,
-                    "value": "#ffffff"
+                    "value": "#333333"
                 },
                 "page-titlebar-backgroundColor": {
                     "edited": false,
-                    "value": "#0094CE"
+                    "value": "#097479"
                 },
                 "widget-backgroundColor": {
                     "edited": false,
-                    "value": "#0094ce"
+                    "value": "#097479"
                 },
                 "widget-borderColor": {
                     "edited": false,
-                    "value": "#ffffff"
+                    "value": "#333333"
                 },
                 "widget-textColor": {
                     "edited": false,
-                    "value": "#111111"
+                    "value": "#eeeeee"
                 }
             }
         },
@@ -457,12 +459,12 @@
     },
     {
         "group": "ffd321ee.bc6a68",
-        "height": 1,
+        "height": "1",
         "id": "5d5caac3.0a752c",
         "name": "spacer",
-        "order": 12,
+        "order": 13,
         "type": "ui_spacer",
-        "width": 2
+        "width": "6"
     },
     {
         "database": "database",
@@ -6478,7 +6480,7 @@
         "id": "e9450668.fd1058",
         "label": "PC",
         "name": "",
-        "order": 11,
+        "order": 12,
         "passthru": false,
         "payload": "{\"genre1\":4,\"genre2\":1,\"func\":721,\"id\":0}",
         "payloadType": "json",
@@ -6494,6 +6496,52 @@
         ],
         "x": 370,
         "y": 640,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "bgcolor": "",
+        "className": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "463fb6d1e44553aa",
+        "label": "Desk light",
+        "name": "",
+        "order": 14,
+        "passthru": false,
+        "payload": "toggle",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "topicType": "str",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "2586f1da0a82b2c2"
+            ]
+        ],
+        "x": 380,
+        "y": 720,
+        "z": "47b85eed.4f8768"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "contentType": "",
+        "correl": "",
+        "expiry": "",
+        "id": "2586f1da0a82b2c2",
+        "name": "Desk light",
+        "qos": "2",
+        "respTopic": "",
+        "retain": "false",
+        "topic": "cmnd/tasmota_81B55D/Power",
+        "type": "mqtt out",
+        "userProps": "",
+        "wires": [],
+        "x": 860,
+        "y": 720,
         "z": "47b85eed.4f8768"
     },
     {
