@@ -519,21 +519,6 @@
         "width": "6"
     },
     {
-        "disabled": false,
-        "hidden": false,
-        "icon": "dashboard",
-        "id": "7af2d9c8.0a9148",
-        "name": "RTSP",
-        "order": 13,
-        "type": "ui_tab"
-    },
-    {
-        "icon": "dashboard",
-        "id": "76c22f9b.11403",
-        "name": "Custom UI",
-        "type": "ui_tab"
-    },
-    {
         "action": "",
         "from": "",
         "id": "c5472008.083cd8",
@@ -5386,9 +5371,10 @@
     },
     {
         "finalize": "",
-        "func": "data = msg.payload\n\nmsg.measurement = \"house_power\";\nmsg.payload = {\n  current_w_received: data.current_w_received,\n  current_w_delivered: data.current_w_delivered,\n  total_kwh_received_t1: data.total_kwh_received_t1,\n  total_kwh_received_t2: data.total_kwh_received_t2,\n  total_kwh_delivered_t1: data.total_kwh_delivered_t1,\n  total_kwh_delivered_t2: data.total_kwh_delivered_t2,\n  time: new Date(data.timestamp).getTime()\n};\nreturn msg;\n",
+        "func": "const data = msg.payload\n\nmsg.measurement = \"house_power\";\nmsg.payload = {\n  current_w_received: data.current_w_received,\n  current_w_delivered: data.current_w_delivered,\n  total_kwh_received_t1: data.total_kwh_received_t1,\n  total_kwh_received_t2: data.total_kwh_received_t2,\n  total_kwh_delivered_t1: data.total_kwh_delivered_t1,\n  total_kwh_delivered_t2: data.total_kwh_delivered_t2,\n  total_gas_m3_received: data.total_gas_m3_received,\n  time: new Date(data.timestamp).getTime()\n};\nreturn msg;\n",
         "id": "ac6b5349.cbcd7",
         "initialize": "",
+        "libs": [],
         "name": "To influxdb format",
         "noerr": 0,
         "outputs": 1,
@@ -5411,8 +5397,7 @@
         "type": "function",
         "wires": [
             [
-                "bab94a0f.921b38",
-                "42ce037683a68c8a"
+                "bab94a0f.921b38"
             ]
         ],
         "x": 540,
@@ -5420,8 +5405,11 @@
         "z": "53214520.af847c"
     },
     {
-        "func": "result = {};\n\nmsg.payload.split(/\\r?\\n/).forEach( line => {\n    var lineParsed = line.match(/(.+?)(\\(.+)/);\n    if (lineParsed === null) {\n        return;\n    }\n\n    key = lineParsed[1];\n    value = lineParsed[2];\n\n    var res;\n    if(key === \"0-0:1.0.0\") {\n        res = value.match(/\\((\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})([SW])\\)/);\n        if (res === null) {\n            return;\n        }\n        year = parseInt(res[1]) + 2000;\n        month = parseInt(res[2]) - 1;\n        day = parseInt(res[3]);\n        hours = parseInt(res[4]);\n        minutes = parseInt(res[5]);\n        seconds = parseInt(res[6]);\n        dst = res[7] === \"W\";\n        timestamp = new Date(year, month, day, hours, minutes, seconds);\n        result.timestamp = timestamp.toISOString();\n    } else if(key === \"1-0:1.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_received = parseFloat(res[1]) * 1000;\n    } else if(key === \"1-0:2.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_delivered = parseFloat(res[1]) * 1000;\n    } else if(key === \"1-0:1.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t1 = parseFloat(res[1]);\n    } else if(key === \"1-0:1.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t2 = parseFloat(res[1]);\n    } else if(key === \"1-0:2.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t1 = parseFloat(res[1]);\n    } else if(key === \"1-0:2.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t2 = parseFloat(res[1]);\n    }\n    return;\n});\n\nmsg.payload = result;\n\nreturn msg;",
+        "finalize": "",
+        "func": "var result = {};\n\nmsg.payload.split(/\\r?\\n/).forEach(line => {\n    var lineParsed = line.match(/(.+?)(\\(.+)/);\n    if (lineParsed === null) {\n        return;\n    }\n\n    const key = lineParsed[1];\n    const value = lineParsed[2];\n\n    var res;\n    if (key === \"0-0:1.0.0\") {\n        res = value.match(/\\((\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})([SW])\\)/);\n        if (res === null) {\n            return;\n        }\n        const year = parseInt(res[1]) + 2000;\n        const month = parseInt(res[2]) - 1;\n        const day = parseInt(res[3]);\n        const hours = parseInt(res[4]);\n        const minutes = parseInt(res[5]);\n        const seconds = parseInt(res[6]);\n        const dst = res[7] === \"W\";\n        const timestamp = new Date(year, month, day, hours, minutes, seconds);\n        result.timestamp = timestamp.toISOString();\n    } else if (key === \"1-0:1.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_received = parseFloat(res[1]) * 1000;\n    } else if (key === \"1-0:2.7.0\") {\n        res = value.match(/\\((\\d{2}\\.\\d{3})\\*kW\\)/);\n        if (res === null) {\n            return;\n        }\n        result.current_w_delivered = parseFloat(res[1]) * 1000;\n    } else if (key === \"1-0:1.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t1 = parseFloat(res[1]);\n    } else if (key === \"1-0:1.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_received_t2 = parseFloat(res[1]);\n    } else if (key === \"1-0:2.8.1\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t1 = parseFloat(res[1]);\n    } else if (key === \"1-0:2.8.2\") {\n        res = value.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_kwh_delivered_t2 = parseFloat(res[1]);\n    } else if (key === \"0-1:24.2.1\") {\n        res = value.match(/\\(\\d{12}[SW]\\)\\((\\d{5}\\.\\d{3})\\*m3\\)/);\n        if (res === null) {\n            return;\n        }\n        result.total_gas_m3_received = parseFloat(res[1]);\n    }\n    return;\n});\n\nmsg.payload = result;\n\nreturn msg;",
         "id": "bab94a0f.921b38",
+        "initialize": "",
+        "libs": [],
         "name": "Convert",
         "noerr": 0,
         "outputs": 1,
@@ -5475,22 +5463,6 @@
         "wires": [],
         "x": 1175,
         "y": 260,
-        "z": "53214520.af847c"
-    },
-    {
-        "active": true,
-        "complete": "false",
-        "console": false,
-        "id": "42ce037683a68c8a",
-        "name": "debug 1",
-        "statusType": "auto",
-        "statusVal": "",
-        "tosidebar": true,
-        "tostatus": false,
-        "type": "debug",
-        "wires": [],
-        "x": 820,
-        "y": 100,
         "z": "53214520.af847c"
     },
     {
