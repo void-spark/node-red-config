@@ -8947,7 +8947,7 @@
         "z": "d40a49d02a4e326f"
     },
     {
-        "active": true,
+        "active": false,
         "complete": "false",
         "console": false,
         "id": "0b3731705511f2d3",
@@ -9167,7 +9167,7 @@
         "nl": false,
         "qos": "2",
         "rap": false,
-        "topic": "tele/tasmota_52D984/SENSOR",
+        "topic": "tele/tasmota_95F224/SENSOR",
         "type": "mqtt in",
         "wires": [
             [
@@ -9234,6 +9234,45 @@
         ],
         "x": 730,
         "y": 400,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "json",
+        "id": "540ac6a89690e985",
+        "inputs": 0,
+        "name": "Temp-1",
+        "nl": false,
+        "qos": "2",
+        "rap": false,
+        "topic": "tele/tasmota_5162C4/SENSOR",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "e5385a494ece704a"
+            ]
+        ],
+        "x": 390,
+        "y": 500,
+        "z": "be8ec646a7f94614"
+    },
+    {
+        "finalize": "",
+        "func": "const time = msg.payload.Time;\nconst data = msg.payload.DS18B20;\n\nmsg.measurement = \"temp1\";\nmsg.payload = {\n  temperature: data.Temperature,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "id": "e5385a494ece704a",
+        "initialize": "",
+        "libs": [],
+        "name": "To influxdb format",
+        "noerr": 0,
+        "outputs": 1,
+        "type": "function",
+        "wires": [
+            [
+                "ec4f6398910cefaa"
+            ]
+        ],
+        "x": 730,
+        "y": 500,
         "z": "be8ec646a7f94614"
     }
 ]
