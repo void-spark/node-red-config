@@ -8924,29 +8924,6 @@
         "z": "6c54caeefbfa8e69"
     },
     {
-        "base64": false,
-        "datamode": "stream",
-        "datatype": "buffer",
-        "host": "192.168.178.198",
-        "id": "db3b1e82ced6cd74",
-        "name": "",
-        "newline": "",
-        "port": "8888",
-        "server": "client",
-        "tls": "",
-        "topic": "",
-        "trim": false,
-        "type": "tcp in",
-        "wires": [
-            [
-                "33235cb24294f9cc"
-            ]
-        ],
-        "x": 170,
-        "y": 200,
-        "z": "d40a49d02a4e326f"
-    },
-    {
         "active": false,
         "complete": "false",
         "console": false,
@@ -8958,13 +8935,13 @@
         "tostatus": false,
         "type": "debug",
         "wires": [],
-        "x": 870,
-        "y": 200,
+        "x": 950,
+        "y": 240,
         "z": "d40a49d02a4e326f"
     },
     {
         "finalize": "",
-        "func": "var buffer = context.get('buffer');\n\nif(!buffer) {\n    buffer = msg.payload;\n} else {\n    buffer = Buffer.concat([buffer,msg.payload]);\n}\n\nmsg = [];\n\nwhile(buffer.length >= 64) {\n    if(buffer[0] == 0x02) {\n        // Start byte found\n        if(buffer[1] == 0x41 && buffer[2] == 0x06) {\n            // Request found\n            var length = buffer[3] + 2;\n            if(length <= buffer.length) {\n                if(buffer[4] == 0x02 && buffer[5] == 0x00) {\n                    // Sample found\n                    if(buffer[length - 1] == 0x03) {\n                        var crc = buffer[length - 2];\n     \n                        var csum = 0;\n                        for (var val of buffer.slice(1, length-2)) {\n                            csum ^= val;\n                        }                        \n                        if(crc == csum) {\n                            msg.push({\n                                payload: buffer.slice(6, length-2)\n                            });\n                            buffer = buffer.slice(length);\n                            continue;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    buffer = buffer.slice(1);\n}\n\ncontext.set('buffer', buffer);\n\nreturn msg;",
+        "func": "var buffer = context.get('buffer');\nconst payload = Buffer.from(msg.payload, \"hex\");\n\nif(!buffer) {\n    buffer = payload;\n} else {\n    buffer = Buffer.concat([buffer, payload]);\n}\n\nmsg = [];\n\nwhile(buffer.length >= 64) {\n    if(buffer[0] == 0x02) {\n        // Start byte found\n        if(buffer[1] == 0x41 && buffer[2] == 0x06) {\n            // Request found\n            var length = buffer[3] + 2;\n            if(length <= buffer.length) {\n                if(buffer[4] == 0x02 && buffer[5] == 0x00) {\n                    // Sample found\n                    if(buffer[length - 1] == 0x03) {\n                        var crc = buffer[length - 2];\n     \n                        var csum = 0;\n                        for (var val of buffer.slice(1, length-2)) {\n                            csum ^= val;\n                        }                        \n                        if(crc == csum) {\n                            msg.push({\n                                payload: buffer.slice(6, length-2)\n                            });\n                            buffer = buffer.slice(length);\n                            continue;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    buffer = buffer.slice(1);\n}\n\ncontext.set('buffer', buffer);\n\nreturn msg;",
         "id": "33235cb24294f9cc",
         "initialize": "",
         "libs": [],
@@ -8978,8 +8955,8 @@
                 "2dd30816124478db"
             ]
         ],
-        "x": 450,
-        "y": 200,
+        "x": 530,
+        "y": 240,
         "z": "d40a49d02a4e326f"
     },
     {
@@ -8997,23 +8974,8 @@
                 "0b3731705511f2d3"
             ]
         ],
-        "x": 660,
-        "y": 200,
-        "z": "d40a49d02a4e326f"
-    },
-    {
-        "base64": false,
-        "beserver": "client",
-        "end": false,
-        "host": "192.168.178.198",
-        "id": "fffd3690ab0cd887",
-        "name": "",
-        "port": "8888",
-        "tls": "",
-        "type": "tcp out",
-        "wires": [],
-        "x": 600,
-        "y": 400,
+        "x": 740,
+        "y": 240,
         "z": "d40a49d02a4e326f"
     },
     {
@@ -9047,7 +9009,7 @@
     },
     {
         "finalize": "",
-        "func": "\nvar request = 0x0552;\nvar reply   = 0x0641;\n\nvar identify   = 0x010B;\nvar sample     = 0x0200;\nvar eepromRead = 0x1000;\n\nvar type = request;\nvar func = sample;\n\nvar buffer = Buffer.from(\n    [0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03]\n);\n\nbuffer[1] = (type >> 0) & 0xff;\nbuffer[2] = (type >> 8) & 0xff;\n\nbuffer[4] = (func >> 8) & 0xff;\nbuffer[5] = (func >> 0) & 0xff;\n\nbuffer[3] = buffer.length - 2;\n\nvar csum = 0;\nfor (var val of buffer.slice(1, buffer.length - 2)) {\n    csum ^= val;\n}                        \nbuffer[buffer.length-2] = csum;\n\n\nmsg.payload = buffer;\n\nreturn msg;",
+        "func": "var request = 0x0552;\nvar reply   = 0x0641;\n\nvar identify   = 0x010B;\nvar sample     = 0x0200;\nvar eepromRead = 0x1000;\n\nvar type = request;\nvar func = sample;\n\nvar buffer = Buffer.from(\n    [0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03]\n);\n\nbuffer[1] = (type >> 0) & 0xff;\nbuffer[2] = (type >> 8) & 0xff;\n\nbuffer[4] = (func >> 8) & 0xff;\nbuffer[5] = (func >> 0) & 0xff;\n\nbuffer[3] = buffer.length - 2;\n\nvar csum = 0;\nfor (var val of buffer.slice(1, buffer.length - 2)) {\n    csum ^= val;\n}                        \nbuffer[buffer.length-2] = csum;\n\n\nmsg.payload = buffer.toString('hex');\n\nreturn msg;",
         "id": "3bc1ecc2b79435ae",
         "initialize": "",
         "libs": [],
@@ -9057,7 +9019,7 @@
         "type": "function",
         "wires": [
             [
-                "fffd3690ab0cd887"
+                "7782fcdd5ce50be7"
             ]
         ],
         "x": 350,
@@ -9079,8 +9041,8 @@
                 "f467169fa32ae12e"
             ]
         ],
-        "x": 660,
-        "y": 280,
+        "x": 740,
+        "y": 320,
         "z": "d40a49d02a4e326f"
     },
     {
@@ -9097,8 +9059,89 @@
         "retentionPolicyV18Flux": "",
         "type": "influxdb out",
         "wires": [],
-        "x": 890,
-        "y": 280,
+        "x": 970,
+        "y": 320,
+        "z": "d40a49d02a4e326f"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "contentType": "",
+        "correl": "",
+        "expiry": "",
+        "id": "7782fcdd5ce50be7",
+        "name": "Serial out",
+        "qos": "2",
+        "respTopic": "",
+        "retain": "false",
+        "topic": "cmnd/tasmota_9BAD48/SSerialSend5",
+        "type": "mqtt out",
+        "userProps": "",
+        "wires": [],
+        "x": 540,
+        "y": 400,
+        "z": "d40a49d02a4e326f"
+    },
+    {
+        "broker": "69f5a3df.5a8b0c",
+        "datatype": "utf8",
+        "id": "dc1cb9593c2db61c",
+        "inputs": 0,
+        "name": "P1 input",
+        "nl": false,
+        "qos": "2",
+        "rap": false,
+        "topic": "tele/tasmota_9BAD48/RESULT",
+        "type": "mqtt in",
+        "wires": [
+            [
+                "62f946eab6ef55b4"
+            ]
+        ],
+        "x": 140,
+        "y": 200,
+        "z": "d40a49d02a4e326f"
+    },
+    {
+        "action": "obj",
+        "id": "62f946eab6ef55b4",
+        "name": "",
+        "pretty": false,
+        "property": "payload",
+        "type": "json",
+        "wires": [
+            [
+                "4d2cce54441b0f6a"
+            ]
+        ],
+        "x": 290,
+        "y": 200,
+        "z": "d40a49d02a4e326f"
+    },
+    {
+        "action": "",
+        "from": "",
+        "id": "4d2cce54441b0f6a",
+        "name": "",
+        "property": "",
+        "reg": false,
+        "rules": [
+            {
+                "p": "payload",
+                "pt": "msg",
+                "t": "set",
+                "to": "msg.payload.SSerialReceived",
+                "tot": "jsonata"
+            }
+        ],
+        "to": "",
+        "type": "change",
+        "wires": [
+            [
+                "33235cb24294f9cc"
+            ]
+        ],
+        "x": 320,
+        "y": 240,
         "z": "d40a49d02a4e326f"
     },
     {
