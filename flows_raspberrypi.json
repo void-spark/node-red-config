@@ -1746,7 +1746,8 @@
         "wires": [
             [
                 "32de224822212bc9"
-            ]
+            ],
+            []
         ],
         "x": 980,
         "y": 1180,
@@ -3287,6 +3288,18 @@
         "onceDelay": 0.1,
         "payload": "",
         "payloadType": "date",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "topic": "",
         "type": "inject",
@@ -3907,6 +3920,62 @@
         "wires": [],
         "x": 610,
         "y": 400,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "bgcolor": "",
+        "className": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "3dc24e9b406e15a3",
+        "label": "Open",
+        "name": "",
+        "order": 14,
+        "passthru": false,
+        "payload": "open",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "topicType": "str",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "6f726c2.3989694"
+            ]
+        ],
+        "x": 190,
+        "y": 1380,
+        "z": "459a3a0f.cadb4c"
+    },
+    {
+        "bgcolor": "",
+        "className": "",
+        "color": "",
+        "group": "ffd321ee.bc6a68",
+        "height": 1,
+        "icon": "",
+        "id": "870d924632d0b4a3",
+        "label": "Close",
+        "name": "",
+        "order": 14,
+        "passthru": false,
+        "payload": "close",
+        "payloadType": "str",
+        "tooltip": "",
+        "topic": "",
+        "topicType": "str",
+        "type": "ui_button",
+        "width": 2,
+        "wires": [
+            [
+                "20492d95.5756aa"
+            ]
+        ],
+        "x": 190,
+        "y": 1460,
         "z": "459a3a0f.cadb4c"
     },
     {
