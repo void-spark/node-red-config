@@ -156,7 +156,7 @@
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "default": "#097479",
-                "edited": false,
+                "edited": true,
                 "reset": false
             },
             "lightTheme": {
@@ -988,6 +988,49 @@
         "wires": [
             [
                 "dbbe7721.83f838"
+            ]
+        ]
+    },
+    {
+        "id": "990c007cbd271fc6",
+        "type": "mqtt out",
+        "z": "5d39f6e8.677b6",
+        "name": "",
+        "topic": "devices/receiver/doorbell/reset",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "69f5a3df.5a8b0c",
+        "x": 630,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "5ea5c6f62a45f2f0",
+        "type": "inject",
+        "z": "5d39f6e8.677b6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "str",
+        "x": 370,
+        "y": 820,
+        "wires": [
+            [
+                "990c007cbd271fc6"
             ]
         ]
     },
