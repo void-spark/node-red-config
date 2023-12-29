@@ -396,13 +396,6 @@
         }
     },
     {
-        "id": "5cee9693.358b08",
-        "type": "ui_tab",
-        "name": "Temps",
-        "icon": "dashboard",
-        "order": 3
-    },
-    {
         "id": "69f5a3df.5a8b0c",
         "type": "mqtt-broker",
         "name": "PI",
@@ -438,16 +431,6 @@
         "order": 3,
         "disp": true,
         "width": "6"
-    },
-    {
-        "id": "42b6ae00.90b7d4",
-        "type": "ui_group",
-        "name": "Home",
-        "tab": "b47e83d3.de77e",
-        "order": 4,
-        "disp": true,
-        "width": "6",
-        "collapse": false
     },
     {
         "id": "c8a54de6.369ff",
@@ -489,33 +472,6 @@
         "timeZoneDST": 0,
         "stateTimeFormat": "3",
         "stateDateFormat": "12"
-    },
-    {
-        "id": "8f71738d.39f7d8",
-        "type": "ui_tab",
-        "name": "Power",
-        "icon": "fa-plug",
-        "order": 4,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "3c71ce20.73a8c2",
-        "type": "ui_tab",
-        "name": "Solar only",
-        "icon": "dashboard",
-        "order": 5,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "38eddcdf.4bf11c",
-        "type": "ui_tab",
-        "name": "Home power",
-        "icon": "dashboard",
-        "order": 6,
-        "disabled": false,
-        "hidden": false
     },
     {
         "id": "3ecae79f.798258",
@@ -623,6 +579,29 @@
         "disp": true,
         "width": "6",
         "collapse": false
+    },
+    {
+        "id": "d4924755d9c84f9c",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 5,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": ": ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "default",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": false
     },
     {
         "id": "c5472008.083cd8",
@@ -1821,6 +1800,113 @@
                 "ec4f6398910cefaa"
             ]
         ]
+    },
+    {
+        "id": "fb3a96069ee31e56",
+        "type": "inject",
+        "z": "76c778b95ae3572e",
+        "name": "Init",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1150,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "79d527eeb99748d6",
+        "type": "inject",
+        "z": "76c778b95ae3572e",
+        "name": "Sample",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[53,12,38,12,144,243,0,128,0,128,0,128,182,13,6,8,172,13,136,19,2,8,0,0,0,0,0,172,13,0,50,0,100,0,0,0,3,1,1,1,8,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+        "payloadType": "bin",
+        "x": 1150,
+        "y": 1220,
+        "wires": [
+            [
+                "0ed52c3750e6ddce"
+            ]
+        ]
+    },
+    {
+        "id": "7c9fde6a52d91ddf",
+        "type": "debug",
+        "z": "76c778b95ae3572e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "0ed52c3750e6ddce",
+        "type": "function",
+        "z": "76c778b95ae3572e",
+        "name": "Parse sample",
+        "func": "function getBit(number, bitPosition) {\n  return (number & (1 << bitPosition)) === 0 ? 0 : 1;\n}\n\nfunction sgn(value) {\n    return value > 0x7FFF ? value - 0x10000 : value;\n}\n\nfunction FormatNumber(value, format, min, max, minText, maxText) {\n    if(value < min) {\n        return minText ? minText : min.toString();\n    } else if(value > max) {\n        return maxText ? maxText : max.toString();\n    }\n\n    if(format === \"0\") {\n        return value.toFixed(0)\n    } else if(format === \"0.0\") {\n        return value.toFixed(1)\n    } else if(format === \"0.00\") {\n        return value.toFixed(2)\n    } else {\n        return \"Unexpected format: \" + format;\n    }\n}\n\nfunction NoYesCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"no\";\n        case 1:\n            return \"yes\";\n    }\n}\n\nfunction StatusCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"0:Off-position, no heat demand\";\n        case 1:\n            return \"1:Pre-vent./post-ventilation\";\n        case 2:\n            return \"2:Ignition\";\n        case 3:\n            return \"3:Running for CH\";\n        case 4:\n            return \"4:Running for DHW\";\n        case 5:\n            return \"5:Anti hunting time CH\";\n        case 6:\n            return \"6:Post pump time CH\";\n        case 7:\n            return \"7:Post pump time DHW\";\n        case 8:\n            return \"8:Control stop\";\n        case 9:\n            return \"9:Shut down\";\n        case 10:\n            return \"10:Ventingcycle\";\n        case 11:\n            return \"11:Forced burner low flame\";\n        case 12:\n            return \"12:Forced burner high CH\";\n        case 13:\n            return \"13:Forced burner high DHW\";\n        case 15:\n            return \"15:Manual heat demand\";\n        default:\n            return \"Unknown State (\" + value + \")\";\n    }\n}\n\nfunction LockingCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"E00: Sensor error\";\n        case 1:\n            return \"E01: Flow > Tmax.\";\n        case 2:\n            return \"E02: Return > Flow\";\n        case 3:\n            return \"E03: Earthing fault\";\n        case 4:\n            return \"E04: No flame\";\n        case 5:\n            return \"E05: >5 start failures\";\n        case 6:\n            return \"E06: Flame simulation\";\n        case 7:\n            return \"E07: Water pressure to low\";\n        case 8:\n            return \"E08: Fan error\";\n        case 9:\n            return \"E09: Low hydraulic pressure\";\n        case 10:\n            return \"E10: insufficient deairation\";\n        case 11:\n            return \"E11: Airbox temp. > max.\";\n        case 12:\n            return \"E12: Error checking HRU\";\n        case 13:\n            return \"E13: fuse\";\n        case 43:\n            return \"E43: Parameter bounds\";\n        case 44:\n            return \"E44: Parameter checksum\";\n        case 45:\n            return \"E45: Default parameters\";\n        case 46:\n            return \"E46: dF/dU table error\";\n        default:\n            return \"Unknown locking code (\" + value + \")\";\n    }\n}\n\nfunction BlockingCodeString(value) {\n    switch(value) {\n        case 40:\n            return \"B40: Boiler codes unknown\";\n        case 80:\n            return \"B80: shut down input\";\n        case 81:\n            return \"B81: error checking HRU\";\n        case 82:\n            return \"B82:Solar boiler warm, DHW off\";\n        case 83:\n            return \"B83: Calorifier sensor error\";\n        case 90:\n            return \"B90: temperaure increase\";\n        case 91:\n            return \"B91: deltaT to big\";\n        case 92:\n            return \"B92: insufficient flow\";\n        default:\n            return \"Unknown blocking code (\" + value + \")\";\n    }\n}\n\nfunction OffOnCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"Off\";\n        case 1:\n            return \"On\";\n    }\n}\n\nfunction ClosedOpenCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"Closed\";\n        case 1:\n            return \"Open\";\n    }\n}\n\nfunction OpenClosedCodeString(value) {\n    switch(value) {\n        case 0:\n            return \"Open\";\n        case 1:\n            return \"Closed\";\n    }\n}\n\nvar result = {};\nvar buffer = msg.payload;\n\n// State, Group: 0\nresult[\"State\"] = StatusCodeString(buffer[40]);\n// Lock-out, Group: 0\nresult[\"Lock-out\"] = LockingCodeString(buffer[41]);\n// Shutdown, Group: 0\nresult[\"Shutdown\"] = BlockingCodeString(buffer[42]);\n// Flow temperature, Group: 1\nresult[\"Flow temp. [\u00b0C]\"] = FormatNumber(sgn(buffer[0] + (buffer[1] << 8)) * 0.01, \"0.00\", -25, 150, \"Open\", \"Closed\");\n// Return temperature, Group: 1\nresult[\"Return temp. [\u00b0C]\"] = FormatNumber(sgn(buffer[2] + (buffer[3] << 8)) * 0.01, \"0.00\", -25, 150, \"Open\", \"Closed\");\n// DHW temperature, Group: 1\nresult[\"DHW temp. [\u00b0C]\"] = FormatNumber(sgn(buffer[4] + (buffer[5] << 8)) * 0.01, \"0.00\", -25, 150, \"Open\", \"Closed\");\n// Internal setpoint, Group: 1\nresult[\"Internal setpoint [\u00b0C]\"] = FormatNumber(sgn(buffer[27] + (buffer[28] << 8)) * 0.01, \"0.00\", 0, 100, \"Open\", \"Closed\");\n// Setpoint for CH mode, Group: 1\nresult[\"CH Setpoint [\u00b0C]\"] = FormatNumber(sgn(buffer[16] + (buffer[17] << 8)) * 0.01, \"0.00\", 0, 100, \"Open\", \"Closed\");\n// Flow temp setpoint DHW mode, Group: 1\nresult[\"DHW Setpoint [\u00b0C]\"] = FormatNumber(sgn(buffer[18] + (buffer[19] << 8)) * 0.01, \"0.00\", 0, 100, \"Open\", \"Closed\");\n// Room temperature OpenTherm controller, Group: 1\nresult[\"Room temp. [\u00b0C]\"] = FormatNumber(sgn(buffer[14] + (buffer[15] << 8)) * 0.01, \"0.00\", -25, 150, \"Open\", \"Closed\");\n// Room temp setpointOpenTherm controller, Group: 1\nresult[\"Room temp setpoint [\u00b0C]\"] = FormatNumber(sgn(buffer[20] + (buffer[21] << 8)) * 0.01, \"0.00\", 0, 100, \"Open\", \"Closed\");\n// Temp. boiler control, Group: 1\nresult[\"Boiler Control temp. [\u00b0C]\"] = FormatNumber(sgn(buffer[12] + (buffer[13] << 8)) * 0.01, \"0.00\", -25, 150, \"Open\", \"Closed\");\n// Setpoint fanspeed, Group: 2\nresult[\"Fanspeed setpoint [Rpm]\"] = FormatNumber(buffer[22] + (buffer[23] << 8), \"0\", 0, 7000);\n// Fan speed, Group: 2\nresult[\"Fan speed [Rpm]\"] = FormatNumber(buffer[24] + (buffer[25] << 8), \"0\", 0, 7000);\n// Ionisation current, Group: 2\nresult[\"Ionisation current [uA]\"] = FormatNumber(buffer[26] * 0.1, \"0.0\", 0, 10);\n// Pomp speed, Group: 2\nresult[\"Pump [%]\"] = FormatNumber(buffer[30], \"0\", 0, 100);\n// Output, Group: 2\nresult[\"Available power [%]\"] = FormatNumber(buffer[29], \"0\", 0, 100);\n// Actual power from boiler, Group: 2\nresult[\"Actual power [%]\"] = FormatNumber(buffer[33], \"0\", 0, 100);\n// From controller desired max power, Group: 2\nresult[\"Required output [%]\"] = FormatNumber(buffer[32], \"0\", 0, 100);\n// Gas valve, Group: 3\nresult[\"Gas valve\"] = ClosedOpenCodeString(getBit(buffer[38], 0) === 0 ? 1 : 0);\n// Ignition, Group: 3\nresult[\"Ignition\"] = OffOnCodeString(getBit(buffer[38], 2));\n// Ionisation, Group: 3\nresult[\"Ionisation\"] = NoYesCodeString(getBit(buffer[37], 2));\n// Three way valve, Group: 3\nresult[\"Three way valve\"] = OffOnCodeString(getBit(buffer[38], 3));\n// Pump, Group: 3\nresult[\"Pump\"] = OffOnCodeString(getBit(buffer[39], 0));\n// Heat demand from modulating controller, Group: 3\nresult[\"Mod. heat demand\"] = NoYesCodeString(getBit(buffer[36], 1));\n// Heatdemand from on/off controller, Group: 3\nresult[\"On/off heat demand\"] = NoYesCodeString(getBit(buffer[36], 2));\n// DHW eco, boiler not kept warm, Group: 3\nresult[\"DHW eco\"] = NoYesCodeString(getBit(buffer[36], 4) === 0 ? 1 : 0);\n// DHW heat demand, Group: 3\nresult[\"DHW heat demand\"] = NoYesCodeString(getBit(buffer[36], 7));\n// Flow switch for detecting DHW, Group: 3\nresult[\"Flow switch\"] = OffOnCodeString(getBit(buffer[37], 3));\n// shut down input or HRU test, Group: 3\nresult[\"Shut down input\"] = OpenClosedCodeString(getBit(buffer[37], 0));\n// Modulating controller connected, Group: 3\nresult[\"Mod. controller\"] = NoYesCodeString(getBit(buffer[36], 0));\n\nreturn {\n    payload: result\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 1060,
+        "wires": [
+            [
+                "4b4e3aec37daf064"
+            ]
+        ]
+    },
+    {
+        "id": "4b4e3aec37daf064",
+        "type": "debug",
+        "z": "76c778b95ae3572e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 1060,
+        "wires": []
     },
     {
         "id": "96da407e.693bd",
@@ -4117,13 +4203,18 @@
                 "t": "eq",
                 "v": "1-0:2.8.2",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0-1:24.2.1",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 6,
-        "x": 490,
-        "y": 340,
+        "outputs": 7,
+        "x": 710,
+        "y": 380,
         "wires": [
             [
                 "2767f59a.0aa2a2"
@@ -4131,18 +4222,11 @@
             [
                 "96383f7.8c883c"
             ],
-            [
-                "ed5eb5fe.63efd8"
-            ],
-            [
-                "667ccb31.a889b4"
-            ],
-            [
-                "f49a0d16.460bd8"
-            ],
-            [
-                "29394d7e.fe0202"
-            ]
+            [],
+            [],
+            [],
+            [],
+            []
         ]
     },
     {
@@ -4153,11 +4237,10 @@
         "func": "var res = msg.payload.match(/\\((\\d\\d\\.\\d\\d\\d)\\*kW\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]) * 1000;\nmsg.topic = \"Watt in\"\n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 750,
-        "y": 300,
+        "x": 930,
+        "y": 320,
         "wires": [
             [
-                "6de2dae7.04f41c",
                 "6cacd492.26010c"
             ]
         ]
@@ -4170,23 +4253,13 @@
         "func": "var res = msg.payload.match(/\\((\\d\\d\\.\\d\\d\\d)\\*kW\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]) * -1000;\nmsg.topic = \"Watt out\"\n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 760,
-        "y": 420,
+        "x": 940,
+        "y": 380,
         "wires": [
             [
                 "2a70fa85.6933e6"
             ]
         ]
-    },
-    {
-        "id": "3b09687b.0e773",
-        "type": "comment",
-        "z": "53214520.af847c",
-        "name": "Small chart, numbers above, only last .. ?",
-        "info": "",
-        "x": 940,
-        "y": 760,
-        "wires": []
     },
     {
         "id": "91a54f37.f20998",
@@ -4249,166 +4322,6 @@
         ]
     },
     {
-        "id": "ed5eb5fe.63efd8",
-        "type": "function",
-        "z": "53214520.af847c",
-        "name": "kWh Received T1",
-        "func": "var res = msg.payload.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]);\nmsg.topic = \"kWh Received T1\"\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 750,
-        "y": 560,
-        "wires": [
-            [
-                "35173762.b4c95"
-            ]
-        ]
-    },
-    {
-        "id": "667ccb31.a889b4",
-        "type": "function",
-        "z": "53214520.af847c",
-        "name": "kWh Received T2",
-        "func": "var res = msg.payload.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]);\nmsg.topic = \"kWh Received T2\"\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 750,
-        "y": 600,
-        "wires": [
-            [
-                "36f4d085.5b5e08"
-            ]
-        ]
-    },
-    {
-        "id": "f49a0d16.460bd8",
-        "type": "function",
-        "z": "53214520.af847c",
-        "name": "kWh Sent T1",
-        "func": "var res = msg.payload.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]);\nmsg.topic = \"kWh Sent T1\"\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 730,
-        "y": 640,
-        "wires": [
-            [
-                "46e4ff24.111bd"
-            ]
-        ]
-    },
-    {
-        "id": "29394d7e.fe0202",
-        "type": "function",
-        "z": "53214520.af847c",
-        "name": "kWh Sent T2",
-        "func": "var res = msg.payload.match(/\\((\\d{6}\\.\\d{3})\\*kWh\\)/);\n\nif (res === null) {\n    return null;\n}\n\nmsg.payload = parseFloat(res[1]);\nmsg.topic = \"kWh Sent T2\"\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 730,
-        "y": 680,
-        "wires": [
-            [
-                "4e2cffa9.40b838"
-            ]
-        ]
-    },
-    {
-        "id": "6de2dae7.04f41c",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 2,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "Power usage",
-        "format": "{{msg.payload}} Watt",
-        "layout": "",
-        "x": 450,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "b2b0f8a7.992778",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 7,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "Gas usage ???",
-        "format": "{{msg.payload}} M<sup>3</sup>",
-        "layout": "",
-        "x": 440,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "35173762.b4c95",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 4,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "kWh in night",
-        "format": "{{msg.payload}} kWh",
-        "layout": "",
-        "x": 990,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "36f4d085.5b5e08",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 3,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "kWh in day",
-        "format": "{{msg.payload}} kWh",
-        "layout": "",
-        "x": 990,
-        "y": 600,
-        "wires": []
-    },
-    {
-        "id": "46e4ff24.111bd",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 6,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "kWh out night",
-        "format": "{{msg.payload}} kWh",
-        "layout": "",
-        "x": 1000,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "4e2cffa9.40b838",
-        "type": "ui_text",
-        "z": "53214520.af847c",
-        "group": "42b6ae00.90b7d4",
-        "order": 5,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "kWh out day",
-        "format": "{{msg.payload}} kWh",
-        "layout": "",
-        "x": 990,
-        "y": 680,
-        "wires": []
-    },
-    {
         "id": "ac6b5349.cbcd7",
         "type": "function",
         "z": "53214520.af847c",
@@ -4419,8 +4332,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 40,
+        "x": 970,
+        "y": 160,
         "wires": [
             [
                 "2b375b56.872754"
@@ -4454,11 +4367,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 40,
+        "x": 740,
+        "y": 160,
         "wires": [
             [
-                "ac6b5349.cbcd7"
+                "ac6b5349.cbcd7",
+                "3edfd13e877a1d86"
             ]
         ]
     },
@@ -4476,8 +4390,8 @@
         "retentionPolicyV18Flux": "",
         "org": "phin-home",
         "bucket": "home_db/autogen",
-        "x": 910,
-        "y": 40,
+        "x": 1190,
+        "y": 160,
         "wires": []
     },
     {
@@ -4488,8 +4402,8 @@
         "links": [
             "d6ec2ac3.24f5f"
         ],
-        "x": 1175,
-        "y": 200,
+        "x": 1235,
+        "y": 320,
         "wires": []
     },
     {
@@ -4500,8 +4414,101 @@
         "links": [
             "dac9fcf5.4f3058"
         ],
-        "x": 1175,
-        "y": 260,
+        "x": 1235,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "15b50c62ab44781e",
+        "type": "mqtt out",
+        "z": "53214520.af847c",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "69f5a3df.5a8b0c",
+        "x": 1310,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9eb4f7b75b7eb73c",
+        "type": "inject",
+        "z": "53214520.af847c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "init",
+        "payloadType": "str",
+        "x": 770,
+        "y": 220,
+        "wires": [
+            [
+                "3edfd13e877a1d86"
+            ]
+        ]
+    },
+    {
+        "id": "3edfd13e877a1d86",
+        "type": "function",
+        "z": "53214520.af847c",
+        "name": "To HA",
+        "func": "var deviceElectricity = {\n    serial: \"E0025000027979915\",\n    manufacturer: \"Kaifa\",\n    model: \"E0025\",\n    name: \"Electricity Meter\"\n    };\n\nvar deviceGas = {\n  serial: \"G0019340265255315\",\n  manufacturer: \"Itron\",\n  model: \"G0019\",\n  name: \"Gas Meter\"\n}\n\nvar infos = [\n  {\n      device: deviceElectricity,\n      device_class: \"power\",\n      state_class: \"measurement\",\n      key: \"current_electricity_usage\",\n      name:\"Power consumption\",\n      unit: \"W\",\n      field: \"current_w_received\"\n  },\n  {\n      device: deviceElectricity,\n      device_class: \"power\",\n      state_class: \"measurement\",\n      key: \"current_electricity_delivery\",\n      name:\"Power production\",\n      unit: \"W\",\n      field: \"current_w_delivered\"\n  },\n  {\n      device: deviceElectricity,\n      device_class: \"energy\",\n      state_class: \"total_increasing\",\n      key: \"electricity_used_tariff_1\",\n      name:\"Energy consumption (tarif 1)\",\n      unit: \"kWh\",\n      field: \"total_kwh_received_t1\"\n  },\n  {\n      device: deviceElectricity,\n      device_class: \"energy\",\n      state_class: \"total_increasing\",\n      key: \"electricity_used_tariff_2\",\n      name:\"Energy consumption (tarif 2)\",\n      unit: \"kWh\",\n      field: \"total_kwh_received_t2\"\n  },\n  {\n      device: deviceElectricity,\n      device_class: \"energy\",\n      state_class: \"total_increasing\",\n      key: \"electricity_delivered_tariff_1\",\n      name:\"Energy production (tarif 1)\",\n      unit: \"kWh\",\n      field: \"total_kwh_delivered_t1\"\n  },\n  {\n      device: deviceElectricity,\n      device_class: \"energy\",\n      state_class: \"total_increasing\",\n      key: \"electricity_delivered_tariff_2\",\n      name:\"Energy production (tarif 2)\",\n      unit: \"kWh\",\n      field: \"total_kwh_delivered_t2\"\n  },\n  {\n      device: deviceGas,\n      device_class: \"gas\",\n      state_class: \"total_increasing\",\n      key: \"gas_meter_reading\",\n      name:\"Gas consumption\",\n      unit: \"m\u00b3\",\n      field: \"total_gas_m3_received\"\n  }\n];\n\nfunction build(info) {\n  return {\n    payload: {\n      device: {\n        identifiers: [info.device.serial],\n        manufacturer: info.device.manufacturer,\n        model: info.device.model,\n        name: info.device.name\n      },\n      device_class: info.device_class,\n      state_class: info.state_class,\n      state_topic: `homeassistant/sensor/${info.device.serial}/state`,\n      value_template: `{{ value_json.${info.key}}}`,\n      unit_of_measurement: info.unit,\n      unique_id:`${info.device.serial}_${info.key}`,\n      name: info.name\n    },\n    topic: `homeassistant/sensor/${info.device.serial}_${info.key}/config`\n  };\n}\n\nfunction stats(infos, data) {\n  var result = {};\n\n  infos.forEach((info) => {\n      result[info.device.serial] ??= {};\n      result[info.device.serial][info.key] = data[info.field];\n    });\n\n\n  return Object.keys(result).map(key => ({\n      topic: `homeassistant/sensor/${key}/state`,\n      payload: result[key]\n    }));\n}\n\nif(msg.payload === \"init\") {\n  return [infos.map((info) => build(info))];\n} else {\n  return [stats(infos, msg.payload)];\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 220,
+        "wires": [
+            [
+                "a0760b68268a62d6"
+            ]
+        ]
+    },
+    {
+        "id": "a0760b68268a62d6",
+        "type": "json",
+        "z": "53214520.af847c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 1130,
+        "y": 220,
+        "wires": [
+            [
+                "15b50c62ab44781e"
+            ]
+        ]
+    },
+    {
+        "id": "af367432cadb8c54",
+        "type": "comment",
+        "z": "53214520.af847c",
+        "name": "NOTES",
+        "info": "Leaned a lot from:\nhttps://github.com/home-assistant/core/blob/master/homeassistant/components/dsmr/sensor.py\nhttps://github.com/home-assistant/core/blob/master/homeassistant/components/dsmr/strings.json\n\nTODO:\nReact to HA restart\nCheck/test NR restart\n",
+        "x": 1430,
+        "y": 160,
         "wires": []
     },
     {
