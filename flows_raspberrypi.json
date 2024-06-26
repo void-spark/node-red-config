@@ -336,9 +336,9 @@
             "1e84724e.698e56",
             "8d51290.8a48d58"
         ],
-        "x": 54,
+        "x": 44,
         "y": 299,
-        "w": 832,
+        "w": 842,
         "h": 169.5
     },
     {
@@ -3744,7 +3744,7 @@
         "type": "function",
         "z": "459a3a0f.cadb4c",
         "name": "Temp. logic",
-        "func": "// Inside below 19 Close\n// Inside between 19 and 21, and outside above 21, and open: close\n// Inside above 21 and cooler outside and close: Open\n// Inside above 21 and warmer outside and open: close\n\nvar bedroom_inside = flow.get(\"bedroom_inside\");\nvar bedroom_outside = flow.get(\"bedroom_outside\");\nvar bedroom_outside_api = flow.get(\"bedroom_outside_api\");\n\nif(bedroom_inside < 18.0) {\n    // Too cold, just keep it closed\n    return {topic: \"open\", payload: false}\n} else if(bedroom_inside > 22.0) {\n    // Too hot, cool if possible\n    var diff = bedroom_outside - bedroom_inside;\n    if( diff < -0.5 ) {\n        return {topic: \"open\", payload: true}\n    }\n    // Close at 0 difference, to prevent not noticing room\n    // and outside are keeping the same temp\n    // TODO: PID?\n    if( diff > 0.0 ) {\n        return {topic: \"open\", payload: false}\n    }\n} else {\n    // Inbetween, close if outside above 21, otherwise hold\n    if(bedroom_outside > 22.0) {\n        return {topic: \"open\", payload: false}\n    }\n}\n",
+        "func": "var bedroom_inside = flow.get(\"bedroom_inside\");\n//var bedroom_outside = flow.get(\"bedroom_outside\");\nvar bedroom_outside = flow.get(\"bedroom_outside_api\");\nvar diff = bedroom_outside - bedroom_inside;\n\nvar minimum = 17.0;\nvar maximum = 21.0;\n\nif(bedroom_inside < minimum) {\n    // Too cold, don't cool\n    return {topic: \"open\", payload: false}\n}\n\nif (bedroom_inside > maximum) {\n    // Too hot, cool if possible\n    if( diff < -0.5 ) {\n        return {topic: \"open\", payload: true}\n    }\n    // Close at 0 difference, to prevent not noticing room\n    // and outside are keeping the same temp\n    if( diff > 0.0 ) {\n        return {topic: \"open\", payload: false}\n    }\n    return;\n} \n\n// Acceptable temperature (between min and max)\n// Don't change anything unless outside gets too hot.\nif (diff > 0.0) {\n    return {topic: \"open\", payload: false}\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
