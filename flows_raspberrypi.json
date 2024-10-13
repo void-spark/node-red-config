@@ -393,6 +393,32 @@
         "h": 262
     },
     {
+        "id": "69603d88e708d720",
+        "type": "group",
+        "z": "76c778b95ae3572e",
+        "name": "Globe",
+        "style": {
+            "fill": "#bfdbef",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "066ef5ace9aea15c",
+            "141b9123a5b76ffc",
+            "4708317b7641c5a6",
+            "b1dadf645da72527",
+            "15644fc4759a5738",
+            "8e8e97dab34e3e90",
+            "5ca93b4fbc22b2e1",
+            "4c90794796afb0f8",
+            "09b61496994150cb"
+        ],
+        "x": 54,
+        "y": 1799,
+        "w": 752,
+        "h": 262
+    },
+    {
         "id": "40c2382e81ff0848",
         "type": "junction",
         "z": "76c778b95ae3572e",
@@ -1938,22 +1964,6 @@
         ]
     },
     {
-        "id": "7c9fde6a52d91ddf",
-        "type": "debug",
-        "z": "76c778b95ae3572e",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1500,
-        "y": 1120,
-        "wires": []
-    },
-    {
         "id": "0ed52c3750e6ddce",
         "type": "function",
         "z": "76c778b95ae3572e",
@@ -2047,11 +2057,6 @@
         "version": 5,
         "outputs": 1,
         "exposeAsEntityConfig": "",
-        "entityId": [
-            "sensor.openweathermap_temperature",
-            "sensor.bedroom_temps_ds18b20_1_temperature"
-        ],
-        "entityIdType": "list",
         "outputInitially": true,
         "stateType": "num",
         "ifState": "",
@@ -2086,6 +2091,11 @@
                 "valueType": "triggerId"
             }
         ],
+        "entityId": [
+            "sensor.openweathermap_temperature",
+            "sensor.bedroom_temps_ds18b20_1_temperature"
+        ],
+        "entityIdType": "list",
         "x": 180,
         "y": 80,
         "wires": [
@@ -2126,6 +2136,241 @@
         "wires": [
             [
                 "f5aac6fee507667b"
+            ]
+        ]
+    },
+    {
+        "id": "066ef5ace9aea15c",
+        "type": "ui_slider",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "label": "R",
+        "tooltip": "",
+        "group": "a8db762f.1aeb8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "r",
+        "topicType": "str",
+        "min": 0,
+        "max": "2047",
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 1840,
+        "wires": [
+            [
+                "141b9123a5b76ffc"
+            ]
+        ]
+    },
+    {
+        "id": "141b9123a5b76ffc",
+        "type": "join",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "1",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 330,
+        "y": 1920,
+        "wires": [
+            [
+                "8e8e97dab34e3e90"
+            ]
+        ]
+    },
+    {
+        "id": "4708317b7641c5a6",
+        "type": "ui_slider",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "label": "G",
+        "tooltip": "",
+        "group": "a8db762f.1aeb8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "g",
+        "topicType": "str",
+        "min": 0,
+        "max": "2047",
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 1900,
+        "wires": [
+            [
+                "141b9123a5b76ffc"
+            ]
+        ]
+    },
+    {
+        "id": "b1dadf645da72527",
+        "type": "ui_slider",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "label": "B",
+        "tooltip": "",
+        "group": "a8db762f.1aeb8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "b",
+        "topicType": "str",
+        "min": 0,
+        "max": "2047",
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 1960,
+        "wires": [
+            [
+                "141b9123a5b76ffc"
+            ]
+        ]
+    },
+    {
+        "id": "15644fc4759a5738",
+        "type": "ui_slider",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "label": "M",
+        "tooltip": "",
+        "group": "a8db762f.1aeb8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "m",
+        "topicType": "str",
+        "min": 0,
+        "max": "2047",
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 2020,
+        "wires": [
+            [
+                "141b9123a5b76ffc"
+            ]
+        ]
+    },
+    {
+        "id": "8e8e97dab34e3e90",
+        "type": "function",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "To CSV",
+        "func": "const input = msg.payload;\n\nreturn {\n    payload: `\\\n${input.r || 0},\\\n${input.g || 0},\\\n${input.b || 0},\\\n${input.m || 0}`,\n    topic: 'rgbm'\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 2000,
+        "wires": [
+            [
+                "4c90794796afb0f8",
+                "09b61496994150cb"
+            ]
+        ]
+    },
+    {
+        "id": "5ca93b4fbc22b2e1",
+        "type": "mqtt out",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "GLOBE set",
+        "topic": "devices/6055f9715178/globe/rgbm/set",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "69f5a3df.5a8b0c",
+        "x": 710,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "4c90794796afb0f8",
+        "type": "delay",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "20",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 2020,
+        "wires": [
+            [
+                "5ca93b4fbc22b2e1"
+            ]
+        ]
+    },
+    {
+        "id": "09b61496994150cb",
+        "type": "trigger",
+        "z": "76c778b95ae3572e",
+        "g": "69603d88e708d720",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "50",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 510,
+        "y": 1980,
+        "wires": [
+            [
+                "5ca93b4fbc22b2e1"
             ]
         ]
     },
@@ -3334,8 +3579,6 @@
         "version": 5,
         "outputs": 1,
         "exposeAsEntityConfig": "",
-        "entityId": "sensor.openweathermap_temperature",
-        "entityIdType": "exact",
         "outputInitially": true,
         "stateType": "num",
         "ifState": "",
@@ -3370,6 +3613,8 @@
                 "valueType": "triggerId"
             }
         ],
+        "entityId": "sensor.openweathermap_temperature",
+        "entityIdType": "exact",
         "x": 770,
         "y": 220,
         "wires": [
@@ -3765,7 +4010,6 @@
         "z": "459a3a0f.cadb4c",
         "name": "open",
         "links": [
-            "7bd79c90.f19984",
             "50b19175.72032"
         ],
         "x": 565,
@@ -3918,13 +4162,18 @@
         "z": "459a3a0f.cadb4c",
         "name": "Outside temp. (API)",
         "server": "d4924755d9c84f9c",
-        "version": 5,
+        "version": 6,
         "outputs": 1,
         "exposeAsEntityConfig": "",
-        "entityId": "sensor.openweathermap_temperature",
-        "entityIdType": "exact",
+        "entities": {
+            "entity": [
+                "weather.forecast_home"
+            ],
+            "substring": [],
+            "regex": []
+        },
         "outputInitially": true,
-        "stateType": "num",
+        "stateType": "str",
         "ifState": "",
         "ifStateType": "str",
         "ifStateOperator": "is",
@@ -3940,12 +4189,6 @@
         "outputProperties": [
             {
                 "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
                 "propertyType": "msg",
                 "value": "",
                 "valueType": "eventData"
@@ -3961,7 +4204,7 @@
         "y": 100,
         "wires": [
             [
-                "7cec3d45deb81d7e"
+                "0648ba0efe2c1e7c"
             ]
         ]
     },
@@ -3974,8 +4217,6 @@
         "version": 5,
         "outputs": 1,
         "exposeAsEntityConfig": "",
-        "entityId": "sensor.temperature_difference",
-        "entityIdType": "exact",
         "outputInitially": true,
         "stateType": "num",
         "ifState": "",
@@ -4010,6 +4251,8 @@
                 "valueType": "triggerId"
             }
         ],
+        "entityId": "sensor.temperature_difference",
+        "entityIdType": "exact",
         "x": 480,
         "y": 260,
         "wires": [
@@ -4071,6 +4314,329 @@
                 "6f726c2.3989694"
             ]
         ]
+    },
+    {
+        "id": "0648ba0efe2c1e7c",
+        "type": "debug",
+        "z": "459a3a0f.cadb4c",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 660,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "5d8637209a352f55",
+        "type": "server-state-changed",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "weather.forecast_home"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": false,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "921f5c3bf1131c96"
+            ]
+        ]
+    },
+    {
+        "id": "921f5c3bf1131c96",
+        "type": "change",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 780,
+        "wires": [
+            [
+                "89b3c08347cc9720"
+            ]
+        ]
+    },
+    {
+        "id": "89b3c08347cc9720",
+        "type": "debug",
+        "z": "459a3a0f.cadb4c",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 940,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "1ba494101a2c9123",
+        "type": "server-state-changed",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "weather.buienradar"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": false,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 480,
+        "y": 860,
+        "wires": [
+            [
+                "2d9204af65e7e512"
+            ]
+        ]
+    },
+    {
+        "id": "2d9204af65e7e512",
+        "type": "change",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 860,
+        "wires": [
+            [
+                "bb8d62cbd3abfa90"
+            ]
+        ]
+    },
+    {
+        "id": "bb8d62cbd3abfa90",
+        "type": "debug",
+        "z": "459a3a0f.cadb4c",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 940,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "f84e0b556da26da3",
+        "type": "server-state-changed",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "weather.home"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": false,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 460,
+        "y": 940,
+        "wires": [
+            [
+                "fc862d1cc257e1d3"
+            ]
+        ]
+    },
+    {
+        "id": "fc862d1cc257e1d3",
+        "type": "change",
+        "z": "459a3a0f.cadb4c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 940,
+        "wires": [
+            [
+                "998a4df61052815e"
+            ]
+        ]
+    },
+    {
+        "id": "998a4df61052815e",
+        "type": "debug",
+        "z": "459a3a0f.cadb4c",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 940,
+        "y": 940,
+        "wires": []
     },
     {
         "id": "29ddccaa.2032ac",
