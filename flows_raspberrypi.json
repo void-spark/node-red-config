@@ -116,8 +116,8 @@
             "4dc22ed0.90af3",
             "f5aac6fee507667b",
             "2395fdd3a3e4c281",
-            "ddc231bfbeac3e0a",
-            "47a812e0.ece794"
+            "47a812e0.ece794",
+            "cbcb29437fcf1066"
         ],
         "x": 54,
         "y": 39,
@@ -417,6 +417,30 @@
         "y": 1799,
         "w": 752,
         "h": 262
+    },
+    {
+        "id": "5fe387382464818a",
+        "type": "group",
+        "z": "76c778b95ae3572e",
+        "name": "Home Assistant",
+        "style": {
+            "fill": "#bfdbef",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "86e00f0b78200307",
+            "dc2cd53ba802b09b",
+            "4ade0223850f0d66",
+            "3cb8ccd03ce5603e",
+            "c89091edca5a15c3",
+            "3c67e7c62286b74e",
+            "c3cf0d86347d5338"
+        ],
+        "x": 54,
+        "y": 2099,
+        "w": 1192,
+        "h": 142
     },
     {
         "id": "40c2382e81ff0848",
@@ -2011,6 +2035,7 @@
         "key": "topic",
         "joiner": "\\n",
         "joinerType": "str",
+        "useparts": true,
         "accumulate": true,
         "timeout": "",
         "count": "1",
@@ -2037,70 +2062,13 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "{{ payload.bedroom_temps_ds18b20_1_temperature}} / {{ payload.openweathermap_temperature }}",
+        "template": "{{ payload.bedroom_temp }} / {{ payload.outside_temp_api }}",
         "output": "str",
         "x": 710,
         "y": 80,
         "wires": [
             [
                 "c03904e8.eae328"
-            ]
-        ]
-    },
-    {
-        "id": "ddc231bfbeac3e0a",
-        "type": "server-state-changed",
-        "z": "76c778b95ae3572e",
-        "g": "88ca25f284925286",
-        "name": "Temps (inside/outside)",
-        "server": "d4924755d9c84f9c",
-        "version": 5,
-        "outputs": 1,
-        "exposeAsEntityConfig": "",
-        "outputInitially": true,
-        "stateType": "num",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": true,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "entityId": [
-            "sensor.openweathermap_temperature",
-            "sensor.bedroom_temps_ds18b20_1_temperature"
-        ],
-        "entityIdType": "list",
-        "x": 180,
-        "y": 80,
-        "wires": [
-            [
-                "47a812e0.ece794"
             ]
         ]
     },
@@ -2116,13 +2084,6 @@
                 "p": "payload",
                 "pt": "msg",
                 "to": "$formatNumber(payload, \"0.00\")",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "$split(topic, \".\")[1]",
                 "tot": "jsonata"
             }
         ],
@@ -2371,6 +2332,280 @@
         "wires": [
             [
                 "5ca93b4fbc22b2e1"
+            ]
+        ]
+    },
+    {
+        "id": "86e00f0b78200307",
+        "type": "link out",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "Temps",
+        "mode": "link",
+        "links": [
+            "cbcb29437fcf1066",
+            "b144a6c43c9c38d2",
+            "61cb67ec1e7f0235"
+        ],
+        "x": 1170,
+        "y": 2160,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "dc2cd53ba802b09b",
+        "type": "server-state-changed",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "weather.buienradar"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": false,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 220,
+        "y": 2200,
+        "wires": [
+            [
+                "4ade0223850f0d66"
+            ]
+        ]
+    },
+    {
+        "id": "4ade0223850f0d66",
+        "type": "change",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.temperature",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "outside_temp_api",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 2200,
+        "wires": [
+            [
+                "86e00f0b78200307"
+            ]
+        ]
+    },
+    {
+        "id": "cbcb29437fcf1066",
+        "type": "link in",
+        "z": "76c778b95ae3572e",
+        "g": "88ca25f284925286",
+        "name": "Temps small display",
+        "links": [
+            "86e00f0b78200307"
+        ],
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "47a812e0.ece794"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "3cb8ccd03ce5603e",
+        "type": "server-state-changed",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [],
+            "substring": [],
+            "regex": [
+                "^sensor.bedroom_temps_ds18b20*"
+            ]
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 270,
+        "y": 2140,
+        "wires": [
+            [
+                "c89091edca5a15c3"
+            ]
+        ]
+    },
+    {
+        "id": "c89091edca5a15c3",
+        "type": "join",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "1",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 550,
+        "y": 2140,
+        "wires": [
+            [
+                "3c67e7c62286b74e"
+            ]
+        ]
+    },
+    {
+        "id": "3c67e7c62286b74e",
+        "type": "function",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "Get temp per sensor",
+        "func": "let result = {};\nfor (let key in msg.payload) {\n    if (!key.endsWith('_id')) continue;\n    \n    const tempKey = key.replace('_id', '_temperature');\n    if (tempKey in msg.payload) result[msg.payload[key]] = parseFloat(msg.payload[tempKey]);\n}\nreturn {\n    topic: 'temps', \n    payload: result\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2140,
+        "wires": [
+            [
+                "c3cf0d86347d5338"
+            ]
+        ]
+    },
+    {
+        "id": "c3cf0d86347d5338",
+        "type": "change",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.011581E788FF",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "bedroom_temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 2140,
+        "wires": [
+            [
+                "86e00f0b78200307"
             ]
         ]
     },
@@ -3217,13 +3452,14 @@
         "links": [
             "2a70fa85.6933e6"
         ],
-        "x": 35,
+        "x": 80,
         "y": 280,
         "wires": [
             [
                 "db76bd33.e27f28"
             ]
-        ]
+        ],
+        "l": true
     },
     {
         "id": "d6ec2ac3.24f5f",
@@ -3233,13 +3469,14 @@
         "links": [
             "6cacd492.26010c"
         ],
-        "x": 35,
+        "x": 70,
         "y": 220,
         "wires": [
             [
                 "db76bd33.e27f28"
             ]
-        ]
+        ],
+        "l": true
     },
     {
         "id": "db76bd33.e27f28",
@@ -3398,8 +3635,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 950,
-        "y": 220,
+        "x": 570,
+        "y": 160,
         "wires": [
             [
                 "6ef69076.f80fe8"
@@ -3571,52 +3808,41 @@
         ]
     },
     {
-        "id": "7d25fd4906682ed0",
-        "type": "server-state-changed",
+        "id": "b144a6c43c9c38d2",
+        "type": "link in",
         "z": "5ecdcc0a.76574c",
-        "name": "Outside temp. (API)",
-        "server": "d4924755d9c84f9c",
-        "version": 5,
-        "outputs": 1,
-        "exposeAsEntityConfig": "",
-        "outputInitially": true,
-        "stateType": "num",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": true,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
+        "name": "Temps LCD",
+        "links": [
+            "86e00f0b78200307"
+        ],
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "07fb95b51dbb849f"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "07fb95b51dbb849f",
+        "type": "switch",
+        "z": "5ecdcc0a.76574c",
+        "name": "Filter outside temp",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
             {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
+                "t": "eq",
+                "v": "outside_temp_api",
+                "vt": "str"
             }
         ],
-        "entityId": "sensor.openweathermap_temperature",
-        "entityIdType": "exact",
-        "x": 770,
-        "y": 220,
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 160,
         "wires": [
             [
                 "7be92e4.ad998d"
@@ -4136,7 +4362,7 @@
                 "t": "change",
                 "p": "topic",
                 "pt": "msg",
-                "from": "sensor.openweathermap_temperature",
+                "from": "outside_temp_api",
                 "fromt": "str",
                 "to": "bedroom_outside_api",
                 "tot": "str"
@@ -4157,66 +4383,21 @@
         ]
     },
     {
-        "id": "d5ffd06b04f6003a",
+        "id": "c4696055e1b860dc",
         "type": "server-state-changed",
         "z": "459a3a0f.cadb4c",
-        "name": "Outside temp. (API)",
+        "name": "Temp. diff",
         "server": "d4924755d9c84f9c",
         "version": 6,
         "outputs": 1,
         "exposeAsEntityConfig": "",
         "entities": {
             "entity": [
-                "weather.forecast_home"
+                "sensor.temperature_difference"
             ],
             "substring": [],
             "regex": []
         },
-        "outputInitially": true,
-        "stateType": "str",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": true,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 290,
-        "y": 100,
-        "wires": [
-            [
-                "0648ba0efe2c1e7c"
-            ]
-        ]
-    },
-    {
-        "id": "c4696055e1b860dc",
-        "type": "server-state-changed",
-        "z": "459a3a0f.cadb4c",
-        "name": "Temp. diff",
-        "server": "d4924755d9c84f9c",
-        "version": 5,
-        "outputs": 1,
-        "exposeAsEntityConfig": "",
         "outputInitially": true,
         "stateType": "num",
         "ifState": "",
@@ -4251,8 +4432,6 @@
                 "valueType": "triggerId"
             }
         ],
-        "entityId": "sensor.temperature_difference",
-        "entityIdType": "exact",
         "x": 480,
         "y": 260,
         "wires": [
@@ -4316,327 +4495,46 @@
         ]
     },
     {
-        "id": "0648ba0efe2c1e7c",
-        "type": "debug",
+        "id": "61cb67ec1e7f0235",
+        "type": "link in",
         "z": "459a3a0f.cadb4c",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 660,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "5d8637209a352f55",
-        "type": "server-state-changed",
-        "z": "459a3a0f.cadb4c",
-        "name": "",
-        "server": "d4924755d9c84f9c",
-        "version": 6,
-        "outputs": 1,
-        "exposeAsEntityConfig": "",
-        "entities": {
-            "entity": [
-                "weather.forecast_home"
-            ],
-            "substring": [],
-            "regex": []
-        },
-        "outputInitially": true,
-        "stateType": "str",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": false,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
+        "name": "Temps Temp. Control",
+        "links": [
+            "86e00f0b78200307"
         ],
-        "x": 490,
-        "y": 780,
+        "x": 180,
+        "y": 140,
         "wires": [
             [
-                "921f5c3bf1131c96"
+                "67e7cbcf6a5ad16c"
             ]
-        ]
+        ],
+        "l": true
     },
     {
-        "id": "921f5c3bf1131c96",
-        "type": "change",
+        "id": "67e7cbcf6a5ad16c",
+        "type": "switch",
         "z": "459a3a0f.cadb4c",
-        "name": "",
+        "name": "Filter outside temp",
+        "property": "topic",
+        "propertyType": "msg",
         "rules": [
             {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.temperature",
-                "tot": "msg"
+                "t": "eq",
+                "v": "outside_temp_api",
+                "vt": "str"
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 760,
-        "y": 780,
-        "wires": [
-            [
-                "89b3c08347cc9720"
-            ]
-        ]
-    },
-    {
-        "id": "89b3c08347cc9720",
-        "type": "debug",
-        "z": "459a3a0f.cadb4c",
-        "name": "debug 7",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 940,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "1ba494101a2c9123",
-        "type": "server-state-changed",
-        "z": "459a3a0f.cadb4c",
-        "name": "",
-        "server": "d4924755d9c84f9c",
-        "version": 6,
+        "checkall": "true",
+        "repair": false,
         "outputs": 1,
-        "exposeAsEntityConfig": "",
-        "entities": {
-            "entity": [
-                "weather.buienradar"
-            ],
-            "substring": [],
-            "regex": []
-        },
-        "outputInitially": true,
-        "stateType": "str",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": false,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 480,
-        "y": 860,
+        "x": 170,
+        "y": 200,
         "wires": [
             [
-                "2d9204af65e7e512"
+                "7cec3d45deb81d7e"
             ]
         ]
-    },
-    {
-        "id": "2d9204af65e7e512",
-        "type": "change",
-        "z": "459a3a0f.cadb4c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.temperature",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 760,
-        "y": 860,
-        "wires": [
-            [
-                "bb8d62cbd3abfa90"
-            ]
-        ]
-    },
-    {
-        "id": "bb8d62cbd3abfa90",
-        "type": "debug",
-        "z": "459a3a0f.cadb4c",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 940,
-        "y": 860,
-        "wires": []
-    },
-    {
-        "id": "f84e0b556da26da3",
-        "type": "server-state-changed",
-        "z": "459a3a0f.cadb4c",
-        "name": "",
-        "server": "d4924755d9c84f9c",
-        "version": 6,
-        "outputs": 1,
-        "exposeAsEntityConfig": "",
-        "entities": {
-            "entity": [
-                "weather.home"
-            ],
-            "substring": [],
-            "regex": []
-        },
-        "outputInitially": true,
-        "stateType": "str",
-        "ifState": "",
-        "ifStateType": "str",
-        "ifStateOperator": "is",
-        "outputOnlyOnStateChange": false,
-        "for": "0",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 460,
-        "y": 940,
-        "wires": [
-            [
-                "fc862d1cc257e1d3"
-            ]
-        ]
-    },
-    {
-        "id": "fc862d1cc257e1d3",
-        "type": "change",
-        "z": "459a3a0f.cadb4c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.temperature",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 760,
-        "y": 940,
-        "wires": [
-            [
-                "998a4df61052815e"
-            ]
-        ]
-    },
-    {
-        "id": "998a4df61052815e",
-        "type": "debug",
-        "z": "459a3a0f.cadb4c",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 940,
-        "y": 940,
-        "wires": []
     },
     {
         "id": "29ddccaa.2032ac",
