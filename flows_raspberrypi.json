@@ -435,12 +435,18 @@
             "3cb8ccd03ce5603e",
             "c89091edca5a15c3",
             "3c67e7c62286b74e",
-            "c3cf0d86347d5338"
+            "c3cf0d86347d5338",
+            "8f7683a89436cb58",
+            "24ffef6fa35c4d7f",
+            "353ab0bcaec0165f",
+            "d835bb6fd0a6e7bb",
+            "ca2c9db61357de1f",
+            "767e7e5d1e05ac93"
         ],
         "x": 54,
         "y": 2099,
-        "w": 1192,
-        "h": 142
+        "w": 1212,
+        "h": 262
     },
     {
         "id": "40c2382e81ff0848",
@@ -2609,6 +2615,194 @@
                 "86e00f0b78200307"
             ]
         ]
+    },
+    {
+        "id": "8f7683a89436cb58",
+        "type": "server-state-changed",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "server": "d4924755d9c84f9c",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "climate.toon_thermostat"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": true,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": false,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 230,
+        "y": 2300,
+        "wires": [
+            [
+                "d835bb6fd0a6e7bb",
+                "353ab0bcaec0165f"
+            ]
+        ]
+    },
+    {
+        "id": "24ffef6fa35c4d7f",
+        "type": "debug",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "353ab0bcaec0165f",
+        "type": "change",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.current_temperature",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "toon.current_temperature",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 2280,
+        "wires": [
+            [
+                "24ffef6fa35c4d7f"
+            ]
+        ]
+    },
+    {
+        "id": "d835bb6fd0a6e7bb",
+        "type": "change",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.temperature",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "toon.temperature",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 2320,
+        "wires": [
+            [
+                "24ffef6fa35c4d7f"
+            ]
+        ]
+    },
+    {
+        "id": "ca2c9db61357de1f",
+        "type": "function",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "name": "To influxdb format",
+        "func": "msg.measurement = \"temp_\" + msg.topic;\nmsg.payload = {\n  value: msg.payload,\n  time: new Date().getTime()\n};\nreturn msg;\n\n\n//return {\n//    measurement: \"central_heating_diag\",\n//    payload: {\n//        flow_temp: (sgn(buffer[0] + (buffer[1] << 8)) * (1000 * 0.01)) / 1000,\n//        return_temp: (sgn(buffer[2] + (buffer[3] << 8)) * (1000 * 0.01)) / 1000,\n//        time: new Date().getTime()\n//    }\n//};",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 2240,
+        "wires": [
+            [
+                "767e7e5d1e05ac93"
+            ]
+        ]
+    },
+    {
+        "id": "767e7e5d1e05ac93",
+        "type": "influxdb out",
+        "z": "76c778b95ae3572e",
+        "g": "5fe387382464818a",
+        "influxdb": "9e729019.2637e",
+        "name": "",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "phin-home",
+        "bucket": "home_db/autogen",
+        "x": 1130,
+        "y": 2240,
+        "wires": []
     },
     {
         "id": "96da407e.693bd",
