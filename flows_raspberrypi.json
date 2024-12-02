@@ -1923,7 +1923,7 @@
         "z": "76c778b95ae3572e",
         "g": "245c6352e67871c3",
         "name": "To influxdb format",
-        "func": "const time = msg.payload.Time;\nconst data = msg.payload.DS18B20;\n\nmsg.measurement = \"temp1\";\nmsg.payload = {\n  temperature: data.Temperature,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "func": "const time = new Date(msg.payload.Time).getTime();\nconst data1 = msg.payload[\"DS18B20-1\"];\nconst data2 = msg.payload[\"DS18B20-2\"];\nconst data3 = msg.payload[\"DS18B20-3\"];\n\nreturn [[\n  {\n    measurement: \"temp1-1\",\n    payload: {\n      temperature: data1.Temperature,\n      time: time\n    }\n  },\n  {\n    measurement: \"temp1-2\",\n    payload: {\n      temperature: data2.Temperature,\n      time: time\n    }\n  },\n  {\n    measurement: \"temp1-3\",\n    payload: {\n      temperature: data3.Temperature,\n      time: time\n    }\n  }\n]];\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
