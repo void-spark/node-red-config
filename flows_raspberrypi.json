@@ -208,12 +208,14 @@
             "2348e05d.e3d64",
             "2e363d39.1628da",
             "7b37f4d0.653aa4",
-            "cf463c2c.d0c398"
+            "cf463c2c.d0c398",
+            "073fdab7f3dee32c",
+            "16637d0ffd65fc44"
         ],
         "x": 54,
         "y": 919,
         "w": 812,
-        "h": 202
+        "h": 262
     },
     {
         "id": "326cb0c425d84f87",
@@ -239,7 +241,7 @@
             "4d2cce54441b0f6a"
         ],
         "x": 64,
-        "y": 1159,
+        "y": 1199,
         "w": 1062,
         "h": 282
     },
@@ -265,7 +267,7 @@
             "e5385a494ece704a"
         ],
         "x": 54,
-        "y": 1479,
+        "y": 1519,
         "w": 832,
         "h": 282
     },
@@ -414,7 +416,7 @@
             "09b61496994150cb"
         ],
         "x": 54,
-        "y": 1799,
+        "y": 1839,
         "w": 752,
         "h": 262
     },
@@ -444,7 +446,7 @@
             "767e7e5d1e05ac93"
         ],
         "x": 54,
-        "y": 2099,
+        "y": 2139,
         "w": 1212,
         "h": 262
     },
@@ -1536,7 +1538,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 990,
-        "y": 1240,
+        "y": 1280,
         "wires": []
     },
     {
@@ -1552,7 +1554,7 @@
         "finalize": "",
         "libs": [],
         "x": 570,
-        "y": 1240,
+        "y": 1280,
         "wires": [
             [
                 "2d7af49fbb9d5cb8",
@@ -1573,7 +1575,7 @@
         "finalize": "",
         "libs": [],
         "x": 780,
-        "y": 1240,
+        "y": 1280,
         "wires": [
             [
                 "0b3731705511f2d3"
@@ -1603,7 +1605,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 180,
-        "y": 1400,
+        "y": 1440,
         "wires": [
             [
                 "3bc1ecc2b79435ae"
@@ -1623,7 +1625,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 1400,
+        "y": 1440,
         "wires": [
             [
                 "7782fcdd5ce50be7"
@@ -1643,7 +1645,7 @@
         "finalize": "",
         "libs": [],
         "x": 780,
-        "y": 1320,
+        "y": 1360,
         "wires": [
             [
                 "f467169fa32ae12e"
@@ -1666,7 +1668,7 @@
         "org": "phin-home",
         "bucket": "home_db/autogen",
         "x": 1010,
-        "y": 1320,
+        "y": 1360,
         "wires": []
     },
     {
@@ -1685,7 +1687,7 @@
         "expiry": "",
         "broker": "69f5a3df.5a8b0c",
         "x": 590,
-        "y": 1400,
+        "y": 1440,
         "wires": []
     },
     {
@@ -1702,7 +1704,7 @@
         "rap": false,
         "inputs": 0,
         "x": 170,
-        "y": 1200,
+        "y": 1240,
         "wires": [
             [
                 "62f946eab6ef55b4"
@@ -1719,7 +1721,7 @@
         "action": "obj",
         "pretty": false,
         "x": 330,
-        "y": 1200,
+        "y": 1240,
         "wires": [
             [
                 "4d2cce54441b0f6a"
@@ -1747,7 +1749,7 @@
         "to": "",
         "reg": false,
         "x": 360,
-        "y": 1240,
+        "y": 1280,
         "wires": [
             [
                 "33235cb24294f9cc"
@@ -1768,7 +1770,7 @@
         "rap": false,
         "inputs": 0,
         "x": 140,
-        "y": 1520,
+        "y": 1560,
         "wires": [
             [
                 "291797345c53722b"
@@ -1788,7 +1790,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 1520,
+        "y": 1560,
         "wires": [
             [
                 "ec4f6398910cefaa"
@@ -1811,7 +1813,7 @@
         "org": "phin-home",
         "bucket": "home_db/autogen",
         "x": 770,
-        "y": 1580,
+        "y": 1620,
         "wires": []
     },
     {
@@ -1828,7 +1830,7 @@
         "rap": false,
         "inputs": 0,
         "x": 140,
-        "y": 1580,
+        "y": 1620,
         "wires": [
             [
                 "65fd0d1e9908923b"
@@ -1848,7 +1850,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 1580,
+        "y": 1620,
         "wires": [
             [
                 "ec4f6398910cefaa"
@@ -1869,7 +1871,7 @@
         "rap": false,
         "inputs": 0,
         "x": 140,
-        "y": 1640,
+        "y": 1680,
         "wires": [
             [
                 "bf6daca12632d79c"
@@ -1889,7 +1891,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 1640,
+        "y": 1680,
         "wires": [
             [
                 "ec4f6398910cefaa"
@@ -1910,7 +1912,7 @@
         "rap": false,
         "inputs": 0,
         "x": 130,
-        "y": 1720,
+        "y": 1760,
         "wires": [
             [
                 "e5385a494ece704a"
@@ -1931,7 +1933,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 1720,
+        "y": 1760,
         "wires": [
             [
                 "ec4f6398910cefaa"
@@ -2128,7 +2130,7 @@
         "step": 1,
         "className": "",
         "x": 130,
-        "y": 1840,
+        "y": 1880,
         "wires": [
             [
                 "141b9123a5b76ffc"
@@ -2158,7 +2160,7 @@
         "reduceInitType": "num",
         "reduceFixup": "",
         "x": 330,
-        "y": 1920,
+        "y": 1960,
         "wires": [
             [
                 "8e8e97dab34e3e90"
@@ -2186,7 +2188,7 @@
         "step": 1,
         "className": "",
         "x": 130,
-        "y": 1900,
+        "y": 1940,
         "wires": [
             [
                 "141b9123a5b76ffc"
@@ -2214,7 +2216,7 @@
         "step": 1,
         "className": "",
         "x": 130,
-        "y": 1960,
+        "y": 2000,
         "wires": [
             [
                 "141b9123a5b76ffc"
@@ -2242,7 +2244,7 @@
         "step": 1,
         "className": "",
         "x": 130,
-        "y": 2020,
+        "y": 2060,
         "wires": [
             [
                 "141b9123a5b76ffc"
@@ -2263,7 +2265,7 @@
         "finalize": "",
         "libs": [],
         "x": 340,
-        "y": 2000,
+        "y": 2040,
         "wires": [
             [
                 "4c90794796afb0f8",
@@ -2287,7 +2289,7 @@
         "expiry": "",
         "broker": "69f5a3df.5a8b0c",
         "x": 710,
-        "y": 2000,
+        "y": 2040,
         "wires": []
     },
     {
@@ -2309,7 +2311,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 520,
-        "y": 2020,
+        "y": 2060,
         "wires": [
             [
                 "5ca93b4fbc22b2e1"
@@ -2335,7 +2337,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 510,
-        "y": 1980,
+        "y": 2020,
         "wires": [
             [
                 "5ca93b4fbc22b2e1"
@@ -2355,7 +2357,7 @@
             "61cb67ec1e7f0235"
         ],
         "x": 1170,
-        "y": 2160,
+        "y": 2200,
         "wires": [],
         "l": true
     },
@@ -2411,7 +2413,7 @@
             }
         ],
         "x": 220,
-        "y": 2200,
+        "y": 2240,
         "wires": [
             [
                 "4ade0223850f0d66"
@@ -2446,7 +2448,7 @@
         "to": "",
         "reg": false,
         "x": 960,
-        "y": 2200,
+        "y": 2240,
         "wires": [
             [
                 "86e00f0b78200307"
@@ -2523,7 +2525,7 @@
             }
         ],
         "x": 270,
-        "y": 2140,
+        "y": 2180,
         "wires": [
             [
                 "c89091edca5a15c3"
@@ -2553,7 +2555,7 @@
         "reduceInitType": "",
         "reduceFixup": "",
         "x": 550,
-        "y": 2140,
+        "y": 2180,
         "wires": [
             [
                 "3c67e7c62286b74e"
@@ -2574,7 +2576,7 @@
         "finalize": "",
         "libs": [],
         "x": 740,
-        "y": 2140,
+        "y": 2180,
         "wires": [
             [
                 "c3cf0d86347d5338"
@@ -2609,7 +2611,7 @@
         "to": "",
         "reg": false,
         "x": 960,
-        "y": 2140,
+        "y": 2180,
         "wires": [
             [
                 "86e00f0b78200307"
@@ -2668,7 +2670,7 @@
             }
         ],
         "x": 230,
-        "y": 2300,
+        "y": 2340,
         "wires": [
             [
                 "d835bb6fd0a6e7bb",
@@ -2691,7 +2693,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1160,
-        "y": 2300,
+        "y": 2340,
         "wires": []
     },
     {
@@ -2722,7 +2724,7 @@
         "to": "",
         "reg": false,
         "x": 900,
-        "y": 2280,
+        "y": 2320,
         "wires": [
             [
                 "24ffef6fa35c4d7f"
@@ -2757,7 +2759,7 @@
         "to": "",
         "reg": false,
         "x": 880,
-        "y": 2320,
+        "y": 2360,
         "wires": [
             [
                 "24ffef6fa35c4d7f"
@@ -2778,7 +2780,7 @@
         "finalize": "",
         "libs": [],
         "x": 910,
-        "y": 2240,
+        "y": 2280,
         "wires": [
             [
                 "767e7e5d1e05ac93"
@@ -2801,8 +2803,50 @@
         "org": "phin-home",
         "bucket": "home_db/autogen",
         "x": 1130,
-        "y": 2240,
+        "y": 2280,
         "wires": []
+    },
+    {
+        "id": "073fdab7f3dee32c",
+        "type": "mqtt in",
+        "z": "76c778b95ae3572e",
+        "g": "cee831a055a4415c",
+        "name": "POWR320D-A",
+        "topic": "tele/tasmota_CF8A54/SENSOR",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "69f5a3df.5a8b0c",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 160,
+        "y": 1140,
+        "wires": [
+            [
+                "16637d0ffd65fc44"
+            ]
+        ]
+    },
+    {
+        "id": "16637d0ffd65fc44",
+        "type": "function",
+        "z": "76c778b95ae3572e",
+        "g": "cee831a055a4415c",
+        "name": "To influxdb format",
+        "func": "const time = msg.payload.Time;\nconst data = msg.payload.ENERGY;\n\nmsg.measurement = \"pow320d_a\";\nmsg.payload = {\n  value: data.Power,\n  power: data.Power,\n  apparent_power: data.ApparentPower,\n  reactive_power: data.ReactivePower,\n  voltage: data.Voltage,\n  current: data.Current,\n  factor: data.Factor,\n  total_start_time: data.TotalStartTime,\n  total: data.Total,\n  today: data.Today,\n  yesterday: data.Yesterday,\n  time: new Date(time).getTime()\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1140,
+        "wires": [
+            [
+                "cf463c2c.d0c398"
+            ]
+        ]
     },
     {
         "id": "96da407e.693bd",
