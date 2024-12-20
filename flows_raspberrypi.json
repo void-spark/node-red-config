@@ -642,6 +642,66 @@
         }
     },
     {
+        "id": "b47e83d3.de77e",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "b9ef850f.12a2",
+        "type": "position-config",
+        "name": "Home2",
+        "isValide": "true",
+        "longitude": "0",
+        "latitude": "0",
+        "angleType": "deg",
+        "timeZoneOffset": 99,
+        "timeZoneDST": 0,
+        "stateTimeFormat": "3",
+        "stateDateFormat": "12"
+    },
+    {
+        "id": "3ecae79f.798258",
+        "type": "ui_tab",
+        "name": "AMP",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b3110722.bd5e3",
+        "type": "ui_tab",
+        "name": "Watt Meter",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d4924755d9c84f9c",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 5,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": ": ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "default",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": false
+    },
+    {
         "id": "69f5a3df.5a8b0c",
         "type": "mqtt-broker",
         "name": "PI",
@@ -661,13 +721,6 @@
         "willTopic": "",
         "willQos": "0",
         "willPayload": ""
-    },
-    {
-        "id": "b47e83d3.de77e",
-        "type": "ui_tab",
-        "name": "Dashboard",
-        "icon": "dashboard",
-        "order": 1
     },
     {
         "id": "ddd0fc4c.8a5e8",
@@ -705,28 +758,6 @@
         "disp": true,
         "width": "6",
         "collapse": false
-    },
-    {
-        "id": "b9ef850f.12a2",
-        "type": "position-config",
-        "name": "Home2",
-        "isValide": "true",
-        "longitude": "0",
-        "latitude": "0",
-        "angleType": "deg",
-        "timeZoneOffset": 99,
-        "timeZoneDST": 0,
-        "stateTimeFormat": "3",
-        "stateDateFormat": "12"
-    },
-    {
-        "id": "3ecae79f.798258",
-        "type": "ui_tab",
-        "name": "AMP",
-        "icon": "dashboard",
-        "order": 6,
-        "disabled": false,
-        "hidden": false
     },
     {
         "id": "ffd321ee.bc6a68",
@@ -789,14 +820,6 @@
         "rejectUnauthorized": true
     },
     {
-        "id": "b3110722.bd5e3",
-        "type": "ui_tab",
-        "name": "Watt Meter",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "c2fe2d52.ecd92",
         "type": "ui_group",
         "name": "Display",
@@ -825,29 +848,6 @@
         "disp": true,
         "width": "6",
         "collapse": false
-    },
-    {
-        "id": "d4924755d9c84f9c",
-        "type": "server",
-        "name": "Home Assistant",
-        "version": 5,
-        "addon": false,
-        "rejectUnauthorizedCerts": true,
-        "ha_boolean": "y|yes|true|on|home|open",
-        "connectionDelay": true,
-        "cacheJson": true,
-        "heartbeat": false,
-        "heartbeatInterval": "30",
-        "areaSelector": "friendlyName",
-        "deviceSelector": "friendlyName",
-        "entitySelector": "friendlyName",
-        "statusSeparator": ": ",
-        "statusYear": "hidden",
-        "statusMonth": "short",
-        "statusDay": "numeric",
-        "statusHourCycle": "default",
-        "statusTimeFormat": "h:m",
-        "enableGlobalContextStore": false
     },
     {
         "id": "c5472008.083cd8",
@@ -1607,9 +1607,7 @@
         "x": 180,
         "y": 1440,
         "wires": [
-            [
-                "3bc1ecc2b79435ae"
-            ]
+            []
         ]
     },
     {
