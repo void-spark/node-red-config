@@ -852,6 +852,21 @@
         "collapse": false
     },
     {
+        "id": "cd858ba7c3bfb21f",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "VM",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://debian.fritz.box:8428",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
         "id": "c5472008.083cd8",
         "type": "change",
         "z": "f7c3f5b1.15af3",
@@ -5983,7 +5998,8 @@
         "y": 160,
         "wires": [
             [
-                "2b375b56.872754"
+                "2b375b56.872754",
+                "4088e525cd917322"
             ]
         ]
     },
@@ -6214,6 +6230,24 @@
                 "3edfd13e877a1d86"
             ]
         ]
+    },
+    {
+        "id": "4088e525cd917322",
+        "type": "influxdb out",
+        "z": "53214520.af847c",
+        "influxdb": "cd858ba7c3bfb21f",
+        "name": "",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "ignored",
+        "bucket": "ignored",
+        "x": 1160,
+        "y": 200,
+        "wires": []
     },
     {
         "id": "27c52d4.458b452",
