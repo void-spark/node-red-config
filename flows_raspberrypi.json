@@ -862,7 +862,7 @@
         "usetls": false,
         "tls": "",
         "influxdbVersion": "2.0",
-        "url": "http://debian.fritz.box:8428",
+        "url": "http://debian.fritz.box:8429",
         "timeout": 10,
         "rejectUnauthorized": true
     },
@@ -2699,7 +2699,7 @@
         "z": "76c778b95ae3572e",
         "g": "5fe387382464818a",
         "name": "debug 1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
