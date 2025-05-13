@@ -4191,13 +4191,15 @@
         "y": 180,
         "wires": [
             [
-                "5f2324b3.478a74"
+                "5f2324b3.478a74",
+                "30ce272fae7be694"
             ],
             [
                 "5fcb77f4.ed6328"
             ],
             [
-                "4d5a50d4.1d35b8"
+                "4d5a50d4.1d35b8",
+                "3e17f1ae360d38e6"
             ]
         ]
     },
@@ -4526,7 +4528,7 @@
         "type": "function",
         "z": "459a3a0f.cadb4c",
         "name": "Temp. logic",
-        "func": "var bedroom_inside = flow.get(\"bedroom_inside\");\n//var bedroom_outside = flow.get(\"bedroom_outside\");\nvar bedroom_outside = flow.get(\"bedroom_outside_api\");\nvar diff = bedroom_outside - bedroom_inside;\n\nvar minimum = 17.0;\nvar maximum = 21.0;\n\nif(bedroom_inside < minimum) {\n    // Too cold, don't cool\n    return {topic: \"open\", payload: false}\n}\n\nif (bedroom_inside > maximum) {\n    // Too hot, cool if possible\n    if( diff < -0.5 ) {\n        return {topic: \"open\", payload: true}\n    }\n    // Close at 0 difference, to prevent not noticing room\n    // and outside are keeping the same temp\n    if( diff > 0.0 ) {\n        return {topic: \"open\", payload: false}\n    }\n    return;\n} \n\n// Acceptable temperature (between min and max)\n// Don't change anything unless outside gets too hot.\nif (diff > 0.0) {\n    return {topic: \"open\", payload: false}\n}\n",
+        "func": "var bedroom_inside = flow.get(\"bedroom_inside\");\n//var bedroom_outside = flow.get(\"bedroom_outside\");\nvar bedroom_outside = flow.get(\"bedroom_outside_api\");\nvar diff = bedroom_outside - bedroom_inside;\n\nvar minimum = 19.0;\nvar maximum = 21.5;\n\nif(bedroom_inside < minimum) {\n    // Too cold, don't cool\n    return {topic: \"open\", payload: false}\n}\n\nif (bedroom_inside > maximum) {\n    // Too hot, cool if possible\n    if( diff < -0.5 ) {\n        return {topic: \"open\", payload: true}\n    }\n    // Close at 0 difference, to prevent not noticing room\n    // and outside are keeping the same temp\n    if( diff > 0.0 ) {\n        return {topic: \"open\", payload: false}\n    }\n    return;\n} \n\n// Acceptable temperature (between min and max)\n// Don't change anything unless outside gets too hot.\nif (diff > 0.0) {\n    return {topic: \"open\", payload: false}\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4846,6 +4848,48 @@
                 "7cec3d45deb81d7e"
             ]
         ]
+    },
+    {
+        "id": "30ce272fae7be694",
+        "type": "ui_text",
+        "z": "459a3a0f.cadb4c",
+        "group": "ddd0fc4c.8a5e8",
+        "order": 2,
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Inside",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 810,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "3e17f1ae360d38e6",
+        "type": "ui_text",
+        "z": "459a3a0f.cadb4c",
+        "group": "ddd0fc4c.8a5e8",
+        "order": 1,
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Outside",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 820,
+        "y": 360,
+        "wires": []
     },
     {
         "id": "29ddccaa.2032ac",
@@ -5362,7 +5406,7 @@
         "z": "dd00ef6b.1ab33",
         "g": "89ec6c01994f4cd5",
         "group": "ddd0fc4c.8a5e8",
-        "order": 4,
+        "order": 3,
         "width": "",
         "height": "",
         "name": "",
